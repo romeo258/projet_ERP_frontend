@@ -14,5 +14,10 @@ export class SidebarComponent implements OnInit {
     this.sidebarNavbarService.initSidebarToggle();
   }
 
+  openMail() {
+    const email = 'springtech258@gmail.com';
+    const mailtoLink = `mailto:${email}`;
+    window.open(mailtoLink, '_blank');
+  }
   
 }

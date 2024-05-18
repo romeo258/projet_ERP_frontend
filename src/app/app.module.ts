@@ -14,9 +14,24 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ResetpasswordComponent } from './component/resetpassword/resetpassword.component';
 import { VerifyComponent } from './component/verify/verify.component';
-import { CustomerComponent } from './component/customer/customer.component';
-import { CustomersComponent } from './component/customers/customers.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { CustomersComponent } from './component/customer/customers/customers.component';
+import { StatsComponent } from './component/stats/stats.component';
+import { CommandComponent } from './component/command/command.component';
+import { CustomerDetailComponent } from './component/customer/customer-detail/customer-detail.component';
+import { NewcustomerComponent } from './component/customer/newcustomer/newcustomer.component';
+import { InvoicesComponent } from './component/invoice/invoices/invoices.component';
+import { InvoiceDetailComponent } from './component/invoice/invoice-detail/invoice-detail.component';
+import { NewinvoiceComponent } from './component/invoice/newinvoice/newinvoice.component';
+import { NewagencyComponent } from './component/agency/newagency/newagency.component';
+import { AgencyDetailComponent } from './component/agency/agency-detail/agency-detail.component';
+import { AgenciesComponent } from './component/agency/agencies/agencies.component';
+import { UsersComponent } from './component/user/users/users.component';
+import { UserDetailComponent } from './component/user/user-detail/user-detail.component';
+import { CategoryComponent } from './component/category/category.component';
+import { ProductComponent } from './component/product/product.component';
+import { FournisseurComponent } from './component/fournisseur/fournisseur.component';
+import { InventoryComponent } from './component/inventory/inventory.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +45,23 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     RegisterComponent,
     ResetpasswordComponent,
     VerifyComponent,
-    CustomerComponent,
-    CustomersComponent
+    CustomersComponent,
+    StatsComponent,
+    CommandComponent,
+    CustomerDetailComponent,
+    NewcustomerComponent,
+    InvoicesComponent,
+    InvoiceDetailComponent,
+    NewinvoiceComponent,
+    NewagencyComponent,
+    AgencyDetailComponent,
+    AgenciesComponent,
+    UsersComponent,
+    UserDetailComponent,
+    CategoryComponent,
+    ProductComponent,
+    FournisseurComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
