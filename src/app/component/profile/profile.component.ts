@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of, BehaviorSubject, map, startWith, catchError } from 'rxjs';
@@ -173,6 +173,22 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
     formData.append('image', image);
     return formData;
+  }
+  
+
+  showScrollButton: boolean = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollDistance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showScrollButton = scrollDistance > 100;
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
 }
