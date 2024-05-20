@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
+import { Stats } from 'src/app/interface/stats';
 
 @Component({
   selector: 'app-stats',
@@ -6,6 +7,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./stats.component.css']
 })
 export class StatsComponent {
+  @Input() stats: Stats;
 
   showScrollButton: boolean = false;
 
