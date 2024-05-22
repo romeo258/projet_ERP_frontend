@@ -31,6 +31,11 @@ export interface Profile {
     refresh_token?: string;
 }
 
+export interface Stats {
+    user: User;
+    stats: Stats;
+}
+
 export interface Page<T> {
     content: T[];
     totalPages: number;
@@ -43,7 +48,13 @@ export interface Page<T> {
 export interface CustomerState {
     user: User;
     customer: Customer;
+    stats: Stats;
 }
+
+// export interface StatsState {
+//     user: User;
+//     stats: Stats;
+// }
 
 export interface RegisterState {
     dataState: DataState;

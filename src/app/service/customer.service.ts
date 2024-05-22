@@ -20,6 +20,14 @@ export class CustomerService {
                 catchError(this.handleError)
             );
 
+    stats$ = () => <Observable<CustomHttpResponse<Stats>>>
+        this.http.get<CustomHttpResponse<Stats>>
+            (`${this.server}/customer/stats`)
+            .pipe(
+                tap(console.log),
+                catchError(this.handleError)
+            );
+
             
 
 
@@ -37,5 +45,5 @@ export class CustomerService {
         }
     }
     return throwError(() => errorMessage);
-}
+    }
 }

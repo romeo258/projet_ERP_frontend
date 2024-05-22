@@ -1,79 +1,231 @@
-<div class="row">
-  <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-        <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Sales</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats?.totalBilled }} CFA</div>
-            </div>
-            <div class="col-auto">
-            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-            <i class="fas fa-file-invoice-dollar fa-2x text-primary"></i>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
+<ng-container *ngIf="(statsState$ | async) as state">
+    <ng-container>
 
-    <!-- Earnings Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-        <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats?.totalBenefit }} CFA</div>
-            </div>
-            <div class="col-auto">
-            <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
-            <i class="fas fa-chart-line fa-2x text-success"></i>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
+        <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Sales</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalBilledDate) ||
+                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBilledMonthYear) ||
+                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBilledYear) ||
+                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalBilledLastDays) ||
+                                state?.appData?.data?.stats?.totalBilled }}
+                                CFA
+                            </div>
+                            </div>
+                            <div class="col-auto">
+                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                            <i class="fas fa-file-invoice-dollar fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Invoices Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-info shadow h-100 py-2">
-        <div class="card-body">
-        <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Invoices</div>
-            <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ stats?.totalInvoices }}</div>
+                <!-- Earnings Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalBenefitDate) ||
+                               (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBenefitMonthYear) ||
+                               (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBenefitYear) ||
+                               (statsForm.get('week').value && state?.appData?.data?.stats?.totalBenefitLastDays) ||
+                               state?.appData?.data?.stats?.totalBenefit }}
+                            CFA
+                          </div>                          
+                        </div>
+                        <div class="col-auto">
+                        <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
+                        <i class="fas fa-chart-line fa-2x text-success"></i>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <div class="col">
-                <div class="progress progress-sm mr-2">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                </div>
-            </div>
-            </div>
-            <div class="col-auto">
-            <i class="fas fa-clipboard-list fa-2x text-info"></i>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
 
-    <!-- Unpaid debts Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-warning shadow h-100 py-2">
-        <div class="card-body">
-        <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Unpaid</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats?.totalUnpaidAmount }} CFA<sub>( {{ stats?.totalUnpaid }} )</sub></div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-exclamation-circle fa-2x text-danger"></i>
+                <!-- Invoices Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Invoices</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalInvoicesDate) ||
+                                   (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalInvoicesMonthYear) ||
+                                   (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalInvoicesYear) ||
+                                   (statsForm.get('week').value && state?.appData?.data?.stats?.totalInvoicesLastDays) ||
+                                   state?.appData?.data?.stats?.totalInvoices }}
+                                </div>
+                            </div>
+                            <div class="col">
+                            <div class="progress progress-sm mr-2">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Unpaid debts Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Unpaid</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalUnpaidAmountDate) ||
+                               (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalUnpaidAmountMonthYear) ||
+                               (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalUnpaidAmountYear) ||
+                               (statsForm.get('week').value && state?.appData?.data?.stats?.totalUnpaidAmountLastDays) ||
+                               state?.appData?.data?.stats?.totalUnpaidAmount }}
+                            CFA
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-exclamation-circle fa-2x text-danger"></i>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
+        <nav aria-label="breadcrumb">
+            <div [formGroup]="statsForm">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page">
+                        <div class="checkbox-wrapper-12">
+                            <div class="cbx">
+                                <input type="checkbox" id="isDate" formControlName="isDate" class="ms-2 me-2" (change)="onCheckboxChange('isDate')">
+                                <label for="isDate"></label>
+                                <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                    <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                </svg>
+                            </div>
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <filter id="goo-12">
+                                        <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                        <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                        <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <label for="date" class="me-2"><strong>Date</strong></label>
+                        <input type="date" id="date" formControlName="date" (change)="onDateChange()" style="width: 150px; border: none; border-radius: 8px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);" class="me-3">
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">
+                        <div class="checkbox-wrapper-12">
+                            <div class="cbx">
+                                <input type="checkbox" id="isMonthYear" formControlName="isMonthYear" class="me-2" (change)="onCheckboxChange('isMonthYear')">
+                                <label for="isMonthYear"></label>
+                                <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                    <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                </svg>
+                            </div>
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <filter id="goo-12">
+                                        <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                        <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                        <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <label for="monthYear" class="me-2"><strong>Month & Year</strong></label>
+                        <input type="month" id="monthYear" formControlName="monthYear" (change)="onMonthYearChange()" style="width: 150px; border: none; border-radius: 8px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);" class="me-3">
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">
+                        <div class="checkbox-wrapper-12">
+                            <div class="cbx">
+                                <input type="checkbox" id="isYear" formControlName="isYear" class="me-2" (change)="onCheckboxChange('isYear')">
+                                <label for="isYear"></label>
+                                <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                    <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                </svg>
+                            </div>
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <filter id="goo-12">
+                                        <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                        <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                        <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <label for="year" class="me-2"><strong>Year</strong></label>
+                        <input type="number" id="year" formControlName="year" min="2024" max="2200" (change)="onYearChange()" style="width: 150px; border: none; border-radius: 8px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);" class="me-3">
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">
+                        <div class="checkbox-wrapper-12">
+                            <div class="cbx">
+                                <input type="checkbox" id="week" formControlName="week" (change)="onCheckboxChange('week')">
+                                <label for="week"></label>
+                                <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                    <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                </svg>
+                            </div>
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <filter id="goo-12">
+                                        <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                        <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                        <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <i class="fas fa-calendar-week me-2 text-primary"></i>
+                        <label for="week" class="me-2"><strong>Last 7 Days</strong></label>
+                    </li>
+                </ol>
+            </div>
+        </nav>        
+    </ng-container>
+</ng-container>
+
+<!-- les boutons pilote -->
+<!-- <div [formGroup]="statsForm">
+    <div>
+        <label for="date">Date:</label>
+        <input type="date" id="date" formControlName="date" (change)="onDateChange()">
+        <input type="checkbox" id="isDate" formControlName="isDate" (change)="onCheckboxChange('isDate')">
+        <label for="isDate">Use as Date</label>
     </div>
-  </div>
-</div>
+    <div>
+        <label for="monthYear">Month Year:</label>
+        <input type="month" id="monthYear" formControlName="monthYear" (change)="onMonthYearChange()">
+        <input type="checkbox" id="isMonthYear" formControlName="isMonthYear" (change)="onCheckboxChange('isMonthYear')">
+        <label for="isMonthYear">Use as Month Year</label>
+    </div>
+    <div>
+        <label for="year">Year:</label>
+        <input type="number" id="year" formControlName="year" min="2000" max="2100" (change)="onYearChange()">
+        <input type="checkbox" id="isYear" formControlName="isYear" (change)="onCheckboxChange('isYear')">
+        <label for="isYear">Use as Year</label>
+    </div>
+    <div>
+        <input type="checkbox" id="week" formControlName="week" (change)="onCheckboxChange('week')">
+        <label for="week">Last 7 Days</label>
+    </div>
+</div> -->

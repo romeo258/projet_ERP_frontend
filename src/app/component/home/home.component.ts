@@ -5,7 +5,6 @@ import { DataState } from 'src/app/enum/datastate.enum';
 import { CustomHttpResponse, Page } from 'src/app/interface/appstates';
 import { Customer } from 'src/app/interface/customer';
 import { State } from 'src/app/interface/state';
-import { Stats } from 'src/app/interface/stats';
 import { User } from 'src/app/interface/user';
 import { CustomerService } from 'src/app/service/customer.service';
 
@@ -17,8 +16,8 @@ import { CustomerService } from 'src/app/service/customer.service';
 export class HomeComponent implements OnInit {
   showScrollButton: boolean = false;
 
-  homeState$: Observable<State<CustomHttpResponse<Page<Customer> & User & Stats>>>;
-  private dataSubject = new BehaviorSubject<CustomHttpResponse<Page<Customer> & User & Stats>>(null);
+  homeState$: Observable<State<CustomHttpResponse<Page<Customer> & User>>>;
+  private dataSubject = new BehaviorSubject<CustomHttpResponse<Page<Customer> & User>>(null);
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
   isLoading$ = this.isLoadingSubject.asObservable();
   private currentPageSubject = new BehaviorSubject<number>(0);

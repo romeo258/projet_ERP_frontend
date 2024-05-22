@@ -9,7 +9,7 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { LoginComponent } from './component/login/login.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './component/profile/profile.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ResetpasswordComponent } from './component/resetpassword/resetpassword.component';
@@ -67,6 +67,7 @@ import { InventoryComponent } from './component/inventory/inventory.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
