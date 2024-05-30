@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,9 +33,11 @@ import { CategoryComponent } from './component/category/category.component';
 import { ProductComponent } from './component/product/product.component';
 import { FournisseurComponent } from './component/fournisseur/fournisseur.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
+import { ExtractArrayValue } from './pipes/extractvalue.pipe';
 
 @NgModule({
   declarations: [
+    ExtractArrayValue,
     AppComponent,
     HomeComponent,
     NavbarComponent,
@@ -68,7 +71,8 @@ import { InventoryComponent } from './component/inventory/inventory.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

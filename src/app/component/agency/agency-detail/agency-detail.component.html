@@ -1,41 +1,260 @@
-<body id="page-top">
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+<div *ngIf="(agencyState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
 
-    <!-- Sidebar -->
-    <app-sidebar></app-sidebar>
-
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- navbar -->
-        <app-navbar></app-navbar>
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
 
 
-            <!-- CONTENU PRINCIPAL DE LA PAGE -->
-              <!-- Begin Page Content -->
-              <div class="container-fluid">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
 
-                <p>agency-detail works!</p>
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
 
-              </div>
-              <!-- /.container-fluid -->
- 
+
+                <!-- CONTENU PRINCIPAL DE LA PAGE -->
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+
+                    <section>
+                        <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+                              <li class="breadcrumb-item"><a [routerLink]="['/agencies']">Agencies</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">{{ state?.appData?.data?.agency.name }}</li>
+                            </ol>
+                        </nav>
+                        
+                        <div class="col">
+                          <h4 class="fw-bold text-start">Agency {{ state?.appData?.data?.agency.id }}</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <div class="d-flex align-items-start">
+                                        <img src="assets/agency-img.ico" style="position: relative" class="rounded-circle avatar-lg img-thumbnail" alt="Empty">
+                                          <div class="w-100 ms-4">
+                                            <h4 class="my-0">{{ state?.appData?.data?.agency.name }}</h4>
+                                            <p class="" style="font-size: 13px;">{{ state?.appData?.data?.agency.ville }}</p>
+                                                <span class="badge" style="position: absolute;bottom:60px;left: 113px; top: 70px;font-size: 11px; height: 18px;"
+                                                    [ngClass]="[
+                                                      state?.appData?.data?.agency.status === 'ACTIVE' ? ' bg-success' : '',
+                                                      state?.appData?.data?.agency.status === 'INACTIVE' ? ' bg-danger' : ''
+                                                      ]" >
+                                                    {{ state?.appData?.data?.agency.status }}
+                                                </span>
+                                          </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Total Orders</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Total orders invoiced</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
+                                          All Orders
+                                          <span class="" style="font-size: 20px;">
+                                            {{ totalLigneCommandes }}
+                                          </span>
+                                        </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Total Sales</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Agency Total Sales</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
+                                          Amount
+                                          <span class="badge bg-success" style="font-size: 20px;">
+                                              {{ totalPrixVente | number: '1.2-2' }} CFA
+                                          </span>
+                                        </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-8">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Agency Details</h5>
+                                    <form #agencyForm="ngForm" (ngSubmit)="updateAgency(agencyForm)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.id" name="id" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                        <div class="row mb-3">
+                                          <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="email" class="col-sm-3 col-form-label">Code</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.code" name="code" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="type" class="col-sm-3 col-form-label">City</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.ville" name="ville" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="status" class="col-sm-3 col-form-label">Status</label>
+                                          <div class="col-sm-9">
+                                              <select [ngModel]="state?.appData?.data?.agency.status" name="status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                                  <option [ngValue]="'ACTIVE'">ACTIVE</option>
+                                                  <option [ngValue]="'INACTIVE'">INACTIVE</option>
+                                              </select>
+                                          </div>
+                                        </div>                           
+                                        <div class="row mb-3 disabled">
+                                          <label for="status" class="col-sm-3 col-form-label">Creation Date</label>
+                                          <div class="col-sm-9">
+                                              <input type="text"  [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" class="form-control">
+                                          </div>
+                                        </div>
+                                        <button *ngIf="state?.appData?.data?.agency.products?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteAgency(state?.appData?.data?.agency.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                          <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                          <span *ngIf="isLoading$ | async">Loading...</span>
+                                          <span *ngIf="!(isLoading$ | async)"><i class="fas fa-trash me-2"></i>Delete</span>
+                                        </button>
+                                        <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
+                                          <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                          <span *ngIf="isLoading$ | async"><i class="fas fa-sync-alt me-2"></i>Loading...</span>
+                                          <span *ngIf="!(isLoading$ | async)"><i class="fas fa-sync-alt me-2"></i>Update</span>
+                                        </button>
+                                    </form>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Products</h5>
+                                    <!-- <h6 class="card-subtitle mb-2 text-muted">Product List</h6> -->
+                                    <table class="table table-hover">
+                                        <thead class="table-dark">
+                                          <tr>
+                                              <th scope="col">ID</th>
+                                              <th scope="col">Code</th>
+                                              <th scope="col">Name</th>
+                                              <th scope="col">Description</th>
+                                              <th scope="col">price</th>
+                                              <th scope="col">Quantity</th>
+                                              <th scope="col">Status</th>
+                                              <th scope="col">Last Update</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let product of state?.appData?.data?.agency.products" [routerLink]="['/products', product.id]">
+                                              <td>{{ product.id }}</td>
+                                              <td>{{ product.code }}</td>
+                                              <td>{{ product.name }}</td>
+                                              <td>{{ product.description }}</td>
+                                              <td>{{ product.prixVente | number: '1.2-2' }} CFA</td>
+                                              <td>{{ product.quantity }}</td>
+                                              <td>
+                                                <span class="badge"
+                                                [ngClass]="[
+                                                  product.status === 'AVAILABLE' ? ' bg-success' : '',
+                                                  product.status === 'WARNING' ? ' bg-warning' : '',
+                                                  product.status === 'EMPTY' ? ' bg-danger' : ''
+                                                  ]">
+                                                    {{ product.status }}
+                                                </span>
+                                              </td>
+                                              <td>{{ product.updateAt | date: 'mediumDate' }}</td>
+                                              <!-- <td>
+                                                <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
+                                              </td> -->
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Orders</h5>
+                                  <!-- <h6 class="card-subtitle mb-2 text-muted">Orders List</h6> -->
+                                  <table class="table table-hover">
+                                      <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">price</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Billed Date</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let ligneCommande of ligneCommandes" [routerLink]="['/customers']">
+                                            <td>{{ ligneCommande.id }}</td>
+                                            <td>{{ ligneCommande.name }}</td>
+                                            <td>{{ ligneCommande.quantityLC }}</td>
+                                            <td>{{ ligneCommande.prixVente | number: '1.2-2' }} CFA</td>
+                                            <td>{{ ligneCommande.prixVenteTotal | number: '1.2-2' }} CFA</td>
+                                            <td>{{ ligneCommande.createdAt | date: 'mediumDate' }}</td>
+                                            <!-- <td>
+                                              <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
+                                            </td> -->
+                                        </tr>
+                                      </tbody>
+                                  </table>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </section>
+
+                  </div>
+                  <!-- /.container-fluid -->
+    
+          </div>
+
+          <!-- Footer -->
+            <app-footer></app-footer>
+          <!-- End of Footer -->
+        </div>
+
       </div>
+      <!-- Scroll to Top Button-->
 
-      <!-- Footer -->
-        <app-footer></app-footer>
-      <!-- End of Footer -->
-    </div>
-
+      <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+        <i class="fas fa-angle-up"></i>
+      </button>
+      
+    </body>
   </div>
-  <!-- Scroll to Top Button-->
 
-  <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
-    <i class="fas fa-angle-up"></i>
-  </button>
-  
-</body>
+  <div *ngSwitchCase="DataState.LOADING" class="loading-container" @fadeInOut >
+    <section class="dots-container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </section>
+  </div>
+
+   <div *ngSwitchCase="DataState.ERROR">
+      <div>{{ state.error }}</div>
+   </div>
+
+</div>

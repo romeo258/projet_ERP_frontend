@@ -1,4 +1,5 @@
 import { DataState } from "../enum/datastate.enum";
+import { Agency } from "./agency";
 import { Customer } from "./customer";
 import { Events } from "./event";
 import { Role } from "./role";
@@ -48,7 +49,11 @@ export interface Page<T> {
 export interface CustomerState {
     user: User;
     customer: Customer;
-    stats: Stats;
+}
+
+export interface AgencyState {
+    user: User;
+    agency: Agency;
 }
 
 // export interface StatsState {

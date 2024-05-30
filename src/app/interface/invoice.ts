@@ -1,4 +1,4 @@
-import { Commandline } from "./commandline";
+import { LigneCommande } from "./ligneCommande";
 
 export interface Invoice {
   id: number;
@@ -7,5 +7,5 @@ export interface Invoice {
   status: string;
   total: number;
   createdAt: Date;
-  commandlines?: Commandline[];
+  commandlines?: LigneCommande[];
 }

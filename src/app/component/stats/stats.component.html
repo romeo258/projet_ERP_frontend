@@ -13,7 +13,7 @@
                                 (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBilledMonthYear) ||
                                 (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBilledYear) ||
                                 (statsForm.get('week').value && state?.appData?.data?.stats?.totalBilledLastDays) ||
-                                state?.appData?.data?.stats?.totalBilled }}
+                                state?.appData?.data?.stats?.totalBilled | number: '1.2-2' }}
                                 CFA
                             </div>
                             </div>
@@ -38,7 +38,7 @@
                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBenefitMonthYear) ||
                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBenefitYear) ||
                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalBenefitLastDays) ||
-                               state?.appData?.data?.stats?.totalBenefit }}
+                               state?.appData?.data?.stats?.totalBenefit | number: '1.2-2' }}
                             CFA
                           </div>                          
                         </div>
@@ -95,8 +95,12 @@
                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalUnpaidAmountMonthYear) ||
                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalUnpaidAmountYear) ||
                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalUnpaidAmountLastDays) ||
-                               state?.appData?.data?.stats?.totalUnpaidAmount }}
-                            CFA
+                               state?.appData?.data?.stats?.totalUnpaidAmount | number: '1.2-2' }}
+                            CFA  <sub>{{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalUnpaidDate) ||
+                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalUnpaidMonthYear) ||
+                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalUnpaidYear) ||
+                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalUnpaidLastDays) ||
+                                state?.appData?.data?.stats?.totalUnpaid | number: '1.2-2' }}</sub>
                           </div>
                         </div>
                         <div class="col-auto">
@@ -203,29 +207,3 @@
         </nav>        
     </ng-container>
 </ng-container>
-
-<!-- les boutons pilote -->
-<!-- <div [formGroup]="statsForm">
-    <div>
-        <label for="date">Date:</label>
-        <input type="date" id="date" formControlName="date" (change)="onDateChange()">
-        <input type="checkbox" id="isDate" formControlName="isDate" (change)="onCheckboxChange('isDate')">
-        <label for="isDate">Use as Date</label>
-    </div>
-    <div>
-        <label for="monthYear">Month Year:</label>
-        <input type="month" id="monthYear" formControlName="monthYear" (change)="onMonthYearChange()">
-        <input type="checkbox" id="isMonthYear" formControlName="isMonthYear" (change)="onCheckboxChange('isMonthYear')">
-        <label for="isMonthYear">Use as Month Year</label>
-    </div>
-    <div>
-        <label for="year">Year:</label>
-        <input type="number" id="year" formControlName="year" min="2000" max="2100" (change)="onYearChange()">
-        <input type="checkbox" id="isYear" formControlName="isYear" (change)="onCheckboxChange('isYear')">
-        <label for="isYear">Use as Year</label>
-    </div>
-    <div>
-        <input type="checkbox" id="week" formControlName="week" (change)="onCheckboxChange('week')">
-        <label for="week">Last 7 Days</label>
-    </div>
-</div> -->
