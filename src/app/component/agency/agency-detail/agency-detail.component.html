@@ -75,7 +75,7 @@
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
                                           Amount
                                           <span class="badge bg-success" style="font-size: 20px;">
-                                              {{ totalPrixVente | number: '1.2-2' }} CFA
+                                              {{ totalPrixVente | number: '1.0-0' }} CFA
                                           </span>
                                         </li>
                                     </ul>
@@ -162,7 +162,7 @@
                                               <td>{{ product.code }}</td>
                                               <td>{{ product.name }}</td>
                                               <td>{{ product.description }}</td>
-                                              <td>{{ product.prixVente | number: '1.2-2' }} CFA</td>
+                                              <td>{{ product.prixVente | number: '1.0-0' }} CFA</td>
                                               <td>{{ product.quantity }}</td>
                                               <td>
                                                 <span class="badge"
@@ -207,8 +207,8 @@
                                             <td>{{ ligneCommande.id }}</td>
                                             <td>{{ ligneCommande.name }}</td>
                                             <td>{{ ligneCommande.quantityLC }}</td>
-                                            <td>{{ ligneCommande.prixVente | number: '1.2-2' }} CFA</td>
-                                            <td>{{ ligneCommande.prixVenteTotal | number: '1.2-2' }} CFA</td>
+                                            <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
+                                            <td>{{ ligneCommande.prixVenteTotal | number: '1.0-0' }} CFA</td>
                                             <td>{{ ligneCommande.createdAt | date: 'mediumDate' }}</td>
                                             <!-- <td>
                                               <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>

@@ -76,7 +76,7 @@
                                         <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
                                           Total Billed
                                           <span class="badge bg-success" style="font-size: 20px;">
-                                              $ {{ state?.appData?.data?.customer.invoices | ExtractArrayValue: 'invoices' }}
+                                               {{ state?.appData?.data?.customer.invoices | ExtractArrayValue: 'invoices' | number: '1.0-0' }} CFA
                                           </span>
                                         </li>
                                     </ul>
@@ -180,7 +180,7 @@
                                                 </span>
                                               </td>
                                               <td>{{ invoice.date | date: 'mediumDate' }}</td>
-                                              <td>${{ invoice.total }}</td>
+                                              <td>{{ invoice.total | number: '1.0-0' }} CFA</td>
                                               <!-- <td>
                                                 <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
                                               </td> -->

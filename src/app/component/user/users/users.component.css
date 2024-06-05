@@ -1,0 +1,50 @@
+.col-5 {
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+  margin-bottom: 20px; /* Réduire la marge inférieure */
+  margin-left: 0px;
+  padding: 10px; /* Ajouter du padding */
+}
+
+.card-body {
+  padding: 10px; /* Réduire le padding */
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-title h5 {
+  font-size: 1rem; /* Réduire la taille de la police */
+}
+
+.card-title p {
+  font-size: 0.8rem; /* Réduire la taille de la police */
+}
+
+.list-group-item {
+  font-size: 0.8rem; /* Réduire la taille de la police */
+}
+
+.btn {
+  padding: 5px 10px; /* Réduire le padding */
+  font-size: 0.8rem; /* Réduire la taille de la police */
+}
+
+.social-links li a {
+  height: 25px; /* Réduire la hauteur */
+  line-height: 25px; /* Ajuster la hauteur de ligne */
+  width: 25px; /* Réduire la largeur */
+  font-size: 10px; /* Réduire la taille de la police */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 10px;
+  font-weight: 600;
+}

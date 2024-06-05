@@ -51,6 +51,10 @@ export interface CustomerState {
     customer: Customer;
 }
 
+export interface UserState {
+    user: User;
+}
+
 export interface AgencyState {
     user: User;
     agency: Agency;

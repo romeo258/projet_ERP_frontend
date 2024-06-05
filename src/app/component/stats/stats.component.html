@@ -13,7 +13,7 @@
                                 (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBilledMonthYear) ||
                                 (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBilledYear) ||
                                 (statsForm.get('week').value && state?.appData?.data?.stats?.totalBilledLastDays) ||
-                                state?.appData?.data?.stats?.totalBilled | number: '1.2-2' }}
+                                state?.appData?.data?.stats?.totalBilled | number: '1.0-0' }}
                                 CFA
                             </div>
                             </div>
@@ -38,7 +38,7 @@
                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalBenefitMonthYear) ||
                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalBenefitYear) ||
                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalBenefitLastDays) ||
-                               state?.appData?.data?.stats?.totalBenefit | number: '1.2-2' }}
+                               state?.appData?.data?.stats?.totalBenefit | number: '1.0-0' }}
                             CFA
                           </div>                          
                         </div>
@@ -95,12 +95,12 @@
                                (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalUnpaidAmountMonthYear) ||
                                (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalUnpaidAmountYear) ||
                                (statsForm.get('week').value && state?.appData?.data?.stats?.totalUnpaidAmountLastDays) ||
-                               state?.appData?.data?.stats?.totalUnpaidAmount | number: '1.2-2' }}
-                            CFA  <sub>{{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalUnpaidDate) ||
+                               state?.appData?.data?.stats?.totalUnpaidAmount | number: '1.0-0' }}
+                            CFA  <sub>( {{ (statsForm.get('isDate').value && state?.appData?.data?.stats?.totalUnpaidDate) ||
                                 (statsForm.get('isMonthYear').value && state?.appData?.data?.stats?.totalUnpaidMonthYear) ||
                                 (statsForm.get('isYear').value && state?.appData?.data?.stats?.totalUnpaidYear) ||
                                 (statsForm.get('week').value && state?.appData?.data?.stats?.totalUnpaidLastDays) ||
-                                state?.appData?.data?.stats?.totalUnpaid | number: '1.2-2' }}</sub>
+                                state?.appData?.data?.stats?.totalUnpaid | number: '1.0-0' }} )</sub>
                           </div>
                         </div>
                         <div class="col-auto">

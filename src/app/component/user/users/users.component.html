@@ -1,41 +1,86 @@
-<body id="page-top">
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+<div *ngIf="(usersState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
 
-    <!-- Sidebar -->
-    <app-sidebar></app-sidebar>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
 
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- navbar -->
-        <app-navbar></app-navbar>
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
 
 
-            <!-- CONTENU PRINCIPAL DE LA PAGE -->
-              <!-- Begin Page Content -->
-              <div class="container-fluid">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
 
-                <p>users works!</p>
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
 
-              </div>
-              <!-- /.container-fluid -->
- 
+
+                <!-- CONTENU PRINCIPAL DE LA PAGE -->
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                            <div *ngFor="let user of state?.appData?.data?.usersList" class="col mb-3">
+                               <div class="card mb-3">
+                                  <div class="card-body row">
+                                        <div class="col-6">
+                                           <a href=""><img [src]="user.imageUrl" alt="Empty" class="img-fluid rounded-circle w-100"></a>
+                                        </div>
+                                        <div class="col-6 card-title align-self-center mb-0">
+                                           <h5>{{user.firstName}} <span>{{user.lastName}}</span></h5>
+                                           <p class="m-0">{{user.address}}</p>
+                                        </div>
+                                  </div>
+                                  <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><i class="fa fa-envelope float-end"></i>Email : <a [href]="'mailto:' + user.email">{{user.email}}</a></li>
+                                        <li class="list-group-item" *ngIf="user.phone"><i class="fa fa-phone float-end"></i>{{user.phone}}</li>
+                                        <li class="list-group-item" *ngIf="user.agencyCode"><i class="bi bi-building float-end"></i><b>{{user.agencyCode}}</b></li>
+<!--                                         
+                                        <div class="card-body">
+                                           <ul class="social-links list-inline mb-0">
+                                              <li class="list-inline-item"><a href="#" class="tooltips" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i class="bi bi-facebook"></i></a></li>
+                                              <li class="list-inline-item"><a href="#" class="tooltips" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter"><i class="bi bi-twitter"></i></a></li>
+                                              <li class="list-inline-item"><a href="#" class="tooltips" data-bs-toggle="tooltip" data-bs-placement="top" title="Skype"><i class="bi bi-skype"></i></a></li>
+                                           </ul>
+                                        </div> -->
+                                  </ul>
+                                  
+                               </div>
+                            </div>
+                      </div>
+
+                  </div>
+                  <!-- /.container-fluid -->
+    
+          </div>
+
+          <!-- Footer -->
+            <app-footer></app-footer>
+          <!-- End of Footer -->
+        </div>
+
       </div>
+      <!-- Scroll to Top Button-->
 
-      <!-- Footer -->
-        <app-footer></app-footer>
-      <!-- End of Footer -->
+      <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+        <i class="fas fa-angle-up"></i>
+      </button>
+      
+    </body>
+    <div *ngSwitchCase="DataState.LOADING" class="loading-container"  @fadeInOut>
+      <section class="dots-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </section>
     </div>
-
-  </div>
-  <!-- Scroll to Top Button-->
-
-  <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
-    <i class="fas fa-angle-up"></i>
-  </button>
   
-</body>
+     <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+        <div>{{ state.error }}</div>
+     </div>
+  
+  </div>

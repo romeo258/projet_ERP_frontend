@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AccountType, CustomHttpResponse, Profile } from '../interface/appstates';
+import { AccountType, CustomHttpResponse, Page, Profile } from '../interface/appstates';
 import { User } from '../interface/user';
 import { Key } from '../enum/key.enum';
 
@@ -22,6 +22,23 @@ export class UserService {
         tap(console.log),
         catchError(this.handleError)
       );
+      
+  users$ = (page: number = 0) =>
+    <Observable<CustomHttpResponse<Page<User> & User>>>(
+      this.http
+        .get<CustomHttpResponse<Page<User> & User>>(
+          `${this.server}/user/list?page=${page}`
+        )
+        .pipe(tap(console.log), catchError(this.handleError))
+    );
+
+    searchUsers$ = (firstName: string = '', page: number = 0) => <Observable<CustomHttpResponse<Page<User> & User>>>
+        this.http.get<CustomHttpResponse<Page<User> & User>>
+            (`${this.server}/user/search?firstName=${firstName}&page=${page}`)
+            .pipe(
+                tap(console.log),
+                catchError(this.handleError)
+            );
 
   save$ = (user: User) => <Observable<CustomHttpResponse<Profile>>>
     this.http.post<CustomHttpResponse<Profile>>
