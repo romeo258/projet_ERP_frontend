@@ -5,10 +5,11 @@ import { CustomerState, CustomHttpResponse, Page } from '../interface/appstates'
 import { Customer } from '../interface/customer';
 import { User } from '../interface/user';
 import { Stats } from '../interface/stats';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
-  private readonly server: string = 'http://192.168.56.1:8080';
+  private readonly server: string = environment.API_BASE_URL;
 
   constructor(private http: HttpClient) { }
   

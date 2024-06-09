@@ -143,38 +143,76 @@
                                   <div class="card-body">
                                     <h5 class="card-title">Products</h5>
                                     <!-- <h6 class="card-subtitle mb-2 text-muted">Product List</h6> -->
+                                    <div class="table-responsive-custom">
+                                      <table class="table table-hover">
+                                          <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Last Update</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let product of state?.appData?.data?.agency.products" [routerLink]="['/products', product.id]">
+                                                <td>{{ product.id }}</td>
+                                                <td>{{ product.code }}</td>
+                                                <td>{{ product.name }}</td>
+                                                <td>{{ product.description }}</td>
+                                                <td>{{ product.prixVente | number: '1.0-0' }} CFA</td>
+                                                <td>{{ product.quantity }}</td>
+                                                <td>
+                                                  <span class="badge"
+                                                  [ngClass]="[
+                                                    product.status === 'AVAILABLE' ? ' bg-success' : '',
+                                                    product.status === 'WARNING' ? ' bg-warning' : '',
+                                                    product.status === 'EMPTY' ? ' bg-danger' : ''
+                                                    ]">
+                                                      {{ product.status }}
+                                                  </span>
+                                                </td>
+                                                <td>{{ product.updateAt | date: 'mediumDate' }}</td>
+                                                <!-- <td>
+                                                  <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
+                                                </td> -->
+                                            </tr>
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Orders</h5>
+                                  <!-- <h6 class="card-subtitle mb-2 text-muted">Orders List</h6> -->
+                                  <div class="table-responsive-custom">
                                     <table class="table table-hover">
                                         <thead class="table-dark">
                                           <tr>
                                               <th scope="col">ID</th>
-                                              <th scope="col">Code</th>
                                               <th scope="col">Name</th>
-                                              <th scope="col">Description</th>
-                                              <th scope="col">price</th>
                                               <th scope="col">Quantity</th>
-                                              <th scope="col">Status</th>
-                                              <th scope="col">Last Update</th>
+                                              <th scope="col">price</th>
+                                              <th scope="col">Total</th>
+                                              <th scope="col">Billed Date</th>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <tr *ngFor="let product of state?.appData?.data?.agency.products" [routerLink]="['/products', product.id]">
-                                              <td>{{ product.id }}</td>
-                                              <td>{{ product.code }}</td>
-                                              <td>{{ product.name }}</td>
-                                              <td>{{ product.description }}</td>
-                                              <td>{{ product.prixVente | number: '1.0-0' }} CFA</td>
-                                              <td>{{ product.quantity }}</td>
-                                              <td>
-                                                <span class="badge"
-                                                [ngClass]="[
-                                                  product.status === 'AVAILABLE' ? ' bg-success' : '',
-                                                  product.status === 'WARNING' ? ' bg-warning' : '',
-                                                  product.status === 'EMPTY' ? ' bg-danger' : ''
-                                                  ]">
-                                                    {{ product.status }}
-                                                </span>
-                                              </td>
-                                              <td>{{ product.updateAt | date: 'mediumDate' }}</td>
+                                          <tr *ngFor="let ligneCommande of ligneCommandes" [routerLink]="['/customers']">
+                                              <td>{{ ligneCommande.id }}</td>
+                                              <td>{{ ligneCommande.name }}</td>
+                                              <td>{{ ligneCommande.quantityLC }}</td>
+                                              <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
+                                              <td>{{ ligneCommande.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                              <td>{{ ligneCommande.createdAt | date: 'mediumDate' }}</td>
                                               <!-- <td>
                                                 <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
                                               </td> -->
@@ -182,40 +220,6 @@
                                         </tbody>
                                     </table>
                                   </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-body">
-                                  <h5 class="card-title">Orders</h5>
-                                  <!-- <h6 class="card-subtitle mb-2 text-muted">Orders List</h6> -->
-                                  <table class="table table-hover">
-                                      <thead class="table-dark">
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">price</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Billed Date</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr *ngFor="let ligneCommande of ligneCommandes" [routerLink]="['/customers']">
-                                            <td>{{ ligneCommande.id }}</td>
-                                            <td>{{ ligneCommande.name }}</td>
-                                            <td>{{ ligneCommande.quantityLC }}</td>
-                                            <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
-                                            <td>{{ ligneCommande.prixVenteTotal | number: '1.0-0' }} CFA</td>
-                                            <td>{{ ligneCommande.createdAt | date: 'mediumDate' }}</td>
-                                            <!-- <td>
-                                              <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
-                                            </td> -->
-                                        </tr>
-                                      </tbody>
-                                  </table>
                                 </div>
                             </div>
                           </div>

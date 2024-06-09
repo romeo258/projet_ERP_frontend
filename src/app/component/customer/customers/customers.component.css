@@ -1,3 +1,10 @@
 .btn-info:hover {
   transform: scale(0.95);
 }
+
+/* tesssssssssssssssssss */
+/* Ajoutez ces règles CSS pour permettre le défilement horizontal */
+.table-responsive-custom {
+	overflow-x: auto;
+	white-space: nowrap;
+}

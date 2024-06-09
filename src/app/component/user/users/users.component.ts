@@ -8,6 +8,7 @@ import { State } from 'src/app/interface/state';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import { NgForm } from '@angular/forms';
+import { EventType } from 'src/app/enum/event-type.enum';
 
 @Component({
   selector: 'app-users',
@@ -39,6 +40,7 @@ export class UsersComponent implements OnInit {
   private showLogsSubject = new BehaviorSubject<boolean>(false);
   showLogs$ = this.showLogsSubject.asObservable();
   readonly DataState = DataState;
+  private readonly USER_ID: string = 'id';
 
   constructor(private router: Router, private userService: UserService) { }
 

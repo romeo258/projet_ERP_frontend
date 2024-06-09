@@ -82,9 +82,7 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "poll": false
-          },
+          
           "configurations": {
             "production": {
               "browserTarget": "SpringMarketApp:build:production"

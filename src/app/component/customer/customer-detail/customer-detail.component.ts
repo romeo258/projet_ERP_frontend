@@ -68,7 +68,7 @@ export class CustomerDetailComponent implements OnInit {
           this.dataSubject.next({ ...response, 
             data: { ...response.data, 
               customer: { ...response.data.customer, 
-                invoices: this.dataSubject.value.data.customer.invoices }}});
+              invoices: this.dataSubject.value.data.customer.invoices }}});
 
           this.isLoadingSubject.next(false);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };

@@ -4,13 +4,13 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AgencyState, CustomHttpResponse, Page } from '../interface/appstates';
 import { Agency } from '../interface/agency';
 import { User } from '../interface/user';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AgencyService {
-  private readonly server: string = 'http://192.168.56.1:8080';
-  private readonly TIMEOUT_DURATION = 10000; // 10 seconds
+  private readonly server: string = environment.API_BASE_URL;
 
   constructor(private http: HttpClient) {}
 

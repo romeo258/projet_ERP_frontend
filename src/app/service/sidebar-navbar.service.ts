@@ -13,20 +13,27 @@ export class SidebarNavbarService {
       "use strict";
 
       // Vérifier si l'état du sidebar est déjà stocké dans localStorage
-      const sidebarToggled = localStorage.getItem('sidebarToggled');
+      // const sidebarToggled = localStorage.getItem('sidebarToggled');
 
       // Si aucun état n'est stocké, initialiser le sidebar comme réduit
-      if (sidebarToggled === null) {
-        $("body").addClass("sidebar-toggled");
-        $(".sidebar").addClass("toggled");
-        localStorage.setItem('sidebarToggled', 'true'); // Stocker l'état réduit dans localStorage
-      } else {
-        // Sinon, récupérer l'état du sidebar depuis localStorage et l'appliquer
-        if (sidebarToggled === 'true') {
-          $("body").addClass("sidebar-toggled");
-          $(".sidebar").addClass("toggled");
-        }
-      }
+      // if (sidebarToggled === null) {
+      //   $("body").addClass("sidebar-toggled");
+      //   $(".sidebar").addClass("toggled");
+      //   localStorage.setItem('sidebarToggled', 'true'); // Stocker l'état réduit dans localStorage
+      // } else {
+      //   // Sinon, récupérer l'état du sidebar depuis localStorage et l'appliquer
+      //   if (sidebarToggled === 'true') {
+      //     $("body").addClass("sidebar-toggled");
+      //     $(".sidebar").addClass("toggled");
+      //   }
+      // }
+
+      // Toujours minimiser la barre latérale par défaut
+      $("body").addClass("sidebar-toggled");
+      $(".sidebar").addClass("toggled");
+
+      // Assurer que le sidebarToggleTop soit toujours minimisé
+      $("#sidebarToggleTop").removeClass("toggled");
 
       // Fonction pour basculer la navigation latérale
       $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {

@@ -44,8 +44,6 @@
                                                 <span class="badge" style="position: absolute;bottom:60px;left: 113px; top: 70px;font-size: 11px; height: 18px;"
                                                     [ngClass]="[
                                                       state?.appData?.data?.customer.status === 'ACTIVE' ? ' bg-success' : '',
-                                                      state?.appData?.data?.customer.status === 'PENDING' ? ' bg-primary' : '',
-                                                      state?.appData?.data?.customer.status === 'BANNED' ? ' bg-danger' : '',
                                                       state?.appData?.data?.customer.status === 'INACTIVE' ? ' bg-info' : ''
                                                       ]" >
                                                     {{ state?.appData?.data?.customer.status }}
@@ -111,7 +109,10 @@
                                         <div class="row mb-3">
                                           <label for="status" class="col-sm-3 col-form-label">Status</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.customer.status" name="status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <select name="status" [ngModel]="state?.appData?.data?.customer.status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control" required>
+                                                <option [selected]="true" value="ACTIVE">ACTIVE</option>
+                                                <option value="INACTIVE">INACTIVE</option>
+                                              </select>
                                           </div>
                                         </div>
                                         <div class="row mb-3">
@@ -153,40 +154,42 @@
                                   <div class="card-body">
                                     <h5 class="card-title">Invoices</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Customer Invoices</h6>
-                                    <table class="table table-hover">
-                                        <thead class="table-dark">
-                                          <tr>
-                                              <th scope="col">Invoice Number</th>
-                                              <th scope="col">Service</th>
-                                              <th scope="col">Status</th>
-                                              <th scope="col">Date</th>
-                                              <th scope="col">Total</th>
-                                              <!-- <th scope="col">Action</th> -->
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr *ngFor="let invoice of state?.appData?.data?.customer.invoices" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
-                                              <td>{{ invoice.invoiceNumber }}</td>
-                                              <td >{{ invoice.ligneCommandes.id }}</td>
-                                              <td>
-                                                <span class="badge"
-                                                [ngClass]="[
-                                                  invoice.status === 'PAID' ? ' bg-success' : '',
-                                                  invoice.status === 'PENDING' ? ' bg-primary' : '',
-                                                  invoice.status === 'OVERDUE' ? ' bg-warning' : '',
-                                                  invoice.status === 'CANCELED' ? ' bg-danger' : ''
-                                                  ]">
-                                                    {{ invoice.status }}
-                                                </span>
-                                              </td>
-                                              <td>{{ invoice.date | date: 'mediumDate' }}</td>
-                                              <td>{{ invoice.total | number: '1.0-0' }} CFA</td>
-                                              <!-- <td>
-                                                <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
-                                              </td> -->
-                                          </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive-custom">
+                                      <table class="table table-hover">
+                                          <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">Invoice Number</th>
+                                                <th scope="col">Service</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Total</th>
+                                                <!-- <th scope="col">Action</th> -->
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let invoice of state?.appData?.data?.customer.invoices" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
+                                                <td>{{ invoice.invoiceNumber }}</td>
+                                                <td >{{ invoice.ligneCommandes.id }}</td>
+                                                <td>
+                                                  <span class="badge"
+                                                  [ngClass]="[
+                                                    invoice.status === 'PAID' ? ' bg-success' : '',
+                                                    invoice.status === 'PENDING' ? ' bg-primary' : '',
+                                                    invoice.status === 'OVERDUE' ? ' bg-warning' : '',
+                                                    invoice.status === 'CANCELED' ? ' bg-danger' : ''
+                                                    ]">
+                                                      {{ invoice.status }}
+                                                  </span>
+                                                </td>
+                                                <td>{{ invoice.date | date: 'mediumDate' }}</td>
+                                                <td>{{ invoice.total | number: '1.0-0' }} CFA</td>
+                                                <!-- <td>
+                                                  <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>
+                                                </td> -->
+                                            </tr>
+                                          </tbody>
+                                      </table>
+                                    </div>
                                   </div>
                               </div>
                             </div>

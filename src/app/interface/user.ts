@@ -14,4 +14,5 @@ export interface User {
     createdAt?: Date;
     roleName: string;
     permissions: string;
+    agencyCode: string;
 }

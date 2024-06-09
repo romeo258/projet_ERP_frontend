@@ -53,17 +53,16 @@ export interface CustomerState {
 
 export interface UserState {
     user: User;
+    events?: Events[];
+    roles?: Role[];
+    access_token?: string;
+    refresh_token?: string;
 }
 
 export interface AgencyState {
     user: User;
     agency: Agency;
 }
-
-// export interface StatsState {
-//     user: User;
-//     stats: Stats;
-// }
 
 export interface RegisterState {
     dataState: DataState;

@@ -27,16 +27,21 @@
                 <button [disabled]="state.dataState === DataState.LOADING || loginForm.invalid || loginForm.pristine" type="submit" class="btn btn-primary">
                   <span *ngIf="state.dataState === DataState.LOADING" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                   <span *ngIf="state.dataState === DataState.LOADING">Loading...</span>
-                  <span *ngIf="!(state.dataState === DataState.LOADING)">Log in</span>
+                  <span *ngIf="!(state.dataState === DataState.LOADING)"> 
+                    <i class="fas fa-sign-in-alt fa-sm"></i> Log in</span>
                 </button>
               </div>
             </form>
             <div class="row mb-4">
               <div class="col d-flex justify-content-center">
-                <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/register">Create an Account</a>
+                <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/register">
+                    <i class="bi bi-person-plus"> Sign In</i>
+                </a>
               </div>
               <div class="col">
-                <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/resetpassword">Forgot password?</a>
+                <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/resetpassword">
+                  <i class="bi bi-arrow-clockwise"> Reset</i>
+                </a>
               </div>
             </div>
           </div>

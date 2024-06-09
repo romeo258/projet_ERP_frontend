@@ -201,3 +201,21 @@ html, body {
     box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
   }
 }
+
+
+/* Ajoutez ces règles CSS pour permettre le défilement horizontal */
+.table-responsive-custom {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+/* Ajoutez une transition CSS à la classe .sidebar */
+.sidebar {
+  transition: width 0.2s ease; /* Transition pour la largeur de la barre latérale */
+}
+
+/* Ajoutez une transition CSS aux éléments enfants qui doivent également être animés */
+.sidebar .collapse {
+  transition: height 0.2s ease; /* Transition pour la hauteur des éléments collapse */
+}
+

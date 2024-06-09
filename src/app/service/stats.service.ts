@@ -2,12 +2,13 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { CustomHttpResponse, Stats } from '../interface/appstates';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
-  private readonly server: string = 'http://192.168.56.1:8080';
+  private readonly server: string = environment.API_BASE_URL;
 
   constructor(private http: HttpClient) { }
 

@@ -33,16 +33,18 @@
                 <button [disabled]="state.dataState === DataState.LOADING || registerForm.invalid || registerForm.pristine" type="submit" class="btn btn-primary">
                   <span *ngIf="state.dataState === DataState.LOADING" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                   <span *ngIf="state.dataState === DataState.LOADING">Saving...</span>
-                  <span *ngIf="!(state.dataState === DataState.LOADING)">Create Account</span>
+                  <span *ngIf="!(state.dataState === DataState.LOADING)">
+                    <i class="bi bi-save"> Create</i>
+                  </span>
                 </button>
               </div>
             </form>
             <div class="row mb-4">
               <div class="col d-flex justify-content-center">
-                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/login']">Account Login</a>
+                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/login']"><i class="bi bi-door-open"><strong> Login</strong></i></a>
               </div>
               <div class="col">
-                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/resetpassword']">Forgot password?</a>
+                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/resetpassword']"> <i class="bi bi-arrow-clockwise bi-sm"> <strong> Reset</strong></i></a>
               </div>
             </div>
           </div>
