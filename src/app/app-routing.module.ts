@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
-import { SidebarComponent } from './component/sidebar/sidebar.component';
-import { NavbarComponent } from './component/navbar/navbar.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ResetpasswordComponent } from './component/resetpassword/resetpassword.component';
@@ -21,10 +19,18 @@ import { CommandComponent } from './component/command/command.component';
 import { AgenciesComponent } from './component/agency/agencies/agencies.component';
 import { NewagencyComponent } from './component/agency/newagency/newagency.component';
 import { AgencyDetailComponent } from './component/agency/agency-detail/agency-detail.component';
-import { CategoryComponent } from './component/category/category.component';
-import { ProductComponent } from './component/product/product.component';
-import { FournisseurComponent } from './component/fournisseur/fournisseur.component';
-import { InventoryComponent } from './component/inventory/inventory.component';
+import { CategoriesComponent } from './component/category/categories/categories.component';
+import { NewcategoryComponent } from './component/category/newcategory/newcategory.component';
+import { CategoryDetailComponent } from './component/category/category-detail/category-detail.component';
+import { FournisseursComponent } from './component/fournisseur/fournisseurs/fournisseurs.component';
+import { NewfournisseurComponent } from './component/fournisseur/newfournisseur/newfournisseur.component';
+import { FournisseurDetailComponent } from './component/fournisseur/fournisseur-detail/fournisseur-detail.component';
+import { ProductsComponent } from './component/product/products/products.component';
+import { NewproductComponent } from './component/product/newproduct/newproduct.component';
+import { ProductDetailComponent } from './component/product/product-detail/product-detail.component';
+import { InventoriesComponent } from './component/inventory/inventories/inventories.component';
+import { NewinventoryComponent } from './component/inventory/newinventory/newinventory.component';
+import { InventoryDetailComponent } from './component/inventory/inventory-detail/inventory-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -37,13 +43,21 @@ const routes: Routes = [
   { path: 'agencies/new', component: NewagencyComponent, canActivate: [AuthenticationGuard] },
   { path: 'agencies/:id', component: AgencyDetailComponent, canActivate: [AuthenticationGuard] },
 
-  { path: 'categories', component: CategoryComponent, canActivate: [AuthenticationGuard] },
+  { path: 'categories', component: CategoriesComponent, canActivate: [AuthenticationGuard] },
+  { path: 'categories/new', component: NewcategoryComponent, canActivate: [AuthenticationGuard] },
+  { path: 'categories/:id', component: CategoryDetailComponent, canActivate: [AuthenticationGuard] },
 
-  { path: 'products', component: ProductComponent, canActivate: [AuthenticationGuard] },
+  { path: 'fournisseurs', component: FournisseursComponent, canActivate: [AuthenticationGuard] },
+  { path: 'fournisseurs/new', component: NewfournisseurComponent, canActivate: [AuthenticationGuard] },
+  { path: 'fournisseurs/:id', component: FournisseurDetailComponent, canActivate: [AuthenticationGuard] },
 
-  { path: 'fournisseurs', component: FournisseurComponent, canActivate: [AuthenticationGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'products/new', component: NewproductComponent, canActivate: [AuthenticationGuard] },
+  { path: 'products/:id', component: ProductDetailComponent, canActivate: [AuthenticationGuard] },
 
-  { path: 'inventories', component: InventoryComponent, canActivate: [AuthenticationGuard] },
+  { path: 'inventories', component: InventoriesComponent, canActivate: [AuthenticationGuard] },
+  { path: 'inventories/new', component: NewinventoryComponent, canActivate: [AuthenticationGuard] },
+  { path: 'inventories/:id', component: InventoryDetailComponent, canActivate: [AuthenticationGuard] },
 
   { path: 'customers', component: CustomersComponent, canActivate: [AuthenticationGuard] },
   { path: 'customers/new', component: NewcustomerComponent, canActivate: [AuthenticationGuard] },

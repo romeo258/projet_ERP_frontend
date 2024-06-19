@@ -78,6 +78,7 @@
                                           <li class="list-group-item"><i class="fa fa-envelope float-end"></i>Email : <a [href]="'mailto:' + user.email">{{user.email}}</a></li>
                                           <li class="list-group-item" *ngIf="user.phone"><i class="fa fa-phone float-end"></i>{{user.phone}}</li>
                                           <li class="list-group-item" *ngIf="user.agencyCode"><i class="bi bi-building float-end"></i><b>{{user.agencyCode}}</b></li>
+                                          <li class="list-group-item" *ngIf="user.title"><i class="bi bi-person-workspace float-end"></i><b>{{user.title}}</b></li>
                                     </ul>
                                 </div>
                               </div>

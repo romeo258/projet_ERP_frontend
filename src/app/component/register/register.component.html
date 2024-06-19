@@ -40,10 +40,10 @@
               </div>
             </form>
             <div class="row mb-4">
-              <div class="col d-flex justify-content-center">
+              <div class="col d-flex justify-content-start ms-4">
                 <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/login']"><i class="bi bi-door-open"><strong> Login</strong></i></a>
               </div>
-              <div class="col">
+              <div class="col d-flex justify-content-end me-4">
                 <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/resetpassword']"> <i class="bi bi-arrow-clockwise bi-sm"> <strong> Reset</strong></i></a>
               </div>
             </div>

@@ -1,4 +1,6 @@
+import { Fournisseur } from "./fournisseur";
 import { LigneCommande } from "./ligneCommande";
+import { Stock } from "./stock";
 
 export interface Product {
   id: number;
@@ -11,6 +13,6 @@ export interface Product {
   quantity: number;
   status: string;
   isActive: boolean;
-  // products?: Product[];
-  ligneCommandes?: LigneCommande;
+  ligneCommandes?: LigneCommande[];
+  stocks?: Stock[];
 }

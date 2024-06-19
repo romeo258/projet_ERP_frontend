@@ -20,13 +20,14 @@
     "@angular/router": "^16.2.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@fortawesome/fontawesome-free": "^6.5.2",
+    "@ng-select/ng-select": "^11.2.0",
     "bootstrap": "^5.3.3",
     "boxicons": "^2.1.4",
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
     "material-icons": "^1.13.12",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
+    "tslib": "^2.6.3",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

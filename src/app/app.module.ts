@@ -29,11 +29,20 @@ import { AgencyDetailComponent } from './component/agency/agency-detail/agency-d
 import { AgenciesComponent } from './component/agency/agencies/agencies.component';
 import { UsersComponent } from './component/user/users/users.component';
 import { UserDetailComponent } from './component/user/user-detail/user-detail.component';
-import { CategoryComponent } from './component/category/category.component';
-import { ProductComponent } from './component/product/product.component';
-import { FournisseurComponent } from './component/fournisseur/fournisseur.component';
-import { InventoryComponent } from './component/inventory/inventory.component';
 import { ExtractArrayValue } from './pipes/extractvalue.pipe';
+import { NewcategoryComponent } from './component/category/newcategory/newcategory.component';
+import { CategoryDetailComponent } from './component/category/category-detail/category-detail.component';
+import { CategoriesComponent } from './component/category/categories/categories.component';
+import { NewfournisseurComponent } from './component/fournisseur/newfournisseur/newfournisseur.component';
+import { FournisseursComponent } from './component/fournisseur/fournisseurs/fournisseurs.component';
+import { FournisseurDetailComponent } from './component/fournisseur/fournisseur-detail/fournisseur-detail.component';
+import { ProductDetailComponent } from './component/product/product-detail/product-detail.component';
+import { ProductsComponent } from './component/product/products/products.component';
+import { NewproductComponent } from './component/product/newproduct/newproduct.component';
+import { InventoriesComponent } from './component/inventory/inventories/inventories.component';
+import { InventoryDetailComponent } from './component/inventory/inventory-detail/inventory-detail.component';
+import { NewinventoryComponent } from './component/inventory/newinventory/newinventory.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -61,10 +70,18 @@ import { ExtractArrayValue } from './pipes/extractvalue.pipe';
     AgenciesComponent,
     UsersComponent,
     UserDetailComponent,
-    CategoryComponent,
-    ProductComponent,
-    FournisseurComponent,
-    InventoryComponent
+    NewcategoryComponent,
+    CategoryDetailComponent,
+    CategoriesComponent,
+    NewfournisseurComponent,
+    FournisseursComponent,
+    FournisseurDetailComponent,
+    ProductDetailComponent,
+    ProductsComponent,
+    NewproductComponent,
+    InventoriesComponent,
+    InventoryDetailComponent,
+    NewinventoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +90,7 @@ import { ExtractArrayValue } from './pipes/extractvalue.pipe';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    NgSelectModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -1,0 +1,140 @@
+<div *ngIf="(fournisseursState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+
+
+                <!-- CONTENU PRINCIPAL DE LA PAGE -->
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+
+                    <section>
+                      <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                          <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a [routerLink]="['/']">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active"> Suppliers </li>
+                          </ol>
+                      </nav>
+                      <div class="row mt-3">
+                          <div class="col">
+                            <h4 class="fw-bold text-start">Suppliers</h4>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex justify-content-end align-items-center">
+                              <form #searchForm="ngForm" (ngSubmit)="searchFournisseurs(searchForm)" class="d-flex">
+                                <div class="me-2 flex-grow-1">
+                                  <label for="name" class="visually-hidden"></label>
+                                  <input type="text" ngModel name="name" #name class="form-control form-control-sm" placeholder="Customer Name">
+                                </div>
+                                <div class="me-2">
+                                  <button type="submit" class="btn btn-primary btn-sm"> 
+                                    <i class="fas fa-search fa-sm"></i> 
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div class="col-xm-12">
+                              <div class="table-responsive-custom">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                          <th class="text-center" scope="col">ID</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Code</th>
+                                          <th scope="col">City</th>
+                                          <th scope="col">Address</th>
+                                          <th scope="col">Phone</th>
+                                          <th scope="col">E-mail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                        <tr *ngFor="let supplier of state?.appData?.data?.page.content" [routerLink]="['/fournisseurs', supplier.id]" class="cell-1" style="cursor: pointer;">
+                                          <th class="text-center">{{ supplier.id }}</th>
+                                          <td>{{ supplier.name }}</td>
+                                          <td>{{ supplier.code }}</td>                          
+                                          <td>{{ supplier.city }}</td>
+                                          <td>{{ supplier.address }}</td>
+                                          <td>{{ supplier.phone }}</td>
+                                          <td>{{ supplier.email }}</td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                              </div>  
+                              <nav *ngIf="state?.appData?.data?.page.content.length > 0" aria-label="Page navigation example">
+                                  <ul class="pagination justify-content-end">
+                                    <li [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
+                                        <a (click)="goToNextOrPreviousPage('backward', searchForm.value.name)" class="page-link">&laquo; Prev</a>
+                                    </li>
+                                    <li *ngFor="let pageNumber of state?.appData?.data?.page.totalPages | ExtractArrayValue: 'number'; let i = index;" class="page-item pointer">
+                                        <a (click)="goToPage(i, searchForm.value.name)" [ngClass]="i == (currentPage$ | async) ? ' active' : ''" class="page-link">
+                                          {{ i + 1 }}
+                                        </a>
+                                    </li>
+                                    <li [ngClass]="(state?.appData?.data?.page.totalPages - 1) == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
+                                        <a (click)="goToNextOrPreviousPage('forward', searchForm.value.name)" class="page-link">Next &raquo;</a>
+                                    </li>
+                                  </ul>
+                              </nav>
+                          </div>
+                      </div>
+                </section>
+
+                  </div>
+                  <!-- /.container-fluid -->
+    
+          </div>
+
+          <!-- boutton d'ajoute pour customer -->
+         <a class="nav-link" [routerLink]="['/fournisseurs/new']"> 
+          <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
+                  <i class="bi bi-truck align-center"></i>
+          </span>
+        </a>
+
+
+          <!-- Footer -->
+            <app-footer></app-footer>
+          <!-- End of Footer -->
+        </div>
+
+      </div>
+      <!-- Scroll to Top Button-->
+
+      <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+        <i class="fas fa-angle-up"></i>
+      </button>
+      
+    </body>
+  </div>
+
+  <div *ngSwitchCase="DataState.LOADING" class="loading-container" @fadeInOut>
+    <section class="dots-container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </section>
+  </div>
+
+   <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+      <div>{{ state.error }}</div>
+   </div>
+
+</div>

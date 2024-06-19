@@ -33,12 +33,12 @@
               </div>
             </form>
             <div class="row mb-4">
-              <div class="col d-flex justify-content-center">
+              <div class="col d-flex justify-content-start ms-4">
                 <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/register">
                     <i class="bi bi-person-plus"> Sign In</i>
                 </a>
               </div>
-              <div class="col">
+              <div class="col d-flex justify-content-end me-4">
                 <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" routerLink="/resetpassword">
                   <i class="bi bi-arrow-clockwise"> Reset</i>
                 </a>
@@ -81,10 +81,10 @@
               </div>
             </form>
             <div class="row mb-4">
-              <div class="col d-flex justify-content-center">
+              <div class="col d-flex justify-content-start ms-4">
                 <a (click)="loginPage()" style="color: #0D6EFD; text-decoration: underline; cursor: pointer;">Account Login</a>
               </div>
-              <div class="col">
+              <div class="col d-flex justify-content-end me-4">
                 <a [routerLink]="['/register']" style="color: #0D6EFD; text-decoration: underline; cursor: pointer;">Create an account</a>
               </div>
             </div>

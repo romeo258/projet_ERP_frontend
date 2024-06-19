@@ -1,0 +1,336 @@
+<div *ngIf="(productState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+
+
+                <!-- CONTENU PRINCIPAL DE LA PAGE -->
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+                    <section>
+                        <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+                              <li class="breadcrumb-item"><a [routerLink]="['/products']">Products</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">{{ state?.appData?.data?.product.name }}</li>
+                            </ol>
+                        </nav>
+                        
+                      <div class="col">
+                        <h4 class="fw-bold text-start">Product {{ state?.appData?.data?.product.id }}</h4>
+                      </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                              <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start">
+                                        <img src="/assets/product.ico" style="position: relative" class="rounded-circle avatar-lg img-thumbnail" alt="Empty">
+                                        <div class="w-100 ms-4">
+                                            <h4 class="my-0">{{ state?.appData?.data?.product.name }}</h4>
+                                            <span class="badge" style="position: absolute; bottom: 60px; left: 113px; top: 70px; font-size: 11px; height: 18px;"
+                                                  [ngClass]="[
+                                                      state?.appData?.data?.product.status === 'AVAILABLE' ? 'bg-success' : '',
+                                                      state?.appData?.data?.product.status === 'EMPTY' ? 'bg-danger' : '',
+                                                      state?.appData?.data?.product.status === 'WARNING' ? 'bg-warning' : ''
+                                                  ]">
+                                                {{ state?.appData?.data?.product.status }}
+                                            </span>
+                            
+                                            <!-- Insérer ici le bouton avec l'icône Supplier -->
+                                            <ul class="wrapper ms-4 float-end" style="display: inline-block; margin-top: 12px;">
+                                                <li class="icon supplier">
+                                                  <span href="#" data-bs-toggle="modal" data-bs-target="#supplierModal">
+                                                    <span class="tooltip">Supplier</span>
+                                                    <i class="fas fa-truck fa-sm"></i>
+                                                  </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+
+                                <!-- Supplier Detail Modal-->
+                                <div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Supplier Details</h5>
+                                              <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">×</span>
+                                              </button>
+                                          </div>
+                                          <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                      <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.fournisseur.name }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="city" class="col-sm-3 col-form-label">City</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.fournisseur.city }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="address" class="col-sm-3 col-form-label">Address</label>
+                                                      <div class="col-sm-9">
+                                                        <textarea class="form-control" readonly>{{ state?.appData?.data?.fournisseur.address }}</textarea>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.fournisseur.phone }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.fournisseur.email }}</span>
+                                                      </div>
+                                                    </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                            
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Billed Orders</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Accounting</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
+                                          numeral
+                                          <span class="" style="font-size: 20px;">
+                                            {{ state?.appData?.data?.product.ligneCommandes.length }}
+                                          </span>
+                                        </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Total Amount</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Amount Billed</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 20px;">
+                                          numeral
+                                          <span class="badge bg-success" style="font-size: 20px;">
+                                               {{ totalAmount | number: '1.0-0' }} CFA
+                                          </span>
+                                        </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-8">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Product Details</h5>
+                                    <form #productForm="ngForm" (ngSubmit)="updateProduct(productForm)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.product.id" name="id" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                       
+                                        <div class="row mb-3">
+                                          <label for="name" class="col-sm-3 col-form-label">Product Name</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" [ngModel]="state?.appData?.data?.product.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="code" class="col-sm-3 col-form-label">Code</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" [ngModel]="state?.appData?.data?.product.code" name="code" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="description" class="col-sm-3 col-form-label">Description</label>
+                                          <div class="col-sm-9">
+                                              <textarea [ngModel]="state?.appData?.data?.product.description" name="description" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control"></textarea>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.product.quantity" name="quantity" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="status" class="col-sm-3 col-form-label">Status</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" name="status" readonly [ngModel]="state?.appData?.data?.product.status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control" required>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="updateAt" class="col-sm-3 col-form-label">Last Update</label>
+                                          <div class="col-sm-9">
+                                            <span class="form-control" readonly>{{ state?.appData?.data?.product.updateAt | date:'mediumDate' }}</span>
+                                          </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                          <div class="col-md-6" style="margin-bottom: 15px;">
+                                            <label>Category</label>
+                                            <span class="form-control" readonly>{{ state?.appData?.data?.category.name }} </span>
+                                          </div>
+                                          <div class="col-md-6" style="margin-bottom: 15px;">
+                                            <label>Agency</label>
+                                            <span class="form-control" readonly>{{ state?.appData?.data?.agency.name }} </span>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="isActive" class="col-sm-3 col-form-label">Active</label>
+                                          <div class="col-sm-9 d-flex align-items-center">
+                                              <div class="checkbox-wrapper-12">
+                                                  <div class="cbx">
+                                                      <input type="checkbox" id="cbx-12" [(ngModel)]="state?.appData?.data?.product.isActive" name="isActive"
+                                                          [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                                      <label for="cbx-12"></label>
+                                                      <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                                      </svg>
+                                                  </div>
+                                      
+                                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                      <defs>
+                                                          <filter id="goo-12">
+                                                              <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                                              <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix"
+                                                                  in="blur"></feColorMatrix>
+                                                              <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                                          </filter>
+                                                      </defs>
+                                                  </svg>
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <button *ngIf="state?.appData?.data?.product.ligneCommandes?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteProduct(state?.appData?.data?.product.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                          <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                          <span *ngIf="isLoading$ | async">Loading...</span>
+                                          <span *ngIf="!(isLoading$ | async)"><i class="fas fa-trash me-2"></i>Delete</span>
+                                        </button>
+                                        <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
+                                          <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                          <span *ngIf="isLoading$ | async"><i class="fas fa-sync-alt me-2"></i>Loading...</span>
+                                          <span *ngIf="!(isLoading$ | async)"><i class="fas fa-sync-alt me-2"></i>Update</span>
+                                        </button>
+                                    </form>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Billed Orders</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Orders List</h6>
+                                    <div class="table-responsive-custom">
+                                      <table class="table table-hover">
+                                          <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Total Price</th>
+                                                <th scope="col">Date</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr *ngFor="let ligneCommande of state?.appData?.data?.product.ligneCommandes">
+                                                <td>{{ ligneCommande.id }}</td>
+                                                <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
+                                                <td>{{ ligneCommande.quantityLC }}</td>
+                                                <td>{{ ligneCommande.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                                <td>{{ ligneCommande.createdAt | date: 'mediumDate' }}</td>
+                                            </tr>
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Stock Operations</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted">Operations List</h6>
+                                  <div class="table-responsive-custom">
+                                    <table class="table table-hover">
+                                        <thead class="table-dark">
+                                          <tr>
+                                              <th scope="col">Action</th>
+                                              <th scope="col">Quantity</th>
+                                              <th scope="col">Purchase Price</th>
+                                              <th scope="col">Selling Price</th>
+                                              <th scope="col">Date</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let stock of state?.appData?.data?.product.stocks" [routerLink]="['/inventories', stock.id]" class="cell-1" style="cursor: pointer;">
+                                              <td>{{ stock.action }}</td>
+                                              <td>{{ stock.quantityIn ? stock.quantityIn : stock.quantityOut }}</td>
+                                              <td>{{ stock.prixAchat | number: '1.0-0' }} CFA</td>
+                                              <td>{{ stock.prixVente | number: '1.0-0' }} CFA</td>
+                                              <td>{{ stock.createdAt | date: 'mediumDate' }}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                        
+                    </section>
+
+                  </div>
+                  <!-- /.container-fluid -->
+    
+          </div>
+
+          <!-- Footer -->
+            <app-footer></app-footer>
+          <!-- End of Footer -->
+        </div>
+
+      </div>
+      <!-- Scroll to Top Button-->
+
+      <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+        <i class="fas fa-angle-up"></i>
+      </button>
+      
+    </body>
+  </div>
+
+  <div *ngSwitchCase="DataState.LOADING" class="loading-container"  @fadeInOut>
+    <section class="dots-container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </section>
+  </div>
+
+   <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+      <div>{{ state.error }}</div>
+   </div>
+
+</div>

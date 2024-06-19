@@ -1,0 +1,159 @@
+<div *ngIf="(newProductState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+
+
+                <!-- CONTENU PRINCIPAL DE LA PAGE -->
+                  <!-- Begin Page Content -->
+                  <div class="container-fluid">
+                    <section>
+                            <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a [routerLink]="['/']">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"> <a [routerLink]="['/products']">Products</a> </li>
+                                    <li class="breadcrumb-item active" aria-current="page">New</li>
+                                </ol>
+                            </nav>
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <h2><i style="margin-right: 5px;" class="fas fa-dolly"></i> New Product
+                                                </h2>
+                                            </div>
+                                            <div *ngIf="state.error"
+                                                class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                                                role="alert">
+                                                {{ state.error }}
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div *ngIf="state.appData.message"
+                                                class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                                                role="alert">
+                                                {{ state.appData.message }}
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+                                            <form #newProductForm="ngForm" (ngSubmit)="newProduct(newProductForm)">
+                                                <div class="row">
+                                                    <div class="col-md-4" style="margin-bottom: 15px;">
+                                                      <label>Agency</label>
+                                                      <select [ngModel]="" name="agencyId" class="form-control select-cl" required>
+                                                          <option *ngFor="let agency of state?.appData?.data?.agencies"
+                                                            [ngValue]="agency.id"
+                                                            [selected]=""
+                                                            [disabled]=""
+                                                            class="select-cl">{{ agency.name | uppercase }}
+                                                          </option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-bottom: 15px;">
+                                                        <label>Supplier</label>
+                                                        <select [ngModel]="" name="fournisseurId" class="form-control select-cl" required>
+                                                            <option *ngFor="let fournisseur of state?.appData?.data?.fournisseurs"
+                                                              [ngValue]="fournisseur.id"
+                                                              [selected]=""
+                                                              [disabled]=""
+                                                              class="select-cl">{{ fournisseur.name | uppercase }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-bottom: 15px;">
+                                                      <label>Category</label>
+                                                      <select [ngModel]="" name="categoryId" class="form-control select-cl" required>
+                                                          <option *ngFor="let category of state?.appData?.data?.categories"
+                                                            [ngValue]="category.id"
+                                                            [selected]=""
+                                                            [disabled]=""
+                                                            class="select-cl">{{ category.name | uppercase }}
+                                                          </option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-bottom: 15px;">
+                                                        <div class="form-group">
+                                                            <label>Code</label>
+                                                            <input type="text" ngModel name="code" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" style="margin-bottom: 15px;">
+                                                      <div class="form-group">
+                                                          <label>Name</label>
+                                                          <input type="text" ngModel name="name" class="form-control" required>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-12" style="margin-bottom: 15px;">
+                                                      <div class="form-group">
+                                                          <label>Description</label>
+                                                          <textarea ngModel name="description" class="form-control" required></textarea>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button [disabled]="state.dataState === DataState.LOADING || newProductForm.invalid || newProductForm.pristine|| (isLaoding$ | async)"
+                                                    type="submit" class="btn btn-primary mt-5">
+                                                        <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
+                                                            role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                                        <span *ngIf="isLaoding$ | async">Saving...</span>
+                                                        <span *ngIf="!(isLaoding$ | async)"><i class="fas fa-save me-2"></i>Save</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+
+                  </div>
+                      <!-- /.container-fluid -->
+
+          </div>
+                      <!-- Footer -->
+          <app-footer></app-footer>
+                      <!-- End of Footer -->
+        </div>
+
+      </div>
+                <!-- Scroll to Top Button-->
+
+                <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+                  <i class="fas fa-angle-up"></i>
+                </button>
+
+    </body>
+  </div>
+
+        <div *ngSwitchCase="DataState.LOADING"  class="loading-container"  @fadeInOut>
+          <section class="dots-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </section>
+        </div>
+
+  <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+    <div>{{ state.error }}</div>
+  </div>
+
+</div>
