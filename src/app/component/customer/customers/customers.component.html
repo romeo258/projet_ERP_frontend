@@ -68,7 +68,7 @@
                                   <table class="table table-hover">
                                       <thead>
                                           <tr>
-                                            <th class="text-center" scope="col">ID</th>
+                                            <!-- <th class="text-center" scope="col">ID</th> -->
                                             <th scope="col">Photo</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
@@ -80,7 +80,7 @@
                                       </thead>
                                       <tbody class="table-body">
                                           <tr *ngFor="let customer of state?.appData?.data?.page.content" [routerLink]="['/customers', customer.id]" class="cell-1" style="cursor: pointer;">
-                                            <th class="text-center">{{ customer.id }}</th>
+                                            <th hidden class="text-center">{{ customer.id }}</th>
                                             <td><img [src]="customer.imageUrl" width="42" height="42" class="rounded-circle" alt="Empty"></td>
                                             <td>{{ customer.name }}</td>
                                             <td>{{ customer.email }}</td>                          

@@ -54,7 +54,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                          <th class="text-center" scope="col">ID</th>
+                                          <!-- <th class="text-center" scope="col">ID</th> -->
                                           <th scope="col">Name</th>
                                           <th scope="col">Describtion</th>
                                           <th scope="col">Linked Products</th>
@@ -62,7 +62,7 @@
                                     </thead>
                                     <tbody class="table-body">
                                         <tr *ngFor="let category of state?.appData?.data?.page.content" [routerLink]="['/categories', category.id]" class="cell-1" style="cursor: pointer;">
-                                          <th class="text-center">{{ category.id }}</th>
+                                          <th hidden class="text-center">{{ category.id }}</th>
                                           <td>{{ category.name }}</td>
                                           <td>{{ category.description }}</td>
                                           <td>{{ category.products.length }}</td>

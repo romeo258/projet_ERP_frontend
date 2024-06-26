@@ -4,6 +4,7 @@ import { Category } from "./category";
 import { Customer } from "./customer";
 import { Events } from "./event";
 import { Fournisseur } from "./fournisseur";
+import { Invoice } from "./invoice";
 import { Product } from "./product";
 import { Role } from "./role";
 import { Stock } from "./stock";
@@ -26,6 +27,7 @@ export interface CustomHttpResponse<T> {
     reason?: string;
     developerMessage?: string;
     data?: T;
+    error?: string;
 }
 
 export interface Profile {
@@ -53,6 +55,11 @@ export interface Page<T> {
 export interface CustomerState {
     user: User;
     customer: Customer;
+}
+
+export interface InvoiceState {
+    user: User;
+    invoice: Invoice;
 }
 
 export interface CategoryState {

@@ -163,13 +163,13 @@
                                               <textarea [ngModel]="state?.appData?.data?.product.description" name="description" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control"></textarea>
                                           </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <!-- <div class="row mb-3">
                                           <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
                                           <div class="col-sm-9">
                                               <input type="text" readonly [ngModel]="state?.appData?.data?.product.quantity" name="quantity" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
                                           </div>
-                                        </div>
-                                        <div class="row mb-3">
+                                        </div> -->
+                                        <!-- <div class="row mb-3">
                                           <label for="status" class="col-sm-3 col-form-label">Status</label>
                                           <div class="col-sm-9">
                                               <input type="text" name="status" readonly [ngModel]="state?.appData?.data?.product.status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control" required>
@@ -180,17 +180,49 @@
                                           <div class="col-sm-9">
                                             <span class="form-control" readonly>{{ state?.appData?.data?.product.updateAt | date:'mediumDate' }}</span>
                                           </div>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 15px;">
-                                          <div class="col-md-6" style="margin-bottom: 15px;">
-                                            <label>Category</label>
-                                            <span class="form-control" readonly>{{ state?.appData?.data?.category.name }} </span>
+                                        </div> -->
+                                        <div class="row">
+                                          <div class="col-md-3 d-flex align-items-center" style="margin-bottom: 15px;">
+                                              <label style="margin-right: 10px;">Status</label>
                                           </div>
-                                          <div class="col-md-6" style="margin-bottom: 15px;">
-                                            <label>Agency</label>
-                                            <span class="form-control" readonly>{{ state?.appData?.data?.agency.name }} </span>
+                                          <div class="col-md-3 d-flex align-items-center" style="margin-bottom: 15px;">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.product.status }}</span>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center" style="margin-bottom: 15px;">
+                                              <label style="margin-right: 10px;">Last Update</label>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center" style="margin-bottom: 15px;">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.product.updateAt | date:'mediumDate' }} CFA</span>
                                           </div>
                                         </div>
+                                        <div class="row">
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <label style="margin-right: 10px;">Stock</label>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.product.quantity }}</span>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <label style="margin-right: 10px;">Price</label>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.product.prixVente | number:'1.0-0' }} CFA</span>
+                                          </div>
+                                        </div>                                      
+                                        <div class="row">
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <label style="margin-right: 10px;">Category</label>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.category.name }}</span>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <label style="margin-right: 10px;">Agency</label>
+                                          </div>
+                                          <div class="col-md-3 d-flex align-items-center mb-3">
+                                              <span class="form-control" readonly>{{ state?.appData?.data?.agency.name }}</span>
+                                          </div>
+                                        </div>                                
                                         <div class="row mb-3">
                                           <label for="isActive" class="col-sm-3 col-form-label">Active</label>
                                           <div class="col-sm-9 d-flex align-items-center">
@@ -217,6 +249,13 @@
                                               </div>
                                           </div>
                                         </div>
+                                        <!-- <div class="row mb-3">
+                                          <label for="updateAt" class="col-sm-3 col-form-label">Last Update</label>
+                                          <div class="col-sm-9">
+                                            <span class="form-control" readonly>{{ state?.appData?.data?.product.prixVente | number:'1.0-0' }}</span>
+                                          </div>
+                                        </div> -->
+                                        
                                         <button *ngIf="state?.appData?.data?.product.ligneCommandes?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteProduct(state?.appData?.data?.product.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
                                           <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                           <span *ngIf="isLoading$ | async">Loading...</span>
@@ -242,7 +281,7 @@
                                       <table class="table table-hover">
                                           <thead class="table-dark">
                                             <tr>
-                                                <th scope="col">ID</th>
+                                                <!-- <th scope="col">ID</th> -->
                                                 <th scope="col">Unit Price</th>
                                                 <th scope="col">Quantity</th>
                                                 <th scope="col">Total Price</th>
@@ -251,7 +290,7 @@
                                           </thead>
                                           <tbody>
                                             <tr *ngFor="let ligneCommande of state?.appData?.data?.product.ligneCommandes">
-                                                <td>{{ ligneCommande.id }}</td>
+                                                <td hidden>{{ ligneCommande.id }}</td>
                                                 <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
                                                 <td>{{ ligneCommande.quantityLC }}</td>
                                                 <td>{{ ligneCommande.prixVenteTotal | number: '1.0-0' }} CFA</td>
@@ -283,7 +322,15 @@
                                         </thead>
                                         <tbody>
                                           <tr *ngFor="let stock of state?.appData?.data?.product.stocks" [routerLink]="['/inventories', stock.id]" class="cell-1" style="cursor: pointer;">
-                                              <td>{{ stock.action }}</td>
+                                              <td>
+                                                <span class="badge"
+                                                  [ngClass]="[
+                                                      stock.action === 'STOCK_IN' ? ' bg-success' : '',
+                                                      stock.action === 'STOCK_OUT' ? ' bg-danger' : '',]" 
+                                                  >
+                                                  {{ stock.action }}
+                                                </span>
+                                              </td>
                                               <td>{{ stock.quantityIn ? stock.quantityIn : stock.quantityOut }}</td>
                                               <td>{{ stock.prixAchat | number: '1.0-0' }} CFA</td>
                                               <td>{{ stock.prixVente | number: '1.0-0' }} CFA</td>

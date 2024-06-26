@@ -1,3 +1,4 @@
+import { Customer } from "./customer";
 import { LigneCommande } from "./ligneCommande";
 
 export interface Invoice {
@@ -7,5 +8,6 @@ export interface Invoice {
   status: string;
   total: number;
   createdAt: Date;
-  commandlines?: LigneCommande[];
+  ligneCommandes?: LigneCommande[];
+  customer?: Customer;
 }

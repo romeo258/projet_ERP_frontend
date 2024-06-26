@@ -147,7 +147,7 @@
                                       <table class="table table-hover">
                                           <thead class="table-dark">
                                             <tr>
-                                                <th scope="col">ID</th>
+                                                <!-- <th scope="col">ID</th> -->
                                                 <th scope="col">Code</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Description</th>
@@ -159,7 +159,7 @@
                                           </thead>
                                           <tbody>
                                             <tr *ngFor="let product of state?.appData?.data?.agency.products" [routerLink]="['/products', product.id]">
-                                                <td>{{ product.id }}</td>
+                                                <td hidden>{{ product.id }}</td>
                                                 <td>{{ product.code }}</td>
                                                 <td>{{ product.name }}</td>
                                                 <td>{{ product.description }}</td>
@@ -197,7 +197,7 @@
                                     <table class="table table-hover">
                                         <thead class="table-dark">
                                           <tr>
-                                              <th scope="col">ID</th>
+                                              <!-- <th scope="col">ID</th> -->
                                               <th scope="col">Name</th>
                                               <th scope="col">Quantity</th>
                                               <th scope="col">price</th>
@@ -207,7 +207,7 @@
                                         </thead>
                                         <tbody>
                                           <tr *ngFor="let ligneCommande of ligneCommandes" [routerLink]="['/customers']">
-                                              <td>{{ ligneCommande.id }}</td>
+                                              <td hidden>{{ ligneCommande.id }}</td>
                                               <td>{{ ligneCommande.name }}</td>
                                               <td>{{ ligneCommande.quantityLC }}</td>
                                               <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>

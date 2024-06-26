@@ -55,10 +55,10 @@
                                     <thead>
                                         <tr>
                                           <!-- <th class="text-center" scope="col">ID</th> -->
-                                          <th scope="col">Number</th>
+                                          <th scope="col">Code</th>
                                           <th scope="col">Operation</th>
                                           <th scope="col">Quantity</th>
-                                          <th scope="col">Purshace Price</th>
+                                          <th scope="col">Purchase Price</th>
                                           <th scope="col">Selling Price</th>
                                           <th scope="col">Date</th>
                                         </tr>
@@ -67,7 +67,15 @@
                                       <tr *ngFor="let stock of state?.appData?.data?.page.content" [routerLink]="['/inventories', stock.id]" class="cell-1" style="cursor: pointer;">
                                         <td hidden>{{ stock.id }}</td>
                                         <td>{{ stock.stockNumber }}</td>
-                                        <td>{{ stock.action }}</td>
+                                        <td>
+                                          <span class="badge"
+                                              [ngClass]="[
+                                                  stock.action === 'STOCK_IN' ? ' bg-success' : '',
+                                                  stock.action === 'STOCK_OUT' ? ' bg-danger' : '',]" 
+                                              >
+                                            {{ stock.action }}
+                                          </span>
+                                        </td>
                                         <td>{{ stock.quantityIn ? stock.quantityIn : stock.quantityOut }}</td>
                                         <td>{{ stock.prixAchat | number: '1.0-0' }} CFA</td>
                                         <td>{{ stock.prixVente | number: '1.0-0' }} CFA</td>

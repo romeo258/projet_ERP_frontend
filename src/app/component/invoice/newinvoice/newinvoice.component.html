@@ -1,41 +1,225 @@
-<body id="page-top">
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+<div *ngIf="(newInvoiceState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
 
-    <!-- Sidebar -->
-    <app-sidebar></app-sidebar>
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
 
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-      <!-- Main Content -->
-      <div id="content">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
 
-        <!-- navbar -->
-        <app-navbar></app-navbar>
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
 
 
             <!-- CONTENU PRINCIPAL DE LA PAGE -->
               <!-- Begin Page Content -->
               <div class="container-fluid">
 
-                <p>newinvoice works!</p>
+                <section>
+                      <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item">
+                                  <a [routerLink]="['/']">Home</a>
+                              </li>
+                              <li class="breadcrumb-item"> <a [routerLink]="['/invoices']">Invoices</a> </li>
+                              <li class="breadcrumb-item active" aria-current="page">New</li>
+                          </ol>
+                      </nav>
+                      <div class="row justify-content-center">
+                          <div class="col-md-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <div class="text-center">
+                                          <h2><i style="margin-right: 5px;" class="bi bi-receipt"></i> New Invoice
+                                          </h2>
+                                      </div>
+                                      <div *ngIf="state.error"
+                                          class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                                          role="alert">
+                                          {{ state.error }}
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                              aria-label="Close"></button>
+                                      </div>
+                                      
+                                      <div *ngIf="state.appData.message"
+                                          class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                                          role="alert">
+                                          {{ state.appData.message }}
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                              aria-label="Close">
+                                          </button>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-md-3" style="margin-bottom: 15px;">
+                                          <label>Generated Invoice</label>
+                                          <div>
+                                            <input type="text" hidden [ngModel]="state?.appData?.data?.invoice?.id" name="invoiceId" #invoiceIdInput>
+                                            <input type="text"  class="form-control" readonly [ngModel]="state?.appData?.data?.invoice?.invoiceNumber" name="invoiceNumber">
+                                          </div>  
+                                        </div>
+                                        <div class="col-md-9">
+                                          <form #invoiceForm="ngForm" (ngSubmit)="newInvoice(invoiceForm)">
+                                            <div class="row">
+                                              <div class="col-md-3" style="margin-bottom: 15px;">
+                                                <label>Status</label>
+                                                <select name="status" ngModel="UNPAID" class="form-control" required>
+                                                  <option value="UNPAID">PENDING</option>
+                                                  <option value="PAID">PAID</option>
+                                                </select>
+                                              </div>
+                                              <div *ngIf="state?.appData?.data?.customers" class="col-md-6" style="margin-bottom: 15px;">
+                                                <label>Customer</label>
+                                                <select [(ngModel)]="selectedCustomerId" name="customerId" class="form-control select-cl" required>
+                                                  <option [ngValue]="null">Choose Customer</option>
+                                                  <option *ngFor="let customer of state?.appData?.data?.customers" [ngValue]="customer.id" [disabled]="state?.appData?.data?.invoice?.id">
+                                                    {{ customer.name }}
+                                                  </option>
+                                                </select>
+                                              </div>
+                                              <div *ngIf="state?.appData?.data?.selectedCustomer" class="col-md-6" style="margin-bottom: 15px;">
+                                                <label>Customer</label>
+                                                <div>
+                                                  <input type="text"  class="form-control" readonly [ngModel]="state?.appData?.data?.selectedCustomer?.name" name="name">
+                                                </div>  
+                                              </div>
+                                              <div class="col-md-3 d-flex justify-content-end align-items-center" style="margin-top: 30px; margin-bottom: 15px;">
+                                                <button [disabled]="state.dataState === DataState.LOADING || invoiceForm.invalid || invoiceForm.pristine || (isLoading$ | async)"
+                                                  type="submit" class="btn btn-primary icon-circle">
+                                                  <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                                  <span *ngIf="isLoading$ | async">Saving...</span>
+                                                  <span *ngIf="!(isLoading$ | async)"><i class="fas fa-user-plus align-center"></i></span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                      
+
+                                      <!-- Autre Form -->
+                                      <!-- *ngIf="state?.appData?.data?.products" -->
+                                      <div *ngIf="state?.appData?.data?.products" class="row">
+                                        <form #newLigneForm="ngForm" (ngSubmit)="newLigne(newLigneForm)">
+                                          <input hidden type="text" id="agencyCodeLC" name="agencyCodeLC" [ngModel]="state?.appData?.data?.user?.agencyCode">
+                                          <div class="row">  
+                                            <div class="col-md-6" style="margin-bottom: 1px;">
+                                              <div class="form-group">
+                                                  <label>Product</label>
+                                                  <select [ngModel]="" name="productId" class="form-control select-cl" required>
+                                                      <option [ngValue]="null">Choose Product</option>
+                                                      <option *ngFor="let product of state?.appData?.data?.products" [ngValue]="product.id" class="select-cl">
+                                                          {{ product.name }} <sub>({{ product.quantity }})</sub>
+                                                      </option>
+                                                  </select>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-3" style="margin-bottom: 1px;">
+                                              <div class="form-group">
+                                                  <label>Qantity</label>
+                                                  <input type="number" ngModel name="quantityLC" class="form-control" required>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-3 d-flex justify-content-end align-items-center" style="margin-top: 30px; margin-bottom: 1px;">
+                                              <button [disabled]="state.dataState === DataState.LOADING || newLigneForm.invalid || newLigneForm.pristine || (isLoading$ | async)"
+                                                type="submit" class="btn btn-primary icon-circle">
+                                                <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
+                                                <span *ngIf="isLoading$ | async"><i class="bi bi-hourglass bi-sm"></i></span>
+                                                <span *ngIf="!(isLoading$ | async)"><i class="fas fa-download fas-sm"></i></span>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-xm-12">
+                                <table class="table table-hover">
+                                   <thead>
+                                       <tr>
+                                        <!-- <th scope="col">Reference</th> -->
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">total</th>
+                                        <!-- <th scope="col">Host</th> -->
+                                        <!-- <th scope="col">Action</th> -->
+                                       </tr>
+                                   </thead>
+                                   <tbody class="table-body">
+                                     <tr *ngFor="let ligne of state?.appData?.data?.invoice?.ligneCommandes" class="cell-1">
+                                         <td hidden>{{ ligne.id }}</td>
+                                         <td>{{ ligne.name }}</td>
+                                         <td>{{ ligne.prixVente | number:'1.0-0' }} CFA</td>
+                                         <td>{{ ligne.quantityLC }}</td>
+                                         <td>{{ ligne.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                         <!-- <td>{{ ligne.agencyCodeLC }}</td> -->
+                                         <!-- <td>
+                                            <button [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" type="button" class="btn btn-info btn-sm">Print</button>
+                                         </td> -->
+                                      </tr>
+                                      <tr *ngIf="state?.appData?.data?.ligneCommande" class="cell-1">
+                                        <td hidden>{{ state?.appData?.data?.ligneCommande?.id }}</td>
+                                        <td>{{ state?.appData?.data?.ligneCommande?.name }}</td>
+                                        <td>{{ state?.appData?.data?.ligneCommande?.prixVente | number:'1.0-0' }} CFA</td>
+                                        <td>{{ state?.appData?.data?.ligneCommande?.quantityLC }}</td>
+                                        <td>{{ state?.appData?.data?.ligneCommande?.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                        <!-- <td>{{ state?.appData?.data?.ligneCommande?.agencyCodeLC }}</td> -->
+                                     </tr>
+                                     <tr>
+                                      
+                                     </tr>
+                                   </tbody>
+                               </table>
+                             </div>
+                          </div>
+                      </div>
+              </section>
 
               </div>
               <!-- /.container-fluid -->
  
-      </div>
+            </div>
 
-      <!-- Footer -->
-        <app-footer></app-footer>
-      <!-- End of Footer -->
-    </div>
-
-  </div>
-  <!-- Scroll to Top Button-->
-
-  <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
-    <i class="fas fa-angle-up"></i>
-  </button>
+            <!-- <a class="nav-link" [routerLink]="['/invoices/new']"> 
+              <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
+                      <i class="bi bi-file-earmark-text align-center bi-sm"></i>
+              </span>
+            </a> -->
   
-</body>
+            <!-- Footer -->
+              <app-footer></app-footer>
+            <!-- End of Footer -->
+        </div>
+  
+      </div>
+        <!-- Scroll to Top Button-->
+  
+        <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+          <i class="fas fa-angle-up"></i>
+        </button>
+        
+    </body>
+  </div>
+  
+      <div *ngSwitchCase="DataState.LOADING" class="loading-container" @fadeInOut>
+        <section class="dots-container">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </section>
+      </div>
+  
+     <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+        <div>{{ state.error }}</div>
+     </div>
+  
+</div>

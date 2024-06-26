@@ -54,7 +54,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                          <th class="text-center" scope="col">ID</th>
+                                          <!-- <th class="text-center" scope="col">ID</th> -->
                                           <th scope="col">Name</th>
                                           <th scope="col">Code</th>
                                           <th scope="col">City</th>
@@ -64,7 +64,7 @@
                                     </thead>
                                     <tbody class="table-body">
                                         <tr *ngFor="let agency of state?.appData?.data?.page.content" [routerLink]="['/agencies', agency.id]" class="cell-1" style="cursor: pointer;">
-                                          <th class="text-center">{{ agency.id }}</th>
+                                          <th hidden class="text-center">{{ agency.id }}</th>
                                           <td>{{ agency.name }}</td>
                                           <td>{{ agency.code }}</td>                          
                                           <td>{{ agency.ville }}</td>

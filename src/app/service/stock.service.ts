@@ -33,14 +33,6 @@ export class StockService {
         .pipe(tap(console.log), catchError(this.handleError))
     );
 
-  // newProducts$ = () =>
-  //   <Observable<CustomHttpResponse<Product[] & User>>>(
-  //     this.http
-  //       .get<CustomHttpResponse<Product[] & User>>(`${this.server}/stock/new`)
-  //       .pipe(tap(console.log), catchError(this.handleError))
-  //   );
-
-
   newProducts$ = (): Observable<CustomHttpResponse<Page<Product> & User>> =>
     this.http
       .get<CustomHttpResponse<Product[] & User>>(`${this.server}/stock/new`)
