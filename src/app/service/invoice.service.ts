@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment.development';
 import { Customer } from '../interface/customer';
 import { User } from '../interface/user';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-import { CustomHttpResponse, Page } from '../interface/appstates';
+import { CustomHttpResponse, InvoiceState, Page } from '../interface/appstates';
 import { Invoice } from '../interface/invoice';
 
 @Injectable({
@@ -52,6 +52,23 @@ export class InvoiceService {
         .pipe(tap(console.log), catchError(this.handleError))
     );
 
+    searchInvoices$ = (invoiceNumber: string = '', page: number = 0) =>
+      <Observable<CustomHttpResponse<Page<Invoice> & User>>>(
+        this.http
+          .get<CustomHttpResponse<Page<Invoice> & User>>(
+            `${this.server}/invoice/search?invoiceNumber=${invoiceNumber}&page=${page}`
+          )
+          .pipe(tap(console.log), catchError(this.handleError))
+      );
+
+      update$ = (invoice: Invoice): Observable<CustomHttpResponse<InvoiceState>> =>
+        this.http
+          .patch<CustomHttpResponse<InvoiceState>>(`${this.server}/invoice/update`, invoice)
+          .pipe(
+            tap(response => console.log(response)),
+            catchError(this.handleError)
+          );
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);
     let errorMessage: string;
@@ -67,4 +84,13 @@ export class InvoiceService {
     }
     return throwError(() => errorMessage);
   }
+
+  deleteInvoices$ = (id: number) =>
+    <Observable<any>>(
+      this.http
+        .delete<CustomHttpResponse<Invoice & User>>(
+          `${this.server}/invoice/delete/${id}`
+        )
+        .pipe(tap(console.log), catchError(this.handleError))
+    );
 }

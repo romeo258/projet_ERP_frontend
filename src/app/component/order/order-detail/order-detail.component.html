@@ -1,4 +1,4 @@
-<div *ngIf="(stockState$ | async) as state" [ngSwitch]="state.dataState">
+<div *ngIf="(orderState$ | async) as state" [ngSwitch]="state.dataState">
   <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
     <body id="page-top">
       <!-- Page Wrapper -->
@@ -24,13 +24,13 @@
                         <nav aria-label="breadcrumb" style="margin-top: 8px;">
                             <ol class="breadcrumb">
                               <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-                              <li class="breadcrumb-item"><a [routerLink]="['/inventories']">Inventories</a></li>
-                              <li class="breadcrumb-item active" aria-current="page">{{ state?.appData?.data?.stock.stockNumber }}</li>
+                              <li class="breadcrumb-item"><a [routerLink]="['/orders']">Orders</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Number {{ state?.appData?.data?.ligneCommande.id }}</li>
                             </ol>
                         </nav>
                         
                       <div class="col">
-                        <h4 class="fw-bold text-start">Operation number {{ state?.appData?.data?.stock.id }}</h4>
+                        <h4 class="fw-bold text-start">From {{ state?.appData?.data?.invoice.invoiceNumber }}</h4>
                       </div>
                         <div class="row">
                             <div class="col-xl-4">
@@ -39,21 +39,18 @@
                                     <div class="d-flex align-items-start">
                                         <img src="/assets/product.ico" style="position: relative" class="rounded-circle avatar-lg img-thumbnail" alt="Empty">
                                         <div class="w-100 ms-4">
-                                            <h4 class="my-0">{{ state?.appData?.data?.stock.createdAt | date:'mediumDate' }}</h4>
+                                            <h4 class="my-0">{{ state?.appData?.data?.ligneCommande.createdAt | date:'mediumDate' }}</h4>
                                             <span class="badge" style="position: absolute; bottom: 60px; left: 113px; top: 70px; font-size: 11px; height: 18px;"
-                                                  [ngClass]="[
-                                                      state?.appData?.data?.stock.action === 'STOCK_IN' ? 'bg-success' : '',
-                                                      state?.appData?.data?.stock.action === 'STOCK_OUT' ? 'bg-danger' : ''
-                                                  ]">
-                                                {{ state?.appData?.data?.stock.action }}
+                                                  [ngClass]="['bg-success']">
+                                                {{ state?.appData?.data?.agency.name }}
                                             </span>
                             
                                             <!-- Insérer ici le bouton avec l'icône Supplier -->
                                             <ul class="wrapper ms-4 float-end" style="display: inline-block; margin-top: 12px;">
-                                                <li class="icon product">
-                                                  <span href="#" data-bs-toggle="modal" data-bs-target="#productModal">
-                                                    <span class="tooltip">Product</span>
-                                                    <i class="fas fa-dolly fas-sm"></i>
+                                                <li class="icon info">
+                                                  <span href="#" data-bs-toggle="modal" data-bs-target="#lineModal">
+                                                    <span class="tooltip">More Informations</span>
+                                                    <i class="fas fa-info-circle"></i>
                                                   </span>
                                                 </li>
                                             </ul>
@@ -63,38 +60,38 @@
                               </div>
 
                                 <!-- Supplier Detail Modal-->
-                                <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="lineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">
-                                              <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                                              <h5 class="modal-title" id="exampleModalLabel">More Informations</h5>
                                               <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">×</span>
                                               </button>
                                           </div>
                                           <div class="modal-body">
                                                     <div class="row mb-3">
-                                                      <label for="name" class="col-sm-3 col-form-label">Name</label>
-                                                      <div class="col-sm-9">
-                                                        <span class="form-control" readonly>{{ state?.appData?.data?.product.name }}</span>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                      <label for="code" class="col-sm-3 col-form-label">Code</label>
-                                                      <div class="col-sm-9">
-                                                        <span class="form-control" readonly>{{ state?.appData?.data?.product.code }}</span>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                      <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
-                                                      <div class="col-sm-9">
-                                                        <span class="form-control" readonly>{{ state?.appData?.data?.product.quantity }}</span>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                      <label for="quantity" class="col-sm-3 col-form-label">Agency</label>
+                                                      <label for="name" class="col-sm-3 col-form-label">Agency</label>
                                                       <div class="col-sm-9">
                                                         <span class="form-control" readonly>{{ state?.appData?.data?.agency.name }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="invoiceNumber" class="col-sm-3 col-form-label">Invoice</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.invoice.invoiceNumber }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="name" class="col-sm-3 col-form-label">Customer</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.customer.name }}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                      <label for="name" class="col-sm-3 col-form-label">billing clerk</label>
+                                                      <div class="col-sm-9">
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.invoice.userFac }}</span>
                                                       </div>
                                                     </div>
                                           </div>
@@ -105,26 +102,43 @@
                             <div class="col-xl-8">
                               <div class="card">
                                   <div class="card-body">
-                                    <h5 class="card-title">Product Details</h5>
+                                    <h5 class="card-title">Order Details</h5>
                                     <form>
+                                        <div class="row mb-3">
+                                          <label for="name" class="col-sm-3 col-form-label">Product Name</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                          </div>
+                                        </div>
                                         <div class="row mb-3">
                                           <label for="prixAchat" class="col-sm-3 col-form-label">Purchase</label>
                                           <div class="col-sm-9">
-                                              <input type="text" readonly [ngModel]="state?.appData?.data?.stock.prixAchat  + ' CFA'" name="prixAchat" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.prixAchat  + ' CFA'" name="prixAchat" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="prixVente" class="col-sm-3 col-form-label">Selling</label>
                                           <div class="col-sm-9">
-                                              <input type="text" readonly [ngModel]="state?.appData?.data?.product.prixVente  + ' CFA'" name="prixVente" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.prixVente  + ' CFA'" name="prixVente" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
-                                          <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
+                                          <label for="quantityLC" class="col-sm-3 col-form-label">Quantity</label>
                                           <div class="col-sm-9">
                                               <input type="number" readonly
-                                              [ngModel]="state?.appData?.data?.stock.quantityIn !== undefined ? state.appData.data.stock.quantityIn : state?.appData?.data?.stock.quantityOut" name="quantity" 
-                                              [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              [ngModel]="state?.appData?.data?.ligneCommande.quantityLC" name="quantityLC" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="prixVenteTotal" class="col-sm-3 col-form-label">Total Sales</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.prixVenteTotal  + ' CFA'" name="prixVenteTotal" class="form-control">
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label for="beneficeTotal" class="col-sm-3 col-form-label">Total Earning</label>
+                                          <div class="col-sm-9">
+                                              <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.beneficeTotal  + ' CFA'" name="beneficeTotal" class="form-control">
                                           </div>
                                         </div>
                                     </form>

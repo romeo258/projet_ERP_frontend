@@ -163,24 +163,6 @@
                                               <textarea [ngModel]="state?.appData?.data?.product.description" name="description" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control"></textarea>
                                           </div>
                                         </div>
-                                        <!-- <div class="row mb-3">
-                                          <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
-                                          <div class="col-sm-9">
-                                              <input type="text" readonly [ngModel]="state?.appData?.data?.product.quantity" name="quantity" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
-                                          </div>
-                                        </div> -->
-                                        <!-- <div class="row mb-3">
-                                          <label for="status" class="col-sm-3 col-form-label">Status</label>
-                                          <div class="col-sm-9">
-                                              <input type="text" name="status" readonly [ngModel]="state?.appData?.data?.product.status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control" required>
-                                          </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                          <label for="updateAt" class="col-sm-3 col-form-label">Last Update</label>
-                                          <div class="col-sm-9">
-                                            <span class="form-control" readonly>{{ state?.appData?.data?.product.updateAt | date:'mediumDate' }}</span>
-                                          </div>
-                                        </div> -->
                                         <div class="row">
                                           <div class="col-md-3 d-flex align-items-center" style="margin-bottom: 15px;">
                                               <label style="margin-right: 10px;">Status</label>
@@ -249,12 +231,6 @@
                                               </div>
                                           </div>
                                         </div>
-                                        <!-- <div class="row mb-3">
-                                          <label for="updateAt" class="col-sm-3 col-form-label">Last Update</label>
-                                          <div class="col-sm-9">
-                                            <span class="form-control" readonly>{{ state?.appData?.data?.product.prixVente | number:'1.0-0' }}</span>
-                                          </div>
-                                        </div> -->
                                         
                                         <button *ngIf="state?.appData?.data?.product.ligneCommandes?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteProduct(state?.appData?.data?.product.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
                                           <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>

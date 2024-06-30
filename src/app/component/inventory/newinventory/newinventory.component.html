@@ -62,7 +62,7 @@
                                                             [ngValue]="product.id"
                                                             [selected]=""
                                                             [disabled]=""
-                                                            class="select-cl">{{ product.name }}
+                                                            class="select-cl">{{ product.name }} <sub *ngIf="product.agencyName">({{product.agencyName}})</sub>
                                                           </option>
                                                       </select>
                                                     </div>

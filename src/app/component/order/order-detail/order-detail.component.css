@@ -1,0 +1,65 @@
+/* bouton product */
+.wrapper {
+  display: inline-flex;
+  list-style: none;
+  height: auto; /* Ajusté pour s'adapter au contenu */
+  padding-top: 0; /* Supprimé pour réduire l'espace en haut */
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+}
+
+.wrapper .icon {
+  position: relative;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 10px; /* Ajusté la marge horizontale */
+  width: 40px; /* Ajusté la taille */
+  height: 40px; /* Ajusté la taille */
+  font-size: 20px; /* Ajusté la taille du texte */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Réduit l'ombre pour un effet plus léger */
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: -35px; /* Ajusté la position du tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  background: #333; /* Couleur de fond assombrie */
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Augmenté l'ombre pour plus de contraste */
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px; /* Ajusté la position du tooltip au survol */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: none; /* Supprimé l'ombre du texte au survol */
+}
+
+.wrapper .info {
+  background: #1877f2; /* Couleur de fond du bouton */
+  color: #fff;
+}
+
+.wrapper .info .tooltip {
+  background: #1877f2; /* Couleur de fond du tooltip */
+}
+
+.wrapper .info .tooltip::before {
+  background: #1877f2; /* Couleur de l'accent du tooltip */
+}

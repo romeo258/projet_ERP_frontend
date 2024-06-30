@@ -9,6 +9,7 @@ import { User } from 'src/app/interface/user';
 import { InvoiceService } from 'src/app/service/invoice.service';
 import { NgForm } from '@angular/forms';
 import { LigneCommandeService } from 'src/app/service/ligne-commande.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newinvoice',
@@ -39,7 +40,7 @@ export class NewinvoiceComponent implements OnInit {
   readonly DataState = DataState;
 
 
-  constructor(private invoiceService: InvoiceService, private ligneCommandeService : LigneCommandeService) { }
+  constructor(private invoiceService: InvoiceService, private ligneCommandeService : LigneCommandeService, private router: Router) { }
 
   ngOnInit(): void {
     this.newInvoiceState$ = this.invoiceService.newInvoice$()
@@ -81,28 +82,6 @@ export class NewinvoiceComponent implements OnInit {
       )
   }
 
-  // newLigne(newLigneForm: NgForm): void {
-  //   const invoiceId = this.invoiceIdInput.nativeElement.value;
-  //   this.dataSubject.next({ ...this.dataSubject.value, message: null });
-  //   this.isLoadingSubject.next(true);
-  //   this.newInvoiceState$ = this.ligneCommandeService.createLigne$(invoiceId, newLigneForm.value.productId, newLigneForm.value)
-  //     .pipe(
-  //       map(response => {
-  //         console.log(response);
-  //         newLigneForm.reset({ productId: 'null'});
-  //         newLigneForm.reset({ quantityLC: ''});
-  //         this.isLoadingSubject.next(false);
-  //         this.dataSubject.next(response);
-  //         return { dataState: DataState.LOADED, appData: this.dataSubject.value };
-  //       }),
-  //       startWith({ dataState: DataState.LOADED, appData: this.dataSubject.value }),
-  //       catchError((error: string) => {
-  //         this.isLoadingSubject.next(false);
-  //         return of({ dataState: DataState.LOADED, error })
-  //       })
-  //     )
-  // }
-
   newLigne(newLigneForm: NgForm): void {
     const invoiceId = this.invoiceIdInput.nativeElement.value;
     this.dataSubject.next({ ...this.dataSubject.value, message: null });
@@ -126,6 +105,46 @@ export class NewinvoiceComponent implements OnInit {
           return of({ dataState: DataState.ERROR, error });
         })
       )
+  }
+
+  deleteInvoice(id: number): void {
+    this.isLoadingSubject.next(true);
+    this.newInvoiceState$ = this.invoiceService.deleteInvoices$(id)
+      .pipe(
+        map(response => {
+          console.log(response);
+          this.isLoadingSubject.next(false);
+          this.router.navigate(['/invoices']);
+          return { dataState: DataState.LOADED, appData: this.dataSubject.value };
+        }),
+        startWith({ dataState: DataState.LOADED, appData: this.dataSubject.value }),
+        catchError((error: string) => {
+          this.isLoadingSubject.next(false);
+          return of({ dataState: DataState.ERROR, error });
+        })
+      );
+  }
+
+  deleteLigne(id: number): void {
+    this.dataSubject.next({ ...this.dataSubject.value, message: null });
+    this.isLoadingSubject.next(true);
+    this.newInvoiceState$ = this.ligneCommandeService.deleteLignes$(id)
+    .pipe(
+      map(response => {
+        console.log(response);
+        this.isLoadingSubject.next(false);
+        this.dataSubject.next(response);
+        return { dataState: DataState.LOADED, appData: this.dataSubject.value };
+      }),
+      startWith({ dataState: DataState.LOADED, appData: this.dataSubject.value }),
+      catchError((error: any) => {
+        this.isLoadingSubject.next(false);
+        // Gérer les erreurs spécifiques ici
+        const errorMessage = error?.error?.message || 'Une erreur est survenue lors de la création de la ligne de commande.';
+        this.dataSubject.next({ ...this.dataSubject.value, error: errorMessage }); // Mettre à jour avec le message d'erreur
+        return of({ dataState: DataState.ERROR, error });
+      })
+    );
   }
 
 

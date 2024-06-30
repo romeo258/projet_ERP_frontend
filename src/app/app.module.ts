@@ -18,7 +18,6 @@ import { VerifyComponent } from './component/verify/verify.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { CustomersComponent } from './component/customer/customers/customers.component';
 import { StatsComponent } from './component/stats/stats.component';
-import { CommandComponent } from './component/command/command.component';
 import { CustomerDetailComponent } from './component/customer/customer-detail/customer-detail.component';
 import { NewcustomerComponent } from './component/customer/newcustomer/newcustomer.component';
 import { InvoicesComponent } from './component/invoice/invoices/invoices.component';
@@ -43,6 +42,9 @@ import { InventoriesComponent } from './component/inventory/inventories/inventor
 import { InventoryDetailComponent } from './component/inventory/inventory-detail/inventory-detail.component';
 import { NewinventoryComponent } from './component/inventory/newinventory/newinventory.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { InvoicePrintComponent } from './component/invoice/invoice-print/invoice-print.component';
+import { OrdersComponent } from './component/order/orders/orders.component';
+import { OrderDetailComponent } from './component/order/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     VerifyComponent,
     CustomersComponent,
     StatsComponent,
-    CommandComponent,
     CustomerDetailComponent,
     NewcustomerComponent,
     InvoicesComponent,
@@ -82,6 +83,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     InventoriesComponent,
     InventoryDetailComponent,
     NewinventoryComponent,
+    InvoicePrintComponent,
+    OrdersComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,

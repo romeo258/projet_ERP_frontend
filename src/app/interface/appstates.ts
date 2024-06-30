@@ -5,6 +5,7 @@ import { Customer } from "./customer";
 import { Events } from "./event";
 import { Fournisseur } from "./fournisseur";
 import { Invoice } from "./invoice";
+import { LigneCommande } from "./ligneCommande";
 import { Product } from "./product";
 import { Role } from "./role";
 import { Stock } from "./stock";
@@ -75,6 +76,11 @@ export interface FournisseurState {
 export interface ProductState {
     user: User;
     product: Product;
+}
+
+export interface LineState {
+    user: User;
+    ligneCommande: LigneCommande;
 }
 
 export interface UserState {

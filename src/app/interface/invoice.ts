@@ -8,6 +8,7 @@ export interface Invoice {
   status: string;
   total: number;
   createdAt: Date;
+  agencyCode: string;
   ligneCommandes?: LigneCommande[];
   customer?: Customer;
 }

@@ -15,7 +15,6 @@ import { UserDetailComponent } from './component/user/user-detail/user-detail.co
 import { InvoicesComponent } from './component/invoice/invoices/invoices.component';
 import { NewinvoiceComponent } from './component/invoice/newinvoice/newinvoice.component';
 import { InvoiceDetailComponent } from './component/invoice/invoice-detail/invoice-detail.component';
-import { CommandComponent } from './component/command/command.component';
 import { AgenciesComponent } from './component/agency/agencies/agencies.component';
 import { NewagencyComponent } from './component/agency/newagency/newagency.component';
 import { AgencyDetailComponent } from './component/agency/agency-detail/agency-detail.component';
@@ -31,6 +30,9 @@ import { ProductDetailComponent } from './component/product/product-detail/produ
 import { InventoriesComponent } from './component/inventory/inventories/inventories.component';
 import { NewinventoryComponent } from './component/inventory/newinventory/newinventory.component';
 import { InventoryDetailComponent } from './component/inventory/inventory-detail/inventory-detail.component';
+import { InvoicePrintComponent } from './component/invoice/invoice-print/invoice-print.component';
+import { OrdersComponent } from './component/order/orders/orders.component';
+import { OrderDetailComponent } from './component/order/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -65,9 +67,12 @@ const routes: Routes = [
 
   { path: 'invoices', component: InvoicesComponent, canActivate: [AuthenticationGuard] },
   { path: 'invoices/new', component: NewinvoiceComponent, canActivate: [AuthenticationGuard] },
-  { path: 'invoices/:id/:invoiceNumber', component: InvoiceDetailComponent, canActivate: [AuthenticationGuard] },
+  { path: 'invoices/:id', component: InvoiceDetailComponent, canActivate: [AuthenticationGuard] },
+  { path: 'invoices/:id/:invoiceNumber', component: InvoicePrintComponent, canActivate: [AuthenticationGuard] },
 
-  { path: 'orders', component: CommandComponent, canActivate: [AuthenticationGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthenticationGuard] },
+  { path: 'orders/:id', component: OrderDetailComponent, canActivate: [AuthenticationGuard] },
+
 
   { path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard] },
   { path: 'users/:id', component: UserDetailComponent, canActivate: [AuthenticationGuard] },

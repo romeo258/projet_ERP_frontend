@@ -1,4 +1,4 @@
-<div *ngIf="(stocksState$ | async) as state" [ngSwitch]="state.dataState">
+<div *ngIf="(lignesState$ | async) as state" [ngSwitch]="state.dataState">
   <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
     <body id="page-top">
       <!-- Page Wrapper -->
@@ -27,19 +27,19 @@
                             <li class="breadcrumb-item">
                                 <a [routerLink]="['/']">Home</a>
                             </li>
-                            <li class="breadcrumb-item active"> Stocks </li>
+                            <li class="breadcrumb-item active"> Oders </li>
                           </ol>
                       </nav>
                       <div class="row mt-3">
                           <div class="col">
-                            <h4 class="fw-bold text-start">Stocks</h4>
+                            <h4 class="fw-bold text-start">All Oders</h4>
                           </div>
                           <div class="col">
                             <div class="d-flex justify-content-end align-items-center">
-                              <form #searchForm="ngForm" (ngSubmit)="searchStocks(searchForm)" class="d-flex">
+                              <form #searchForm="ngForm" (ngSubmit)="searchLines(searchForm)" class="d-flex">
                                 <div class="me-2 flex-grow-1">
-                                  <label for="stockNumber" class="visually-hidden"></label>
-                                  <input type="text" ngModel name="stockNumber" #stockNumber class="form-control form-control-sm" placeholder="Stock Number">
+                                  <label for="name" class="visually-hidden"></label>
+                                  <input type="text" ngModel name="name" #name class="form-control form-control-sm" placeholder="Product name">
                                 </div>
                                 <div class="me-2">
                                   <button type="submit" class="btn btn-primary btn-sm"> 
@@ -54,32 +54,29 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                          <!-- <th class="text-center" scope="col">ID</th> -->
-                                          <th scope="col">Code</th>
-                                          <th scope="col">Operation</th>
-                                          <th scope="col">Quantity</th>
-                                          <th scope="col">Purchase Price</th>
+                                          <th scope="col">Reference</th>
+                                          <th scope="col">Product</th>
                                           <th scope="col">Selling Price</th>
+                                          <th scope="col">Quantity</th>
+                                          <th scope="col">Amount</th>
                                           <th scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-body">
-                                      <tr *ngFor="let stock of state?.appData?.data?.page.content" [routerLink]="['/inventories', stock.id]" class="cell-1" style="cursor: pointer;">
-                                        <td hidden>{{ stock.id }}</td>
-                                        <td>{{ stock.stockNumber }}</td>
+                                      <tr *ngFor="let order of state?.appData?.data?.page.content" [routerLink]="['/orders', order.id]" class="cell-1" style="cursor: pointer;">
+                                        <td hidden>{{ order.reference }}</td>
                                         <td>
-                                          <span class="badge"
-                                              [ngClass]="[
-                                                  stock.action === 'STOCK_IN' ? ' bg-success' : '',
-                                                  stock.action === 'STOCK_OUT' ? ' bg-danger' : '',]" 
-                                              >
-                                            {{ stock.action }}
-                                          </span>
+                                          <span class="badge" [ngClass]="['bg-warning']">{{ order.id }}</span>
                                         </td>
-                                        <td>{{ stock.quantityIn ? stock.quantityIn : stock.quantityOut }}</td>
-                                        <td>{{ stock.prixAchat | number: '1.0-0' }} CFA</td>
-                                        <td>{{ stock.prixVente | number: '1.0-0' }} CFA</td>
-                                        <td>{{ stock.createdAt | date: 'mediumDate' }}</td>
+                                        <td>{{ order.name }}</td>
+                                        <td>
+                                          <span class="badge" [ngClass]="['bg-primary']">{{ order.prixVente | number: '1.0-0' }} CFA</span>
+                                        </td>
+                                        <td>{{ order.quantityLC }}</td>
+                                        <td>
+                                          <span class="badge" [ngClass]="['bg-success']">{{ order.prixVenteTotal }} CFA</span>
+                                        </td>
+                                        <td>{{ order.createdAt | date: 'mediumDate' }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -107,13 +104,6 @@
                   <!-- /.container-fluid -->
     
           </div>
-
-           <!-- boutton d'ajoute pour customer -->
-         <a class="nav-link" [routerLink]="['/inventories/new']"> 
-          <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
-                  <i class="bi bi-clipboard-check align-center"></i>
-          </span>
-         </a>
 
           <!-- Footer -->
             <app-footer></app-footer>
