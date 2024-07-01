@@ -1,1 +1,174 @@
-<p>invoice-print works!</p>
+<div *ngIf="(invoiceState$ | async) as state" [ngSwitch]="state.dataState">
+  <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+    <body id="page-top">
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+
+        <!-- Sidebar -->
+        <app-sidebar></app-sidebar>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- navbar -->
+            <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+
+
+            <!-- CONTENU PRINCIPAL DE LA PAGE -->
+              <!-- Begin Page Content -->
+              <div class="container-fluid">
+
+                <section>
+                      <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item">
+                                  <a [routerLink]="['/']">Home</a>
+                              </li>
+                              <li class="breadcrumb-item"> <a [routerLink]="['/invoices']">Invoices</a> </li>
+                              <li class="breadcrumb-item active" aria-current="page">{{ state?.appData?.data?.invoice.invoiceNumber }}</li>
+                          </ol>
+                      </nav>
+                      <div class="row">
+                        <div class="col-md-12">
+                           <div class="invoice">
+                              <div class="invoice-company text-inverse f-w-600">
+                                 <span>
+                                 <a (click)="exportAsPDF()" class="btn btn-sm btn-white m-b-10 p-l-5" style="font-weight: 500;background-color: #d6e0e5;color: #ea0c4b;">
+                                    <i class="bi bi-file-earmark-pdf-fill" style="color: #ea0c4b;"></i>
+                                     Export as PDF
+                                 </a>
+                                 </span>
+                              </div>
+                              <hr>
+                              <div id="invoice">
+                                 <div class="invoice-header">
+                                    <div class="invoice-from">
+                                       <small>from</small>
+                                       <address class="m-t-5 m-b-5">
+                                          <strong class="text-inverse">SpringTech, Inc.</strong><br>
+                                          123 Nle. Route Bastos<br>
+                                          Yaounde, Centre, Cameroun<br>
+                                          Phone: (237) 682-629-274<br>
+                                          Fax: (237) 693-905-473
+                                       </address>
+                                    </div>
+                                    <div class="invoice-to">
+                                       <small>to</small>
+                                       <address class="m-t-5 m-b-5">
+                                          <strong class="text-inverse">{{ state?.appData?.data?.customer.name }}</strong><br>
+                                          Address: {{ state?.appData?.data?.customer.address }} <br>
+                                          Email: {{ state?.appData?.data?.customer.email }} <br>
+                                          Phone: {{ state?.appData?.data?.customer.phone }} <br>
+                                          Status: 
+                                              <span class="badge" 
+                                                [ngClass]="[ state?.appData?.data?.invoice.status === 'PAID' ? ' bg-success' : '',
+                                                            state?.appData?.data?.invoice.status === 'UNPAID' ? ' bg-danger' : '',                                
+                                                          ]">
+                                                  {{ state?.appData?.data?.invoice.status }}
+                                              </span>
+                                       </address>
+                                    </div>
+                                    <div class="invoice-date">
+                                       <small>Invoice Number: #{{ state?.appData?.data?.invoice.invoiceNumber }}</small>
+                                       <small *ngIf="state?.appData?.data?.invoice?.agencyFact"><br> Agency: @{{ state?.appData?.data?.invoice?.agencyFact }}</small><br>
+                                       <small>billing clerk: @{{ state?.appData?.data?.invoice.userFac }}</small>
+                                       <div class="date text-inverse m-t-5">Invoice Date: {{ state?.appData?.data?.invoice.createdAt | date: 'mediumDate' }}</div>
+                                       <div class="invoice-detail">Due Date: 30 Days from Invoice Date</div>
+                                    </div>
+                                 </div>
+                                 <div class="invoice-content">
+                                    <div class="table-responsive">
+                                       <table class="table table-invoice">
+                                          <thead>
+                                             <tr>
+                                                <th class="text-center" width="10%">#</th>
+                                                <th>Provided Oders</th>
+                                                <th class="text-center" width="10%">AMOUNT</th>
+                                                <th class="text-center" width="10%">RATE</th>
+                                                <th class="text-right" width="20%">TOTAL</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr *ngFor="let order of state?.appData?.data?.invoice.ligneCommandes">
+                                                   <td class="text-center">{{ order.reference }}</td>
+                                                   <td>
+                                                      <span class="text-inverse">{{ order.name }}</span><br>
+                                                   </td>
+                                                   <td class="text-center"> {{ order.prixVente | number: '1.0-0' }}CFA</td>
+                                                   <td class="text-center"> {{order.quantityLC}} </td>
+                                                   <td class="text-right">{{ order.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <div class="invoice-price">
+                                       <div class="invoice-price-left">
+                                          <div class="invoice-price-row">
+                                             <div class="sub-price">
+                                                <small>SUBTOTAL</small>
+                                                <span class="text-inverse">{{ state?.appData?.data?.invoice.total | number: '1.0-0' }} CFA</span>
+                                             </div>
+                                             <div class="sub-price">
+                                                <!-- <i class="fa fa-plus text-muted"></i> -->
+                                                <span class="text-muted">+</span>
+                                             </div>
+                                             <div class="sub-price">
+                                                <small>TAX (19.25%)</small>
+                                                <span class="text-inverse">{{ state?.appData?.data?.invoice.total * (19.25/100) | number: '.2-2'}} CFA</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="invoice-price-right">
+                                          <small>TOTAL</small> <span class="f-w-600">{{ state?.appData?.data?.invoice.total * (19.25/100) + state?.appData?.data?.invoice.total | number: '.2-2' }} CFA</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="invoice-footer">
+                                    <p class="text-center m-b-5 f-w-600">
+                                       THANK YOU FOR YOUR BUSINESS
+                                    </p>
+                                    <p class="text-center">
+                                       <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i>springtech.org</span> <br>
+                                       <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> Telephone:(237) 693-905-473</span><br>
+                                       <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> Email: springtech258@fmai.com</span>
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+              </section>
+
+              </div>
+              <!-- /.container-fluid -->
+ 
+            </div>
+  
+            <!-- Footer -->
+              <app-footer></app-footer>
+            <!-- End of Footer -->
+        </div>
+  
+      </div>
+        
+    </body>
+  </div>
+  
+      <div *ngSwitchCase="DataState.LOADING" class="loading-container" @fadeInOut>
+        <section class="dots-container">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </section>
+      </div>
+  
+     <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+        <div>{{ state.error }}</div>
+     </div>
+  
+</div>
