@@ -45,6 +45,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { InvoicePrintComponent } from './component/invoice/invoice-print/invoice-print.component';
 import { OrdersComponent } from './component/order/orders/orders.component';
 import { OrderDetailComponent } from './component/order/order-detail/order-detail.component';
+import { CacheInterceptor } from './interceptor/cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,9 @@ import { OrderDetailComponent } from './component/order/order-detail/order-detai
     BrowserAnimationsModule,
     NgSelectModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

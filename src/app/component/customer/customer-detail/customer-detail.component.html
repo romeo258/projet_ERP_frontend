@@ -169,19 +169,17 @@
                                           <tbody>
                                             <tr *ngFor="let invoice of state?.appData?.data?.customer.invoices" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
                                                 <td>{{ invoice.invoiceNumber }}</td>
-                                                <td >{{ invoice.ligneCommandes.id }}</td>
+                                                <td >{{ invoice.agencyCode? invoice.agencyCode : "Team Manager" }}</td>
                                                 <td>
                                                   <span class="badge"
                                                   [ngClass]="[
                                                     invoice.status === 'PAID' ? ' bg-success' : '',
-                                                    invoice.status === 'PENDING' ? ' bg-primary' : '',
-                                                    invoice.status === 'OVERDUE' ? ' bg-warning' : '',
-                                                    invoice.status === 'CANCELED' ? ' bg-danger' : ''
+                                                    invoice.status === 'UNPAID' ? ' bg-danger' : ''
                                                     ]">
                                                       {{ invoice.status }}
                                                   </span>
                                                 </td>
-                                                <td>{{ invoice.date | date: 'mediumDate' }}</td>
+                                                <td>{{ invoice.createdAt | date: 'mediumDate' }}</td>
                                                 <td>{{ invoice.total | number: '1.0-0' }} CFA</td>
                                                 <!-- <td>
                                                   <button type="button" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" class="btn btn-info btn-sm">Print</button>

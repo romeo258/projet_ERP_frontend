@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
-              <h2><i style="margin-right: 5px;" class="bi bi-safe"></i>SecureCapita</h2>
+              <h2><i style="margin-right: 5px;" class="bi bi-safe"></i>Spring Market</h2>
               <h5 class="card-title mt-4 mb-5">Create an Account</h5>
             </div>
             <div *ngIf="state.dataState === DataState.ERROR" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
@@ -41,10 +41,10 @@
             </form>
             <div class="row mb-4">
               <div class="col d-flex justify-content-start ms-4">
-                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/login']"><i class="bi bi-door-open"><strong> Login</strong></i></a>
+                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/login']"><i class="bi bi-door-open"> Login</i></a>
               </div>
               <div class="col d-flex justify-content-end me-4">
-                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/resetpassword']"> <i class="bi bi-arrow-clockwise bi-sm"> <strong> Reset</strong></i></a>
+                <a [ngStyle]="{'pointer-events' : state.dataState === DataState.LOADING ? 'none' : 'auto'}" [routerLink]="['/resetpassword']"> <i class="bi bi-arrow-clockwise bi-sm">Reset</i></a>
               </div>
             </div>
           </div>

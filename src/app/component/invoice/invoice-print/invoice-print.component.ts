@@ -9,7 +9,8 @@ import { State } from 'src/app/interface/state';
 import { User } from 'src/app/interface/user';
 import { InvoiceService } from 'src/app/service/invoice.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { jsPDF as pdf } from 'jspdf';
+import jsPDF, { jsPDF as pdf } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const INVOICE_ID = 'id';
 @Component({
@@ -65,5 +66,7 @@ export class InvoicePrintComponent implements OnInit {
     doc.html(document.getElementById('invoice'), { margin: 5, windowWidth: 1000, width: 200, 
       callback: (invoice) => invoice.save(filename) });
   }
+
+  
 
 }

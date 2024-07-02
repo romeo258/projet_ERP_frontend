@@ -137,7 +137,6 @@
                                         </form>
                                       </div>
                                       <div class="row">
-                                        <!-- *ngIf="invoice.ligneCommandes.length<1" -->
                                           <button *ngIf="state?.appData?.data?.invoice?.id" [hidden]="state?.appData?.data?.invoice?.ligneCommandes" (click)="deleteInvoice(state?.appData?.data?.invoice?.id)" [disabled]="state.dataState === DataState.LOADING || (isLaoding$ | async)"
                                              class="btn btn-danger mt-2">
                                             <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
@@ -152,64 +151,37 @@
                                             </span>
                                             <span *ngIf="!(isLaoding$ | async)">Finish</span>
                                           </button>
-                                        
-                                        <!-- <span class="action-circle bg-primary" [routerLink]="['/invoices', invoice.id]">
-                                          <i class="bi bi-pencil-square bi-sm" alt="edit"></i>
-                                        </span>
-                                        
-                                        <span class="action-circle bg-success ms-1" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
-                                          <i class="bi bi-printer bi-sm" alt="print"></i>
-                                        </span>  -->
                                       </div>
                                   </div>
                               </div>
                               <div class="col-xm-12">
-                                <table class="table table-hover">
-                                   <thead>
-                                       <tr>
-                                        <!-- <th scope="col">Reference</th> -->
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">total</th>
-                                        <!-- <th scope="col">Host</th> -->
-                                        <th scope="col">Action</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody class="table-body">
-                                     <tr *ngFor="let ligne of state?.appData?.data?.invoice?.ligneCommandes" class="cell-1">
-                                         <td hidden>{{ ligne.id }}</td>
-                                         <td>{{ ligne.name }}</td>
-                                         <td>{{ ligne.prixVente | number:'1.0-0' }} CFA</td>
-                                         <td>{{ ligne.quantityLC }}</td>
-                                         <td>{{ ligne.prixVenteTotal | number: '1.0-0' }} CFA</td>
-                                         <td>
-                                            <span class="action-circle bg-danger me-1" (click)="deleteLigne(ligne.id)">
-                                              <i class="bi bi-trash bi-sm" alt="delete"></i>
-                                            </span>
-                                         </td>
-                                         <!-- <td>{{ ligne.agencyCodeLC }}</td> -->
-                                         <!-- <td>
-                                            <button [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" type="button" class="btn btn-info btn-sm">Print</button>
-                                         </td> -->
-                                      </tr>
-                                      <!-- <tr *ngIf="state?.appData?.data?.ligneCommande" class="cell-1">
-                                        <td hidden>{{ state?.appData?.data?.ligneCommande?.id }}</td>
-                                        <td>{{ state?.appData?.data?.ligneCommande?.name }}</td>
-                                        <td>{{ state?.appData?.data?.ligneCommande?.prixVente | number:'1.0-0' }} CFA</td>
-                                        <td>{{ state?.appData?.data?.ligneCommande?.quantityLC }}</td>
-                                        <td>{{ state?.appData?.data?.ligneCommande?.prixVenteTotal | number: '1.0-0' }} CFA</td>
-                                        <td>
-                                          <span class="action-circle bg-danger me-1" (click)="deleteLigne(state?.appData?.data?.ligneCommande?.id)">
-                                            <i class="bi bi-trash bi-sm" alt="delete"></i>
-                                          </span>
-                                        </td>
-                                     </tr> -->
-                                     <tr>
-                                      
-                                     </tr>
-                                   </tbody>
-                               </table>
+                                <div class="table-responsive-custom">
+                                  <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Price</th>
+                                          <th scope="col">Quantity</th>
+                                          <th scope="col">total</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                      <tr *ngFor="let ligne of state?.appData?.data?.invoice?.ligneCommandes" class="cell-1">
+                                          <td hidden>{{ ligne.id }}</td>
+                                          <td>{{ ligne.name }}</td>
+                                          <td>{{ ligne.prixVente | number:'1.0-0' }} CFA</td>
+                                          <td>{{ ligne.quantityLC }}</td>
+                                          <td>{{ ligne.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                          <td>
+                                              <span class="action-circle bg-danger me-1" (click)="deleteLigne(ligne.id)">
+                                                <i class="bi bi-trash bi-sm" alt="delete"></i>
+                                              </span>
+                                          </td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                              </div>
                           </div>
                       </div>
@@ -219,12 +191,6 @@
               <!-- /.container-fluid -->
  
             </div>
-
-            <!-- <a class="nav-link" [routerLink]="['/invoices/new']"> 
-              <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
-                      <i class="bi bi-file-earmark-text align-center bi-sm"></i>
-              </span>
-            </a> -->
   
             <!-- Footer -->
               <app-footer></app-footer>

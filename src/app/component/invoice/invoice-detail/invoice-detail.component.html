@@ -109,34 +109,36 @@
                                   </div>
                               </div>
                               <div class="col-xm-12">
-                                <table class="table table-hover">
-                                   <thead>
-                                       <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Action</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody class="table-body">
-                                     <tr *ngFor="let ligne of state?.appData?.data?.invoice?.ligneCommandes" class="cell-1">
-                                         <td hidden>{{ ligne.id }}</td>
-                                         <td>{{ ligne.name }}</td>
-                                         <td>{{ ligne.prixVente | number:'1.0-0' }} CFA</td>
-                                         <td>{{ ligne.quantityLC }}</td>
-                                         <td>{{ ligne.prixVenteTotal | number: '1.0-0' }} CFA</td>
-                                         <td>
-                                          <span class="action-circle bg-danger me-1" (click)="deleteLigne(ligne.id)">
-                                            <i class="bi bi-trash bi-sm" alt="delete"></i>
-                                          </span>
-                                         </td>
+                                <div class="table-responsive-custom">
+                                  <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Price</th>
+                                          <th scope="col">Quantity</th>
+                                          <th scope="col">Total</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-body">
+                                      <tr *ngFor="let ligne of state?.appData?.data?.invoice?.ligneCommandes" class="cell-1">
+                                          <td hidden>{{ ligne.id }}</td>
+                                          <td>{{ ligne.name }}</td>
+                                          <td>{{ ligne.prixVente | number:'1.0-0' }} CFA</td>
+                                          <td>{{ ligne.quantityLC }}</td>
+                                          <td>{{ ligne.prixVenteTotal | number: '1.0-0' }} CFA</td>
+                                          <td>
+                                            <span class="action-circle bg-danger me-1" (click)="deleteLigne(ligne.id)">
+                                              <i class="bi bi-trash bi-sm" alt="delete"></i>
+                                            </span>
+                                          </td>
+                                        </tr>
+                                      <tr>
+                                        
                                       </tr>
-                                     <tr>
-                                      
-                                     </tr>
-                                   </tbody>
-                               </table>
+                                    </tbody>
+                                  </table>
+                                </div>
                              </div>
                           </div>
                       </div>

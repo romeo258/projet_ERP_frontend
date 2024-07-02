@@ -44,8 +44,8 @@
                               </div>
                               <hr>
                               <div id="invoice">
-                                 <div class="invoice-header">
-                                    <div class="invoice-from">
+                                 <div class="invoice-header row">
+                                    <div class="invoice-from col-md-4 col-12">
                                        <small>from</small>
                                        <address class="m-t-5 m-b-5">
                                           <strong class="text-inverse">SpringTech, Inc.</strong><br>
@@ -55,7 +55,7 @@
                                           Fax: (237) 693-905-473
                                        </address>
                                     </div>
-                                    <div class="invoice-to">
+                                    <div class="invoice-to col-md-4 col-12">
                                        <small>to</small>
                                        <address class="m-t-5 m-b-5">
                                           <strong class="text-inverse">{{ state?.appData?.data?.customer.name }}</strong><br>
@@ -71,7 +71,7 @@
                                               </span>
                                        </address>
                                     </div>
-                                    <div class="invoice-date">
+                                    <div class="invoice-date col-md-4 col-12 text-md-right text-left">
                                        <small>Invoice Number: #{{ state?.appData?.data?.invoice.invoiceNumber }}</small>
                                        <small *ngIf="state?.appData?.data?.invoice?.agencyFact"><br> Agency: @{{ state?.appData?.data?.invoice?.agencyFact }}</small><br>
                                        <small>billing clerk: @{{ state?.appData?.data?.invoice.userFac }}</small>
@@ -80,7 +80,8 @@
                                     </div>
                                  </div>
                                  <div class="invoice-content">
-                                    <div class="table-responsive">
+                                    <!-- <div class="table-responsive"> -->
+                                    <div class="table-responsive-custom">
                                        <table class="table table-invoice">
                                           <thead>
                                              <tr>
@@ -97,32 +98,34 @@
                                                    <td>
                                                       <span class="text-inverse">{{ order.name }}</span><br>
                                                    </td>
-                                                   <td class="text-center"> {{ order.prixVente | number: '1.0-0' }}CFA</td>
+                                                   <td class="text-center"> {{ order.prixVente | number: '1.0-0' }} CFA</td>
                                                    <td class="text-center"> {{order.quantityLC}} </td>
                                                    <td class="text-right">{{ order.prixVenteTotal | number: '1.0-0' }} CFA</td>
                                              </tr>
                                           </tbody>
                                        </table>
                                     </div>
-                                    <div class="invoice-price">
-                                       <div class="invoice-price-left">
-                                          <div class="invoice-price-row">
-                                             <div class="sub-price">
-                                                <small>SUBTOTAL</small>
-                                                <span class="text-inverse">{{ state?.appData?.data?.invoice.total | number: '1.0-0' }} CFA</span>
-                                             </div>
-                                             <div class="sub-price">
-                                                <!-- <i class="fa fa-plus text-muted"></i> -->
-                                                <span class="text-muted">+</span>
-                                             </div>
-                                             <div class="sub-price">
-                                                <small>TAX (19.25%)</small>
-                                                <span class="text-inverse">{{ state?.appData?.data?.invoice.total * (19.25/100) | number: '.2-2'}} CFA</span>
+                                    <div class="table-responsive-custom">
+                                       <div class="invoice-price">
+                                          <div class="invoice-price-left">
+                                             <div class="invoice-price-row">
+                                                <div class="sub-price">
+                                                   <small>SUBTOTAL</small>
+                                                   <span class="text-inverse">{{ state?.appData?.data?.invoice.total | number: '1.0-0' }} CFA</span>
+                                                </div>
+                                                <div class="sub-price">
+                                                   <!-- <i class="fa fa-plus text-muted"></i> -->
+                                                   <span class="text-muted">+</span>
+                                                </div>
+                                                <div class="sub-price">
+                                                   <small>TAX (19.25%)</small>
+                                                   <span class="text-inverse">{{ state?.appData?.data?.invoice.total * (19.25/100) | number: '.2-2'}} CFA</span>
+                                                </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="invoice-price-right">
-                                          <small>TOTAL</small> <span class="f-w-600">{{ state?.appData?.data?.invoice.total * (19.25/100) + state?.appData?.data?.invoice.total | number: '.2-2' }} CFA</span>
+                                          <div class="invoice-price-right">
+                                             <small>TOTAL</small> <span class="f-w-600">{{ state?.appData?.data?.invoice.total * (19.25/100) + state?.appData?.data?.invoice.total | number: '.2-2' }} CFA</span>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
@@ -133,7 +136,7 @@
                                     <p class="text-center">
                                        <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i>springtech.org</span> <br>
                                        <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> Telephone:(237) 693-905-473</span><br>
-                                       <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> Email: springtech258@fmai.com</span>
+                                       <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> Email: springtech258@gmai.com</span>
                                     </p>
                                  </div>
                               </div>
