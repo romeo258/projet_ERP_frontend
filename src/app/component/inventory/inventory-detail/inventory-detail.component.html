@@ -74,7 +74,7 @@
                                           </div>
                                           <div class="modal-body">
                                                     <div class="row mb-3">
-                                                      <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                                      <label for="name" class="col-sm-3 col-form-label">Product Name</label>
                                                       <div class="col-sm-9">
                                                         <span class="form-control" readonly>{{ state?.appData?.data?.product.name }}</span>
                                                       </div>
@@ -88,7 +88,7 @@
                                                     <div class="row mb-3">
                                                       <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
                                                       <div class="col-sm-9">
-                                                        <span class="form-control" readonly>{{ state?.appData?.data?.product.quantity }}</span>
+                                                        <span class="form-control" readonly>{{ state?.appData?.data?.product.quantity?state?.appData?.data?.product.quantity:'0' }}</span>
                                                       </div>
                                                     </div>
                                                     <div class="row mb-3">

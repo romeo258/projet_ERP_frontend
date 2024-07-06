@@ -29,6 +29,8 @@ import { CustomerService } from 'src/app/service/customer.service';
 export class CustomerDetailComponent implements OnInit {
 
   showScrollButton: boolean = false;
+  showInvoicesSubject = new BehaviorSubject<boolean>(false);
+  showInvoices$ = this.showInvoicesSubject.asObservable();
 
   customerState$: Observable<State<CustomHttpResponse<CustomerState>>>;
   deleteState$: Observable<State<CustomHttpResponse<CustomerState>>>;
@@ -37,6 +39,7 @@ export class CustomerDetailComponent implements OnInit {
   isLoading$ = this.isLoadingSubject.asObservable();
   readonly DataState = DataState;
   private readonly CUSTOMER_ID: string = 'id';
+  totalBilled: number = 0;
 
   constructor(private activatedRoute: ActivatedRoute, private customerService: CustomerService, private router: Router) { }
 
@@ -46,6 +49,7 @@ export class CustomerDetailComponent implements OnInit {
         return this.customerService.customer$(+params.get(this.CUSTOMER_ID))
           .pipe(
             map(response => {
+              this.calculateTotalBilled(response.data.customer.invoices);
               console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
@@ -57,6 +61,28 @@ export class CustomerDetailComponent implements OnInit {
           )
       })
     );
+  }
+
+  // calculateTotalBilled(invoices: any[]): void {
+  //   if (invoices && Array.isArray(invoices)) {
+  //     this.totalBilled = invoices.reduce((acc, invoice) => {
+  //       const invoiceTotal = invoice.total;
+  //       if (typeof invoiceTotal === 'number') {
+  //         return acc + invoiceTotal;
+  //       } else {
+  //         console.warn('Invalid invoice total:', invoice.total);
+  //         return acc;
+  //       }
+  //     }, 0);
+  //     console.log('Total billed:', this.totalBilled);
+  //   } else {
+  //     console.warn('No invoices found or data is not an array.');
+  //     this.totalBilled = 0;
+  //   }
+  // }
+
+  private calculateTotalBilled(invoices: any[]): void {
+    this.totalBilled = (invoices || []).reduce((acc, invoice) => acc + (invoice.total || 0), 0);
   }
 
   updateCustomer(customerForm: NgForm): void {
@@ -100,6 +126,10 @@ export class CustomerDetailComponent implements OnInit {
           return of({ dataState: DataState.ERROR, error });
         })
       );
+  }
+
+  toggleInvoices() {
+    this.showInvoicesSubject.next(!this.showInvoicesSubject.getValue());
   }
 
 

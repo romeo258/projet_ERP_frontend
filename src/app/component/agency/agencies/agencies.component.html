@@ -1,5 +1,6 @@
 <div *ngIf="(agenciesState$ | async) as state" [ngSwitch]="state.dataState">
   <div *ngSwitchCase="DataState.LOADED" @fadeInOut>
+
     <body id="page-top">
       <!-- Page Wrapper -->
       <div id="wrapper">
@@ -17,115 +18,125 @@
             <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
 
 
-                <!-- CONTENU PRINCIPAL DE LA PAGE -->
-                  <!-- Begin Page Content -->
-                  <div class="container-fluid">
+            <!-- CONTENU PRINCIPAL DE LA PAGE -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                    <section>
-                      <nav aria-label="breadcrumb" style="margin-top: 8px;">
-                          <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a [routerLink]="['/']">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active"> Agencies </li>
-                          </ol>
-                      </nav>
-                      <div class="row mt-3">
-                          <div class="col">
-                            <h4 class="fw-bold text-start">Agencies</h4>
-                          </div>
-                          <div class="col">
-                            <div class="d-flex justify-content-end align-items-center">
-                              <form #searchForm="ngForm" (ngSubmit)="searchAgencies(searchForm)" class="d-flex">
-                                <div class="me-2 flex-grow-1">
-                                  <label for="name" class="visually-hidden"></label>
-                                  <input type="text" ngModel name="name" #name class="form-control form-control-sm" placeholder="Agency Name">
-                                </div>
-                                <div class="me-2">
-                                  <button type="submit" class="btn btn-primary btn-sm"> 
-                                    <i class="fas fa-search fa-sm"></i> 
-                                  </button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                          <div class="col-xm-12">
-                              <div class="table-responsive-custom">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                          <!-- <th class="text-center" scope="col">ID</th> -->
-                                          <th scope="col">Name</th>
-                                          <th scope="col">Code</th>
-                                          <th scope="col">City</th>
-                                          <th scope="col">Creation Date</th>
-                                          <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-body">
-                                        <tr *ngFor="let agency of state?.appData?.data?.page.content" [routerLink]="['/agencies', agency.id]" class="cell-1" style="cursor: pointer;">
-                                          <th hidden class="text-center">{{ agency.id }}</th>
-                                          <td>{{ agency.name }}</td>
-                                          <td>{{ agency.code }}</td>                          
-                                          <td>{{ agency.ville }}</td>
-                                          <td>{{ agency.createdAt | date: 'MMMM d, y' }}</td>
-                                          <td>
-                                            <span class="badge"
-                                              [ngClass]="[
-                                                  agency.status === 'ACTIVE' ? ' bg-success' : '',
-                                                  agency.status === 'INACTIVE' ? ' bg-danger' : '',]" 
-                                            >
-                                                {{ agency.status }}
-                                            </span>
-                                          </td>
-                                      </tr>
-                                    </tbody>
-                                </table>
-                              </div>  
-                              <nav *ngIf="state?.appData?.data?.page.content.length > 0" aria-label="Page navigation example">
-                                  <ul class="pagination justify-content-end">
-                                    <li [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
-                                        <a (click)="goToNextOrPreviousPage('backward', searchForm.value.name)" class="page-link">&laquo; Prev</a>
-                                    </li>
-                                    <li *ngFor="let pageNumber of state?.appData?.data?.page.totalPages | ExtractArrayValue: 'number'; let i = index;" class="page-item pointer">
-                                        <a (click)="goToPage(i, searchForm.value.name)" [ngClass]="i == (currentPage$ | async) ? ' active' : ''" class="page-link">
-                                          {{ i + 1 }}
-                                        </a>
-                                    </li>
-                                    <li [ngClass]="(state?.appData?.data?.page.totalPages - 1) == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
-                                        <a (click)="goToNextOrPreviousPage('forward', searchForm.value.name)" class="page-link">Next &raquo;</a>
-                                    </li>
-                                  </ul>
-                              </nav>
-                          </div>
-                      </div>
-                    </section>
-
+              <section>
+                <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active"> Agencies </li>
+                  </ol>
+                </nav>
+                <div class="row mt-3">
+                  <div class="col">
+                    <h4 class="fw-bold text-start">Agencies</h4>
                   </div>
-                  <!-- /.container-fluid -->
-    
+                  <div class="col">
+                    <div class="d-flex justify-content-end align-items-center">
+                      <form #searchForm="ngForm" (ngSubmit)="searchAgencies(searchForm)" class="d-flex">
+                        <div class="me-2 flex-grow-1">
+                          <label for="name" class="visually-hidden"></label>
+                          <input type="text" ngModel name="name" #name class="form-control form-control-sm"
+                            placeholder="Agency Name">
+                        </div>
+                        <div class="me-2">
+                          <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-search fa-sm"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                    <div *ngFor="let agency of state?.appData?.data?.page.content"
+                      [routerLink]="['/agencies', agency.id]" class="cell-1" style="cursor: pointer;">
+                      <div class="card mb-3">
+                        <div class="card-body row">
+                          <div class="col-6">
+                            <img src="assets/agency-img.ico" alt="Empty" class="img-fluid rounded-circle w-100">
+                          </div>
+                          <div class="col-6 card-title align-self-center mb-0">
+                            <h5>{{agency.name}}</h5>
+                            <p class="m-0">
+                              <span class="badge" [ngClass]="[
+                                                                agency.status === 'ACTIVE' ? ' bg-success' : '',
+                                                                agency.status === 'INACTIVE' ? ' bg-danger' : '',]">
+                                {{ agency.status }}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><i class="fa fa-city float-end"></i>City: {{agency.ville}}
+                          </li>
+                          <li class="list-group-item" *ngIf="agency.code">
+                            <i class="bi bi-building float-end"></i><b>{{agency.code}}</b>
+                          </li>
+                          <li class="list-group-item" *ngIf="agency.createdAt">
+                            <i class="bi bi-calendar float-end"></i><b>{{ agency.createdAt | date: 'MMMM d, y' }}</b>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <nav *ngIf="state?.appData?.data?.page.content.length > 0" aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
+                      <a (click)="goToNextOrPreviousPage('backward', searchForm.value.name)" class="page-link">&laquo;
+                        Prev</a>
+                    </li>
+                    <li
+                      *ngFor="let pageNumber of state?.appData?.data?.page.totalPages | ExtractArrayValue: 'number'; let i = index;"
+                      class="page-item pointer">
+                      <a (click)="goToPage(i, searchForm.value.name)"
+                        [ngClass]="i == (currentPage$ | async) ? ' active' : ''" class="page-link">
+                        {{ i + 1 }}
+                      </a>
+                    </li>
+                    <li
+                      [ngClass]="(state?.appData?.data?.page.totalPages - 1) == (currentPage$ | async) ? ' disabled' : ''"
+                      class="page-item pointer">
+                      <a (click)="goToNextOrPreviousPage('forward', searchForm.value.name)" class="page-link">Next
+                        &raquo;</a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </section>
+
+            </div>
+            <!-- /.container-fluid -->
+
           </div>
 
-          <!-- boutton d'ajoute pour customer -->
-         <a class="nav-link" [routerLink]="['/agencies/new']"> 
-          <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
-                  <i class="bi bi-building align-center"></i>
-          </span>
-         </a>
+          <!-- boutton d'ajoute pour agence -->
+          <a class="nav-link" [routerLink]="['/agencies/new']" *ngIf="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN'">
+            <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4"
+              style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
+              <i class="bi bi-building align-center"></i>
+            </span>
+          </a>
 
 
           <!-- Footer -->
-            <app-footer></app-footer>
+          <app-footer></app-footer>
           <!-- End of Footer -->
         </div>
 
       </div>
       <!-- Scroll to Top Button-->
-
+      <!-- 
       <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
         <i class="fas fa-angle-up"></i>
-      </button>
-      
+      </button> -->
+
     </body>
   </div>
 
@@ -139,8 +150,8 @@
     </section>
   </div>
 
-   <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
-      <div>{{ state.error }}</div>
-   </div>
+  <div *ngSwitchCase="DataState.ERROR" @fadeInOut>
+    <div>{{ state.error }}</div>
+  </div>
 
 </div>

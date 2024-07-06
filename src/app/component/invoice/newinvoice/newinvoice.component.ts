@@ -58,7 +58,7 @@ export class NewinvoiceComponent implements OnInit {
   }
 
   selectedCustomerId: string | null = null;
-  selectedStatus: string = 'PENDING';
+  selectedStatus: string = 'Select';
   @ViewChild('invoiceIdInput') invoiceIdInput: ElementRef;
 
   newInvoice(newInvoiceForm: NgForm): void {
@@ -68,7 +68,7 @@ export class NewinvoiceComponent implements OnInit {
       .pipe(
         map(response => {
           console.log(response);
-          newInvoiceForm.reset({ status: 'UNPAID'});
+          newInvoiceForm.reset({ status: ''});
           this.selectedCustomerId = null;
           this.isLoadingSubject.next(false);
           this.dataSubject.next(response);

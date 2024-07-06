@@ -35,17 +35,6 @@
                         <div class="col">
                           <h4 class="fw-bold text-start">Users</h4>
                         </div>
-                        <!-- <div class="col">
-                          <form #searchForm="ngForm" (ngSubmit)="searchUsers(searchForm)" class="row g-3 float-end">
-                            <div class="col-auto">
-                              <label for="firstName" class="visually-hidden"></label>
-                              <input type="text" ngModel name="firstName" #name class="form-control" placeholder="First Name">
-                            </div>
-                            <div class="col-auto">
-                              <button type="submit" class="btn btn-primary mb-3"> <i class="fas fa-search fa-sm"></i> </button>
-                            </div>
-                          </form>
-                        </div> -->
                         <div class="col">
                           <div class="d-flex justify-content-end align-items-center">
                             <form #searchForm="ngForm" (ngSubmit)="searchUsers(searchForm)" class="d-flex">
@@ -62,26 +51,28 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                              <div *ngFor="let user of state?.appData?.data?.page" class="col mb-3" [routerLink]="['/users', user.id]" style="cursor: pointer;">
-                                <div class="card mb-3">
-                                    <div class="card-body row">
-                                          <div class="col-6">
-                                            <img [src]="user.imageUrl" alt="Empty" class="img-fluid rounded-circle w-100">
-                                          </div>
-                                          <div class="col-6 card-title align-self-center mb-0">
-                                            <h5>{{user.firstName}} <span>{{user.lastName}}</span></h5>
-                                            <p class="m-0">{{user.address}}</p>
-                                          </div>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                          <li class="list-group-item"><i class="fa fa-envelope float-end"></i>Email : <a [href]="'mailto:' + user.email">{{user.email}}</a></li>
-                                          <li class="list-group-item" *ngIf="user.phone"><i class="fa fa-phone float-end"></i>{{user.phone}}</li>
-                                          <li class="list-group-item" *ngIf="user.agencyCode"><i class="bi bi-building float-end"></i><b>{{user.agencyCode}}</b></li>
-                                          <li class="list-group-item" *ngIf="user.title"><i class="bi bi-person-workspace float-end"></i><b>{{user.title}}</b></li>
-                                    </ul>
+                      <div class="mt-4">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                <div *ngFor="let user of state?.appData?.data?.page" class="col mb-3" [routerLink]="['/users', user.id]" style="cursor: pointer;">
+                                  <div class="card mb-3">
+                                      <div class="card-body row">
+                                            <div class="col-6">
+                                              <img [src]="user.imageUrl" alt="Empty" class="img-fluid rounded-circle w-100">
+                                            </div>
+                                            <div class="col-6 card-title align-self-center mb-0">
+                                              <h5>{{user.firstName}} <span>{{user.lastName}}</span></h5>
+                                              <p class="m-0">{{user.address}}</p>
+                                            </div>
+                                      </div>
+                                      <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><i class="fa fa-envelope float-end"></i>Email : <a [href]="'mailto:' + user.email">{{user.email}}</a></li>
+                                            <li class="list-group-item" *ngIf="user.phone"><i class="fa fa-phone float-end"></i>{{user.phone}}</li>
+                                            <li class="list-group-item" *ngIf="user.agencyCode"><i class="bi bi-building float-end"></i><b>{{user.agencyCode}}</b></li>
+                                            <li class="list-group-item" *ngIf="user.title"><i class="bi bi-person-workspace float-end"></i><b>{{user.title}}</b></li>
+                                      </ul>
+                                  </div>
                                 </div>
-                              </div>
+                        </div>
                       </div>
                     </section>
                   </div>

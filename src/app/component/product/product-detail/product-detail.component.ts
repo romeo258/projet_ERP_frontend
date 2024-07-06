@@ -29,6 +29,10 @@ import { NgForm } from '@angular/forms';
 export class ProductDetailComponent implements OnInit {
 
   showScrollButton: boolean = false;
+  showOrdersSubject = new BehaviorSubject<boolean>(false);
+  showOrders$ = this.showOrdersSubject.asObservable();
+  showOperationsSubject = new BehaviorSubject<boolean>(false);
+  showOperations$ = this.showOperationsSubject.asObservable();
 
   productState$: Observable<State<CustomHttpResponse<ProductState>>>;
   deleteState$: Observable<State<CustomHttpResponse<ProductState>>>;
@@ -110,6 +114,14 @@ export class ProductDetailComponent implements OnInit {
           return of({ dataState: DataState.ERROR, error });
         })
       );
+  }
+
+  toggleOrders() {
+    this.showOrdersSubject.next(!this.showOrdersSubject.getValue());
+  }
+
+  toggleOperations() {
+    this.showOperationsSubject.next(!this.showOperationsSubject.getValue());
   }
 
   @HostListener('window:scroll', [])

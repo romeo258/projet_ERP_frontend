@@ -48,7 +48,7 @@
                                               </button>
                                           </div>
           
-                                          <form #newCustomerForm="ngForm" (ngSubmit)="createCustomer(newCustomerForm)">
+                                          <form #newCustomerForm="ngForm" (ngSubmit)="createCustomer(newCustomerForm)" [hidden]="state?.appData?.data?.user.roleName === 'ROLE_USER'">
                                               <div class="row">
                                                   <div class="col-md-6" style="margin-bottom: 15px;">
                                                       <div class="form-group">
@@ -96,7 +96,7 @@
                                                   </div>
                                               </div>
                                               <div>
-                                                  <button [disabled]="state.dataState === DataState.LOADING || newCustomerForm.invalid || newCustomerForm.pristine|| (isLaoding$ | async)"
+                                                  <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || state.dataState === DataState.LOADING || newCustomerForm.invalid || newCustomerForm.pristine|| (isLaoding$ | async)"
                                                    type="submit" class="btn btn-primary mt-5">
                                                       <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
                                                           role="status" aria-hidden="true" style="margin-right: 5px;"></span>
@@ -105,6 +105,12 @@
                                                   </button>
                                               </div>
                                           </form>
+                                          <!-- Message d'information -->
+                                          <div *ngIf="state?.appData?.data?.user.roleName === 'ROLE_USER'">
+                                            <div class="alert alert-warning mt-3" role="alert">
+                                            Vous n'avez pas les autorisations nécessaires pour accéder à ce formulaire. Veuillez contacter l'administrateur.
+                                            </div>
+                                          </div>
                                       </div>
                                   </div>
                               </div>

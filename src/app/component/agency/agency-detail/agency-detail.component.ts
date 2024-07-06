@@ -29,6 +29,10 @@ import { AgencyService } from 'src/app/service/agency.service';
 export class AgencyDetailComponent implements OnInit {
 
   showScrollButton: boolean = false;
+  showProductsSubject = new BehaviorSubject<boolean>(false);
+  showProducts$ = this.showProductsSubject.asObservable();
+  showOrdersSubject = new BehaviorSubject<boolean>(false);
+  showOrders$ = this.showOrdersSubject.asObservable();
 
   totalLigneCommandes: number = 0;
   totalPrixVente: number = 0;
@@ -134,7 +138,12 @@ private extractLigneCommandes(products: any[]): any[] {
   return allLigneCommandes;
 }
 
-
+toggleProducts() {
+  this.showProductsSubject.next(!this.showProductsSubject.getValue());
+}
+toggleOrders() {
+  this.showOrdersSubject.next(!this.showOrdersSubject.getValue());
+}
   
 
   @HostListener('window:scroll', [])

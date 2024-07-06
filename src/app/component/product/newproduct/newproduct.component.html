@@ -53,7 +53,7 @@
                                                     aria-label="Close"></button>
                                             </div>
 
-                                            <form #newProductForm="ngForm" (ngSubmit)="newProduct(newProductForm)">
+                                            <form #newProductForm="ngForm" (ngSubmit)="newProduct(newProductForm)" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN')">
                                                 <div class="row">
                                                     <div class="col-md-4" style="margin-bottom: 15px;">
                                                       <label>Agency</label>
@@ -117,6 +117,12 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            <!-- Message d'information -->
+                                            <div *ngIf="state?.appData?.data?.user.roleName === 'ROLE_USER'">
+                                              <div class="alert alert-warning mt-3" role="alert">
+                                              Vous n'avez pas les autorisations nécessaires pour accéder à ce formulaire. Veuillez contacter l'administrateur.
+                                              </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

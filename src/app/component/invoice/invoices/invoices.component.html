@@ -75,22 +75,19 @@
                                           <strong> {{ invoice.status }} </strong>
                                         </span>
                                       </td>
-                                      <td>{{ invoice.total | number:'1.0-0' }} CFA</td>
+                                      <td>{{ invoice.total ? invoice.total : 0 | number:'1.0-0' }} CFA</td>
                                       <td>{{ invoice.createdAt | date: 'mediumDate' }}</td>
                                       <td>{{ invoice.userFac ? invoice.userFac : "Team Manager" }} <sub *ngIf="invoice.agencyFact">({{invoice.agencyFact}})</sub></td>
-                                      <!-- <td>
-                                        <button [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]" type="button" class="btn btn-info btn-sm">Print</button>
-                                      </td> -->
                                       <td class="d-flex justify-content-center align-items-center">
-                                        <span *ngIf="invoice.ligneCommandes.length<1" class="action-circle bg-danger me-1" (click)="deleteInvoice(invoice.id)">
+                                        <span [hidden]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN')" *ngIf="invoice.ligneCommandes.length<1" class="action-circle bg-danger me-1" (click)="deleteInvoice(invoice.id)">
                                           <i class="bi bi-trash bi-sm" alt="delete"></i>
                                         </span>
                                         
-                                        <span class="action-circle bg-primary" [routerLink]="['/invoices', invoice.id]">
+                                        <span class="action-circle bg-primary" [routerLink]="['/invoices', invoice.id]" [hidden]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN')">
                                           <i class="bi bi-pencil-square bi-sm" alt="edit"></i>
                                         </span>
                                         
-                                        <span class="action-circle bg-success ms-1" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
+                                        <span *ngIf="invoice.total" class="action-circle bg-success ms-1" [routerLink]="['/invoices', invoice.id, invoice.invoiceNumber]">
                                           <i class="bi bi-printer bi-sm" alt="print"></i>
                                         </span>                                      
                                       </td>
@@ -122,7 +119,7 @@
  
           </div>
 
-            <a class="nav-link" [routerLink]="['/invoices/new']"> 
+            <a class="nav-link" [routerLink]="['/invoices/new']" *ngIf="!(state?.appData?.data?.user?.roleName === 'ROLE_USER')"> 
               <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
                       <i class="bi bi-file-earmark-text align-center bi-sm"></i>
               </span>
@@ -136,9 +133,9 @@
       </div>
         <!-- Scroll to Top Button-->
   
-        <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
+        <!-- <button [class.scroll-to-top]="showScrollButton" [class.hidden]="!showScrollButton" (click)="scrollToTop()" class="rounded">
           <i class="fas fa-angle-up"></i>
-        </button>
+        </button> -->
         
     </body>
   </div>

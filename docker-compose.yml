@@ -1,0 +1,13 @@
+services:
+  secureapp-front:
+    container_name: secureapp-front
+    build: .
+    image: secureapp-front:v1
+    ports:
+      - 4200:80
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge

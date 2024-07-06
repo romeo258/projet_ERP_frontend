@@ -48,7 +48,7 @@
                                           </button>
                                       </div>
       
-                                      <form #newAgencyForm="ngForm" (ngSubmit)="createAgency(newAgencyForm)">
+                                      <form #newAgencyForm="ngForm" (ngSubmit)="createAgency(newAgencyForm)" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')">
                                           <div class="row">
                                               <div class="col-md-6" style="margin-bottom: 15px;">
                                                   <div class="form-group">
@@ -78,7 +78,8 @@
                                           </div>
                                           <div>
                                               <button [disabled]="state.dataState === DataState.LOADING || newAgencyForm.invalid || newAgencyForm.pristine|| (isLaoding$ | async)"
-                                               type="submit" class="btn btn-primary mt-5">
+                                              [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')"
+                                                type="submit" class="btn btn-primary mt-5">
                                                   <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
                                                       role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                                   <span *ngIf="isLaoding$ | async">Saving...</span>
@@ -86,6 +87,12 @@
                                               </button>
                                           </div>
                                       </form>
+                                       <!-- Message d'information -->
+                                        <div *ngIf="state?.appData?.data?.user.roleName === 'ROLE_USER' || state?.appData?.data?.user.roleName === 'ROLE_MANAGER'">
+                                            <div class="alert alert-warning mt-3" role="alert">
+                                            Vous n'avez pas les autorisations nécessaires pour accéder à ce formulaire. Veuillez contacter l'administrateur.
+                                            </div>
+                                        </div>
                                   </div>
                               </div>
                           </div>

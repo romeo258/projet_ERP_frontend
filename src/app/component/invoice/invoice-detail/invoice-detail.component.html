@@ -36,7 +36,7 @@
                               <div class="card">
                                   <div class="card-body">
                                       <div class="text-center">
-                                          <h2><i style="margin-right: 5px;" class="bi bi-receipt"></i> Update Invoice Status
+                                          <h2><i style="margin-right: 5px;" class="bi bi-receipt"></i> Update Invoice
                                           </h2>
                                       </div>
                                       <div *ngIf="state.error"
@@ -57,16 +57,16 @@
                                       </div>
 
                                       <div class="row">
-                                        <div class="col-md-3" style="margin-bottom: 15px;">
-                                          <label>Refernce</label>
+                                        <div class="col-md-3" [hidden]="state?.appData?.data?.user.roleName === 'ROLE_USER'" style="margin-bottom: 15px;">
+                                          <label>Reference</label>
                                           <div>
                                             <input type="text" hidden [ngModel]="state?.appData?.data?.invoice?.id" name="invoiceId" #invoiceIdInput>
                                             <input type="text"  class="form-control" readonly [ngModel]="state?.appData?.data?.invoice?.invoiceNumber" name="invoiceNumber">
                                           </div>  
                                         </div>
                                         <div class="col-md-9">
-                                          <form #invoiceForm="ngForm" (ngSubmit)="updateInvoice(invoiceForm)">
-                                            <input type="hidden" [ngModel]="state?.appData?.data?.invoice.id" name="id" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                          <form #invoiceForm="ngForm" (ngSubmit)="updateInvoice(invoiceForm)" [hidden]="state?.appData?.data?.user.roleName === 'ROLE_USER'">
+                                            <input type="hidden" [ngModel]="state?.appData?.data?.invoice.id" name="id">
                                        
                                             <div class="row">
                                               <div class="col-md-3" style="margin-bottom: 15px;">
@@ -95,8 +95,14 @@
                                               </div>
                                             </div>
                                           </form>
+                                          <!-- Message d'information -->
+                                          <div *ngIf="state?.appData?.data?.user.roleName === 'ROLE_USER'">
+                                            <div class="alert alert-warning mt-3" role="alert">
+                                            Vous n'avez pas les autorisations nécessaires pour accéder à ce formulaire. Veuillez contacter l'administrateur.
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" [hidden]="state?.appData?.data?.user.roleName === 'ROLE_USER'">
                                             <button *ngIf="state?.appData?.data?.invoice?.ligneCommandes?.length<1" (click)="deleteInvoice(state?.appData?.data?.invoice?.id)" [disabled]="state.dataState === DataState.LOADING || (isLaoding$ | async)"
                                                class="btn btn-danger mt-5">
                                               <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
@@ -108,7 +114,7 @@
                                       </div>
                                   </div>
                               </div>
-                              <div class="col-xm-12">
+                              <div class="col-xm-12" [hidden]="state?.appData?.data?.user.roleName === 'ROLE_USER'">
                                 <div class="table-responsive-custom">
                                   <table class="table table-hover">
                                     <thead>

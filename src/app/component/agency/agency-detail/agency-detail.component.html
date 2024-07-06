@@ -87,30 +87,30 @@
                                   <div class="card-body">
                                     <h5 class="card-title">Agency Details</h5>
                                     <form #agencyForm="ngForm" (ngSubmit)="updateAgency(agencyForm)">
-                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.id" name="id" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
-                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.id" name="id" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)">
                                         <div class="row mb-3">
                                           <label for="name" class="col-sm-3 col-form-label">Name</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.agency.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.name" name="name" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="email" class="col-sm-3 col-form-label">Code</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.agency.code" name="code" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.code" name="code" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="type" class="col-sm-3 col-form-label">City</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.agency.ville" name="ville" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.ville" name="ville" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="status" class="col-sm-3 col-form-label">Status</label>
                                           <div class="col-sm-9">
-                                              <select [ngModel]="state?.appData?.data?.agency.status" name="status" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <select [ngModel]="state?.appData?.data?.agency.status" name="status" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)" class="form-control">
                                                   <option [ngValue]="'ACTIVE'">ACTIVE</option>
                                                   <option [ngValue]="'INACTIVE'">INACTIVE</option>
                                               </select>
@@ -119,7 +119,7 @@
                                         <div class="row mb-3 disabled">
                                           <label for="status" class="col-sm-3 col-form-label">Creation Date</label>
                                           <div class="col-sm-9">
-                                              <input type="text"  [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.agency.createdAt" name="createdAt" class="form-control">
                                           </div>
                                         </div>
                                         <button *ngIf="state?.appData?.data?.agency.products?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteAgency(state?.appData?.data?.agency.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
@@ -127,7 +127,7 @@
                                           <span *ngIf="isLoading$ | async">Loading...</span>
                                           <span *ngIf="!(isLoading$ | async)"><i class="fas fa-trash me-2"></i>Delete</span>
                                         </button>
-                                        <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
+                                        <button [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
                                           <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                           <span *ngIf="isLoading$ | async"><i class="fas fa-sync-alt me-2"></i>Loading...</span>
                                           <span *ngIf="!(isLoading$ | async)"><i class="fas fa-sync-alt me-2"></i>Update</span>
@@ -135,9 +135,63 @@
                                     </form>
                                   </div>
                               </div>
+                              <nav aria-label="breadcrumb">
+                                <div [formGroup]="statsForm">
+                                  <ol class="breadcrumb">
+                                    <li class="breadcrumb-item" aria-current="page">
+                                      <div class="col-auto">
+                                        <div class="checkbox-wrapper-12">
+                                          <div class="cbx">
+                                            <input type="checkbox" (change)="toggleProducts()" [disabled]="(isLoading$ | async)"
+                                                  [checked]="(showProducts$ | async)" id="cbx-12">
+                                            <label for="cbx-12"></label>
+                                            <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                              <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                            </svg>
+                                          </div>
+                                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                              <filter id="goo-12">
+                                                <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                                <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                                <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                              </filter>
+                                            </defs>
+                                          </svg>
+                                        </div>
+                                        <label for="cbx-12" class="me-2"><strong>Show Products</strong></label>
+                                      </div>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                      <div class="checkbox-wrapper-12">
+                                        <div class="cbx">
+                                          <input type="checkbox" (change)="toggleOrders()" 
+                                                 [disabled]="(isLoading$ | async)"
+                                                 [checked]="(showOrders$ | async)" id="cbx-13">
+                                          <label for="cbx-13"></label>
+                                          <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                            <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                          </svg>
+                                        </div>
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                          <defs>
+                                            <filter id="goo-13">
+                                              <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                              <feColorMatrix result="goo-13" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
+                                              <feBlend in2="goo-13" in="SourceGraphic"></feBlend>
+                                            </filter>
+                                          </defs>
+                                        </svg>
+                                      </div>
+                                      <label for="cbx-13" class="me-2"><strong>Show Orders</strong></label>
+                                    </li>
+                                  </ol>
+                                </div>
+                              </nav>
+                                
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="(showProducts$ | async)" [@fadeInOut]>
                             <div class="col-xl-12">
                               <div class="card">
                                   <div class="card-body">
@@ -164,7 +218,7 @@
                                                 <td>{{ product.name }}</td>
                                                 <td>{{ product.description }}</td>
                                                 <td>{{ product.prixVente | number: '1.0-0' }} CFA</td>
-                                                <td>{{ product.quantity }}</td>
+                                                <td>{{ product.quantity ? product.quantity : '0' }}</td>
                                                 <td>
                                                   <span class="badge"
                                                   [ngClass]="[
@@ -186,8 +240,8 @@
                                   </div>
                                 </div>
                             </div>
-                          </div>
-                        <div class="row">
+                        </div>
+                        <div class="row" *ngIf="(showOrders$ | async)" [@fadeInOut]>
                           <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">

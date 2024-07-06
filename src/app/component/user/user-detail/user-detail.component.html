@@ -99,7 +99,12 @@
                                       <div class="col-md-6">
                                          <div class="form-group">
                                               <label>Job Title</label>
-                                              <input type="text" name="title" [ngModel]="state?.appData?.data?.userById?.title" class="form-control">
+                                              <input type="text" name="title" 
+                                                [ngModel]="state?.appData?.data?.userById?.title" 
+                                                [readonly]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' 
+                                                || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') 
+                                                || state?.appData?.data?.user?.id === state?.appData?.data?.userById?.id" 
+                                                [disabled]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" class="form-control">
                                           </div>
                                        </div>
                                       </div>
@@ -110,13 +115,13 @@
                                          </div>
                                       </div>
                                        <div class="d-flex align-items-center mb-4">
-                                          <button type="submit" class="btn btn-primary mr-3">
+                                          <button type="submit" class="btn btn-primary mr-3" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || state?.appData?.data?.user?.id === state?.appData?.data?.userById?.id || (isLoading$ | async)">
                                              <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                              <span *ngIf="isLoading$ | async">Loading...</span>
                                              <span *ngIf="!(isLoading$ | async)">Update</span>
                                           </button> 
                                           <label for="agencyCode" class="ml-auto"> choose agency</label>
-                                          <select name="agencyCode" class="form-control col-md-2 ml-auto" [ngModel]="state?.appData?.data?.userById.agencyCode" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" required>
+                                          <select name="agencyCode" class="form-control col-md-2 ml-auto" [ngModel]="state?.appData?.data?.userById.agencyCode" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || state?.appData?.data?.user?.id === state?.appData?.data?.userById?.id" [disabled]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" required>
                                                 <option [selected]="true" value="">EMPTY</option>
                                                 <option *ngFor="let agency of state?.appData?.data?.agencies" [value]="agency.code">
                                                    {{ agency.code }}
@@ -169,10 +174,12 @@
                                                 <!-- recuperation de l'id pour l'Update #cacher -->
                                           <span hidden> <input type="id" name="userId" [ngModel]="state?.appData?.data?.userById?.id"> </span>
                                                 <!-- recuperation du role pour l'Update #cacher -->
-                                          <select name="roleName" [ngModel]="state?.appData?.data?.userById?.roleName" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" class="form-control select-cl" required>
+                                          <select name="roleName" [ngModel]="state?.appData?.data?.userById?.roleName" 
+                                                                  [disabled]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" 
+                                                                  [readonly]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                                  class="form-control select-cl" required>
                                               <option *ngFor="let role of state?.appData?.data?.roles"
                                                       [selected]="state?.appData?.data?.userId?.roleName === role.name"
-                                                      [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [ngValue]="role.name"
                                               class="select-cl">{{ role.name }}</option>
                                           </select>
@@ -203,7 +210,7 @@
                                        <div class="col-md-6">
                                           <div class="form-group">
                                              <div class="form-check">
-                                                <input readonly
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [checked]="state?.appData?.data?.userById?.enabled"
                                                       [ngModel]="state?.appData?.data?.userById?.enabled"
                                                       type="checkbox" name="enabled" class="form-check-input">

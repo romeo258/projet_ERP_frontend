@@ -110,7 +110,7 @@
                                               <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="row mb-3" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_ADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')">
                                           <label for="prixAchat" class="col-sm-3 col-form-label">Purchase</label>
                                           <div class="col-sm-9">
                                               <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.prixAchat  + ' CFA'" name="prixAchat" class="form-control">
@@ -135,7 +135,7 @@
                                               <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.prixVenteTotal  + ' CFA'" name="prixVenteTotal" class="form-control">
                                           </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="row mb-3" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_ADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')">
                                           <label for="beneficeTotal" class="col-sm-3 col-form-label">Total Earning</label>
                                           <div class="col-sm-9">
                                               <input type="text" readonly [ngModel]="state?.appData?.data?.ligneCommande.beneficeTotal  + ' CFA'" name="beneficeTotal" class="form-control">

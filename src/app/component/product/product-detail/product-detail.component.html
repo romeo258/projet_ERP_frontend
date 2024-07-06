@@ -50,14 +50,62 @@
                                             </span>
                             
                                             <!-- Insérer ici le bouton avec l'icône Supplier -->
-                                            <ul class="wrapper ms-4 float-end" style="display: inline-block; margin-top: 12px;">
+                                            <!-- <ul class="wrapper ms-4 float-end" style="display: inline-block; margin-top: 12px;">
                                                 <li class="icon supplier">
                                                   <span href="#" data-bs-toggle="modal" data-bs-target="#supplierModal">
                                                     <span class="tooltip">Supplier</span>
                                                     <i class="fas fa-truck fa-sm"></i>
                                                   </span>
                                                 </li>
-                                            </ul>
+                                            </ul> -->
+                                            <div class="wrapper ms-4 float-end" style="display: inline-block;">
+                                              <div class="checkbox-wrapper-12">
+                                                  <div class="cbx">
+                                                      <input type="checkbox" id="cbx-12" (change)="toggleOperations()" [disabled]="(isLoading$ | async)"
+                                                      [checked]="(showProducts$ | async)">
+                                                      <label for="cbx-12"></label>
+                                                      <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                                      </svg>
+                                                  </div>
+                                      
+                                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                      <defs>
+                                                          <filter id="goo-12">
+                                                              <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                                              <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix"
+                                                                  in="blur"></feColorMatrix>
+                                                              <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                                          </filter>
+                                                      </defs>
+                                                  </svg>
+                                              </div>
+                                              <label for="cbx-12"><small>operations</small></label>
+                                            </div>
+                                            <div class="wrapper ms-4 float-end" style="display: inline-block;">
+                                              <div class="checkbox-wrapper-12">
+                                                  <div class="cbx">
+                                                      <input type="checkbox" id="cbx-12" (change)="toggleOrders()" [disabled]="(isLoading$ | async)"
+                                                      [checked]="(showProducts$ | async)">
+                                                      <label for="cbx-12"></label>
+                                                      <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                                      </svg>
+                                                  </div>
+                                      
+                                                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                      <defs>
+                                                          <filter id="goo-12">
+                                                              <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
+                                                              <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix"
+                                                                  in="blur"></feColorMatrix>
+                                                              <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
+                                                          </filter>
+                                                      </defs>
+                                                  </svg>
+                                              </div>
+                                              <label for="cbx-12"><small>orders</small></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -143,24 +191,24 @@
                                   <div class="card-body">
                                     <h5 class="card-title">Product Details</h5>
                                     <form #productForm="ngForm" (ngSubmit)="updateProduct(productForm)">
-                                        <input type="hidden" [ngModel]="state?.appData?.data?.product.id" name="id" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                        <input type="hidden" [ngModel]="state?.appData?.data?.product.id" name="id" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)">
                                        
                                         <div class="row mb-3">
                                           <label for="name" class="col-sm-3 col-form-label">Product Name</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.product.name" name="name" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.product.name" name="name" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="code" class="col-sm-3 col-form-label">Code</label>
                                           <div class="col-sm-9">
-                                              <input type="text" [ngModel]="state?.appData?.data?.product.code" name="code" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control">
+                                              <input type="text" [ngModel]="state?.appData?.data?.product.code" name="code" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" class="form-control">
                                           </div>
                                         </div>
                                         <div class="row mb-3">
                                           <label for="description" class="col-sm-3 col-form-label">Description</label>
                                           <div class="col-sm-9">
-                                              <textarea [ngModel]="state?.appData?.data?.product.description" name="description" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" class="form-control"></textarea>
+                                              <textarea [ngModel]="state?.appData?.data?.product.description" name="description" [disabled]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" class="form-control"></textarea>
                                           </div>
                                         </div>
                                         <div class="row">
@@ -232,12 +280,12 @@
                                           </div>
                                         </div>
                                         
-                                        <button *ngIf="state?.appData?.data?.product.ligneCommandes?.length === 0" type="button" class="btn btn-danger me-2" (click)="deleteProduct(state?.appData?.data?.product.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
+                                        <button *ngIf="state?.appData?.data?.product.ligneCommandes?.length === 0" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" type="button" class="btn btn-danger me-2" (click)="deleteProduct(state?.appData?.data?.product.id)" [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)">
                                           <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                           <span *ngIf="isLoading$ | async">Loading...</span>
                                           <span *ngIf="!(isLoading$ | async)"><i class="fas fa-trash me-2"></i>Delete</span>
                                         </button>
-                                        <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_USER' || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
+                                        <button [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN') || (isLoading$ | async)" type="submit" class="btn btn-primary float-end">
                                           <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                           <span *ngIf="isLoading$ | async"><i class="fas fa-sync-alt me-2"></i>Loading...</span>
                                           <span *ngIf="!(isLoading$ | async)"><i class="fas fa-sync-alt me-2"></i>Update</span>
@@ -247,7 +295,7 @@
                               </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="(showOrders$ | async)" [@fadeInOut]>
                             <div class="col-xl-12">
                               <div class="card">
                                   <div class="card-body">
@@ -265,7 +313,7 @@
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr *ngFor="let ligneCommande of state?.appData?.data?.product.ligneCommandes">
+                                            <tr *ngFor="let ligneCommande of state?.appData?.data?.product.ligneCommandes"[routerLink]="['/orders', ligneCommande.id]" >
                                                 <td hidden>{{ ligneCommande.id }}</td>
                                                 <td>{{ ligneCommande.prixVente | number: '1.0-0' }} CFA</td>
                                                 <td>{{ ligneCommande.quantityLC }}</td>
@@ -279,7 +327,7 @@
                               </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="(showOperations$ | async)" [@fadeInOut]>
                           <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">

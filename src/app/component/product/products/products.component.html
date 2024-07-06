@@ -76,7 +76,7 @@
                                             <td>{{ product.description }}</td>
                                             <td>{{ product.prixAchat | number: '1.0-0' }} CFA</td>                          
                                             <td>{{ product.prixVente | number: '1.0-0' }} CFA</td>                         
-                                            <td>{{ product.quantity }}</td> 
+                                            <td>{{ product.quantity ? product.quantity : 0 }}</td> 
                                             <td>
                                               <span class="badge"
                                                 [ngClass]="[
@@ -117,7 +117,7 @@
           </div>
 
           <!-- boutton d'ajoute pour produit -->
-         <a class="nav-link" [routerLink]="['/products/new']"> 
+          <a class="nav-link" [routerLink]="['/products/new']" *ngIf="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN'"> 
             <span class="bg-primary text-white p-2 rounded-pill btn-info position-fixed bottom-0 end-0 mb-4 me-4" style="z-index: 1000; cursor: pointer; font-size: 24px; width: 50px; height: 50px;">
                     <i class="fas fa-dolly align-center"></i>
             </span>
