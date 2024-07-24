@@ -48,7 +48,7 @@
                                           </button>
                                       </div>
       
-                                      <form #newAgencyForm="ngForm" (ngSubmit)="createAgency(newAgencyForm)" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')">
+                                      <form #newAgencyForm="ngForm" (ngSubmit)="createAgency(newAgencyForm)" [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN')">
                                           <div class="row">
                                               <div class="col-md-6" style="margin-bottom: 15px;">
                                                   <div class="form-group">
@@ -78,7 +78,7 @@
                                           </div>
                                           <div>
                                               <button [disabled]="state.dataState === DataState.LOADING || newAgencyForm.invalid || newAgencyForm.pristine|| (isLaoding$ | async)"
-                                              [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN')"
+                                              [hidden]="!(state?.appData?.data?.user.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user.roleName === 'ROLE_ADMIN')"
                                                 type="submit" class="btn btn-primary mt-5">
                                                   <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
                                                       role="status" aria-hidden="true" style="margin-right: 5px;"></span>
