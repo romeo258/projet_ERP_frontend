@@ -235,7 +235,7 @@
                                                          <p class="text-muted mb-0">Set up Multi-factor Authentication (MFA) help keep your account more secure</p>
                                                      </div>
                                                      <div class="col-auto">
-                                                         <button (click)="toggleMfa()" [disabled]="(isLoading$ | async)" class="btn btn-primary btn-sm">
+                                                         <button (click)="toggleMfa()" [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN'|| (isLoading$ | async)" class="btn btn-primary btn-sm">
                                                            {{ state?.appData?.data?.user?.usingMfa ? 'Disable' : 'Enable' }}
                                                            <span *ngIf=" (isLoading$ | async)" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                                          </button>
