@@ -37,7 +37,7 @@
                                           <div class="img-circle text-center mb-3" >
                                              <span style="position: relative">
                                                 <img [src]="state?.appData?.data?.user?.imageUrl" alt="Picture" class="shadow" />
-                                             <i (click)="fileInput.click()" class="bi bi-camera-fill right-position"></i>
+                                             <i [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN'" (click)="fileInput.click()" class="bi bi-camera-fill right-position"></i>
                                              </span>
                                           </div>
                                           <h4 class="text-center">{{ state?.appData?.data?.user?.firstName }} {{ state?.appData?.data?.user?.lastName }}</h4>
@@ -234,8 +234,8 @@
                                                          <span *ngIf="!state?.appData?.data?.user?.usingMfa" class="badge bg-warning mx-3">Disabled</span>
                                                          <p class="text-muted mb-0">Set up Multi-factor Authentication (MFA) help keep your account more secure</p>
                                                      </div>
-                                                     <div class="col-auto" [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN'">
-                                                         <button (click)="toggleMfa()" [disabled]="(isLoading$ | async)" class="btn btn-primary btn-sm">
+                                                     <div class="col-auto">
+                                                         <button (click)="toggleMfa()" [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || (isLoading$ | async)" class="btn btn-primary btn-sm">
                                                            {{ state?.appData?.data?.user?.usingMfa ? 'Disable' : 'Enable' }}
                                                            <span *ngIf=" (isLoading$ | async)" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 5px;"></span>
                                                          </button>
