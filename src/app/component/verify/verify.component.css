@@ -1,0 +1,10 @@
+/* CSS */
+.custom-link {
+  color: blue; /* Change la couleur du texte en bleu */
+  font-weight: bold; /* Met le texte en gras */
+}
+
+.custom-link:hover {
+  color: darkblue; /* Change la couleur du texte au survol */
+  text-decoration: underline; /* Souligne le texte */
+}

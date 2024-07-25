@@ -33,12 +33,16 @@
                 <i class="bi bi-check-circle-fill" style="font-size: 80px;color: green;"></i>
                 <p class="mt-2" style="font-size: 20px;">{{ state.message }}</p>
               </div>
-              <div class="row mb-4">
-                <div class="col d-flex justify-content-center">
-                  <a [routerLink]="['/login']">Account Login</a>
+              <div class="row d-flex justify-content-start ms-4">
+                <div class="col d-flex justify-content-center" style="cursor: pointer;">
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" class="custom-link" routerLink="/login">
+                     Account Login
+                  </a>
                 </div>
-                <div class="col">
-                  <a [routerLink]="['/register']" style="color: #0D6EFD; text-decoration: underline; cursor: pointer;">Create another account</a>
+                <div class="col d-flex justify-content-start ms-4" style="cursor: pointer;">
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" class="custom-link" routerLink="/register">
+                    Create another account
+                  </a>
                 </div>
               </div>
             </div>
@@ -79,10 +83,14 @@
               </form>
               <div class="row mb-4">
                 <div class="col d-flex justify-content-center">
-                  <a [ngStyle]="{'pointer-events' : state.dataSate === DataState.LOADING || (isLoading$ | async)? 'none' : '' }" [routerLink]="['/login']">Account Login</a>
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING || (isLoading$ | async) ? 'none': ''}" routerLink="/login">
+                    Account Login
+                  </a>
                 </div>
                 <div class="col">
-                  <a [ngStyle]="{'pointer-events' : state.dataSate === DataState.LOADING || (isLoading$ | async)? 'none' : '' }" [routerLink]="['/resetpassword']">Forgot password?</a>
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING || (isLoading$ | async) ? 'none': ''}" routerLink="/resetpassword">
+                    Forgot password ?
+                  </a>
                 </div>
               </div>
             </div>
@@ -106,11 +114,15 @@
                 <p class="mt-2" style="font-size: 20px;">{{ sate.message }}</p>
               </div>
               <div class="row mb-4">
-                <div class="col d-flex justify-content-center">
-                  <a [routerLink]="['/login']">Account Login</a>
+                <div class="col d-flex justify-content-start ms-4" style="cursor: pointer;">
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" class="custom-link" routerLink="/login">
+                    Account Login
+                 </a>
                 </div>
-                <div class="col">
-                  <a routerLink="['/register']" >Create another account</a>
+                <div class="col d-flex justify-content-start ms-4" style="cursor: pointer;">
+                  <a [ngStyle]="{'pointer-events': state.dataState === DataState.LOADING ? 'none': ''}" class="custom-link" routerLink="/register">
+                    Create another account
+                  </a>
                 </div>
               </div>
             </div>
