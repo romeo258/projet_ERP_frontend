@@ -20,7 +20,7 @@ export class ResetpasswordComponent {
     this.resetPasswordState$ = this.userService.requestPasswordReset$(resetPasswordForm.value.email)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           resetPasswordForm.reset();
           return { dataState: DataState.LOADED, registerSuccess: true, message: response.message };
         }),

@@ -46,7 +46,7 @@ export class InventoryDetailComponent implements OnInit {
         return this.stockService.stock$(+params.get(this.STOCK_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),

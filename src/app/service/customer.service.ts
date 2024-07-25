@@ -62,7 +62,7 @@ export class CustomerService {
             );
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
+    // console.log(error);
     let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
         errorMessage = `A client error occurred - ${error.error.message}`;

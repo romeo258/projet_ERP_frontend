@@ -47,7 +47,7 @@ export class CategoryDetailComponent implements OnInit {
         return this.categoryService.category$(+params.get(this.CATEGORY_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),
@@ -65,7 +65,7 @@ export class CategoryDetailComponent implements OnInit {
     this.categoryState$ = this.categoryService.update$(categoryForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, 
             data: { ...response.data, 
               category: { ...response.data.category, 
@@ -87,7 +87,7 @@ export class CategoryDetailComponent implements OnInit {
     this.categoryState$ = this.categoryService.deleteCategories$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           // Mettre à jour l'état de chargement et réinitialiser le formulaire si nécessaire
           this.isLoadingSubject.next(false);
           // Retourner à l'état chargé avec les données mises à jour (ou non)

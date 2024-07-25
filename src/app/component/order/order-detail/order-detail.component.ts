@@ -46,7 +46,7 @@ export class OrderDetailComponent implements OnInit {
         return this.ligneService.line$(+params.get(this.LINE_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),

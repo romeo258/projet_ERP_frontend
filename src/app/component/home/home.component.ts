@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     this.homeState$ = this.customerService.customers$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),

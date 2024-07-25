@@ -46,7 +46,7 @@ export class FournisseurDetailComponent implements OnInit {
         return this.fournisseurService.fournisseur$(+params.get(this.FOURNISSEUR_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),
@@ -64,7 +64,7 @@ export class FournisseurDetailComponent implements OnInit {
     this.fournisseurState$ = this.fournisseurService.update$(fournisseurForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, 
             data: { ...response.data, 
               fournisseur: { ...response.data.fournisseur, 
@@ -86,7 +86,7 @@ export class FournisseurDetailComponent implements OnInit {
     this.fournisseurState$ = this.fournisseurService.deleteFournisseurs$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           // Mettre à jour l'état de chargement et réinitialiser le formulaire si nécessaire
           this.isLoadingSubject.next(false);
           // Retourner à l'état chargé avec les données mises à jour (ou non)

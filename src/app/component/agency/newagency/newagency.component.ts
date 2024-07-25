@@ -44,7 +44,7 @@ export class NewagencyComponent implements OnInit {
     this.newAgencyState$ = this.agencyService.agencies$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -60,7 +60,7 @@ export class NewagencyComponent implements OnInit {
     this.newAgencyState$ = this.agencyService.newAgencies$(newAgencyForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           newAgencyForm.reset({ status: 'ACTIVE' });
           this.isLoadingSubject.next(false);
           this.router.navigate(['/agencies']);

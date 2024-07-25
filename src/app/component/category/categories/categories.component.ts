@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesState$ = this.categoryService.searchCategories$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -64,7 +64,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesState$ = this.categoryService.searchCategories$(searchForm.value.name)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -83,7 +83,7 @@ export class CategoriesComponent implements OnInit {
     this.categoriesState$ = this.categoryService.searchCategories$(name, pageNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           this.currentPageSubject.next(pageNumber);
           return { dataState: DataState.LOADED, appData: response };

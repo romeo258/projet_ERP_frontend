@@ -63,7 +63,7 @@ export class UserDetailComponent implements OnInit {
         return this.userService.userDetail$(+params.get(this.USER_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),
@@ -81,7 +81,7 @@ export class UserDetailComponent implements OnInit {
     this.usersState$ = this.userService.updateRolesId$(roleFormById.value.userId, roleFormById.value.roleName)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           this.userDetail();
@@ -100,7 +100,7 @@ export class UserDetailComponent implements OnInit {
     this.usersState$ = this.userService.updateAccountSettingsById$(settingsForm.value.userId, settingsForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           this.userDetail();
@@ -119,7 +119,7 @@ export class UserDetailComponent implements OnInit {
     this.usersState$ = this.userService.update$(profileForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           this.userDetail();

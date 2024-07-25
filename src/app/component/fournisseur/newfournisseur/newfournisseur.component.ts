@@ -45,7 +45,7 @@ export class NewfournisseurComponent implements OnInit {
     this.newFournisseurState$ = this.fournisseurService.fournisseurs$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -61,7 +61,7 @@ export class NewfournisseurComponent implements OnInit {
     this.newFournisseurState$ = this.fournisseurService.newFournisseurs$(newFournisseurForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           newFournisseurForm.reset({ status: 'ACTIVE' });
           this.isLoadingSubject.next(false);
           this.router.navigate(['/fournisseurs']);

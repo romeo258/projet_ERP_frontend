@@ -52,7 +52,7 @@ export class ProductDetailComponent implements OnInit {
         return this.productService.product$(+params.get(this.PRODUCT_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.calculateTotalAmount(response.data.product.ligneCommandes);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
@@ -75,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
     this.productState$ = this.productService.update$(productForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ 
             ...response, 
             data: { 
@@ -103,7 +103,7 @@ export class ProductDetailComponent implements OnInit {
     this.productState$ = this.productService.deleteProducts$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.isLoadingSubject.next(false);
           this.router.navigate(['/products']);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };

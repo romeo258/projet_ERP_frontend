@@ -56,7 +56,7 @@ export class AgencyDetailComponent implements OnInit {
         return this.agencyService.agency$(+params.get(this.AGENCY_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               const totals = this.calculateTotalLigneCommandes(response.data.agency.products);
               this.totalLigneCommandes = totals.totalLigneCommandes;
@@ -78,7 +78,7 @@ export class AgencyDetailComponent implements OnInit {
     this.agencyState$ = this.agencyService.update$(agencyForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, 
             data: { ...response.data, 
               agency: { ...response.data.agency, 
@@ -100,7 +100,7 @@ export class AgencyDetailComponent implements OnInit {
     this.agencyState$ = this.agencyService.deleteAgencies$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           // Mettre à jour l'état de chargement et réinitialiser le formulaire si nécessaire
           this.isLoadingSubject.next(false);
           // Retourner à l'état chargé avec les données mises à jour (ou non)

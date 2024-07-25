@@ -52,7 +52,7 @@ export class InvoiceDetailComponent implements OnInit {
         return this.invoiceService.invoice$(+params.get(this.INVOICE_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),
@@ -71,7 +71,7 @@ export class InvoiceDetailComponent implements OnInit {
     this.invoiceState$ = this.invoiceService.update$(invoiceForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.isLoadingSubject.next(false);
           this.router.navigate(['/invoices']);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -89,7 +89,7 @@ export class InvoiceDetailComponent implements OnInit {
     this.invoiceState$ = this.invoiceService.deleteInvoices$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.isLoadingSubject.next(false);
           this.router.navigate(['/invoices']);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -108,7 +108,7 @@ export class InvoiceDetailComponent implements OnInit {
     this.invoiceState$ = this.ligneService.deleteLignesDetail$(id)
     .pipe(
       map(response => {
-        console.log(response);
+        // console.log(response);
         this.isLoadingSubject.next(false);
         this.dataSubject.next(response);
         return { dataState: DataState.LOADED, appData: this.dataSubject.value };

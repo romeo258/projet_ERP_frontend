@@ -50,7 +50,7 @@ export class CustomerDetailComponent implements OnInit {
           .pipe(
             map(response => {
               this.calculateTotalBilled(response.data.customer.invoices);
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),
@@ -90,7 +90,7 @@ export class CustomerDetailComponent implements OnInit {
     this.customerState$ = this.customerService.update$(customerForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, 
             data: { ...response.data, 
               customer: { ...response.data.customer, 
@@ -112,7 +112,7 @@ export class CustomerDetailComponent implements OnInit {
     this.customerState$ = this.customerService.deleteCustomers$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           // Mettre à jour l'état de chargement et réinitialiser le formulaire si nécessaire
           this.isLoadingSubject.next(false);
           // Retourner à l'état chargé avec les données mises à jour (ou non)

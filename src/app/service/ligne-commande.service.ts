@@ -65,14 +65,14 @@ export class LigneCommandeService {
       );
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
+    // console.log(error);
     let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
       errorMessage = `A client error occurred - ${error.error.message}`;
     } else {
       if (error.error.reason) {
         errorMessage = error.error.reason;
-        console.log(errorMessage);
+        // console.log(errorMessage);
       } else {
         errorMessage = `Server Not Response ${error.status}`;
       }

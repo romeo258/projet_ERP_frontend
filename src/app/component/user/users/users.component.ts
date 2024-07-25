@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
     this.usersState$ = this.userService.searchUsers$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -64,7 +64,7 @@ export class UsersComponent implements OnInit {
     this.usersState$ = this.userService.searchUsers$(searchForm.value.firstName)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -83,7 +83,7 @@ export class UsersComponent implements OnInit {
     this.usersState$ = this.userService.searchUsers$(name, pageNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           this.currentPageSubject.next(pageNumber);
           return { dataState: DataState.LOADED, appData: response };

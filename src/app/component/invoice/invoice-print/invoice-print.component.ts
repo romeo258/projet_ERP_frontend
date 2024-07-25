@@ -47,7 +47,7 @@ export class InvoicePrintComponent implements OnInit {
         return this.invoiceService.invoice$(+params.get(INVOICE_ID))
           .pipe(
             map(response => {
-              console.log(response);
+              // console.log(response);
               this.dataSubject.next(response);
               return { dataState: DataState.LOADED, appData: response };
             }),

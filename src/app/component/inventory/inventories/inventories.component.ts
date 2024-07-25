@@ -48,7 +48,7 @@ export class InventoriesComponent implements OnInit {
     this.stocksState$ = this.stockService.searchStocks$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -64,7 +64,7 @@ export class InventoriesComponent implements OnInit {
     this.stocksState$ = this.stockService.searchStocks$(searchForm.value.stockNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -83,7 +83,7 @@ export class InventoriesComponent implements OnInit {
     this.stocksState$ = this.stockService.searchStocks$(stockNumber, pageNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           this.currentPageSubject.next(pageNumber);
           return { dataState: DataState.LOADED, appData: response };

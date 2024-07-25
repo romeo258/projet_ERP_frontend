@@ -50,7 +50,7 @@ export class NewinventoryComponent implements OnInit {
     this.newStockState$ = this.stockService.newProducts$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -74,7 +74,7 @@ export class NewinventoryComponent implements OnInit {
     this.newStockState$ = this.stockService.createStock$(newStockForm.value.productId, newStockForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           // newStockForm.reset({ action: 'STOCK_IN' });
           this.isLoadingSubject.next(false);
           // this.dataSubject.next(response);

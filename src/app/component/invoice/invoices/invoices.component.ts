@@ -48,7 +48,7 @@ export class InvoicesComponent implements OnInit {
     this.invoicesState$ = this.invoiceService.invoices$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -89,7 +89,7 @@ export class InvoicesComponent implements OnInit {
     this.invoicesState$ = this.invoiceService.searchInvoices$(searchForm.value.invoiceNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -106,7 +106,7 @@ export class InvoicesComponent implements OnInit {
     this.invoicesState$ = this.invoiceService.invoices$(pageNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           this.currentPageSubject.next(pageNumber);
           return { dataState: DataState.LOADED, appData: response };

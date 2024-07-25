@@ -48,7 +48,7 @@ export class NewproductComponent {
     this.newProductState$ = this.productService.newCatAgFou$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -69,7 +69,7 @@ export class NewproductComponent {
       newProductForm.value
     ).pipe(
       map(response => {
-        console.log(response);
+        // console.log(response);
         newProductForm.reset();
         this.isLoadingSubject.next(false);
         this.dataSubject.next({ dataState: DataState.LOADED, appData: response });

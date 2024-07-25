@@ -92,62 +92,16 @@ export class ProductService {
       );
     }
     
-    
-
-        
-
-//   createProduct$ = (productId: number, agency: Agency, category: Category, fournisseur: Fournisseur): 
-//   Observable<CustomHttpResponse<CombinedData>> => {
-//   return forkJoin([
-//     this.http.post<CustomHttpResponse<Agency[] & User>>(
-//       `${this.server}/product/addtoagency/${productId}`,
-//       agency
-//     ).pipe(
-//       tap(console.log),
-//       catchError(this.handleError)
-//     ),
-//     this.http.post<CustomHttpResponse<Category[] & User>>(
-//       `${this.server}/product/addtocategory/${productId}`,
-//       category
-//     ).pipe(
-//       tap(console.log),
-//       catchError(this.handleError)
-//     ),
-//     this.http.post<CustomHttpResponse<Fournisseur[] & User>>(
-//       `${this.server}/product/addtofournisseur/${productId}`,
-//       fournisseur
-//     ).pipe(
-//       tap(console.log),
-//       catchError(this.handleError)
-//     )
-//   ]).pipe(
-//     map(([agencyResponse, categoryResponse, fournisseurResponse]) => {
-//       return {
-//         timestamp: new Date(),
-//         statusCode: 200,
-//         status: 'Success',
-//         message: 'Product created successfully',
-//         data: {
-//           agencies: agencyResponse.data,
-//           categories: categoryResponse.data,
-//           fournisseurs: fournisseurResponse.data,
-//           user: agencyResponse.data as unknown as User // Assuming User comes from one of the responses
-//         }
-//       } as CustomHttpResponse<CombinedData>;
-//     })
-//   );
-// };
-
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
+    // console.log(error);
     let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
       errorMessage = `A client error occurred - ${error.error.message}`;
     } else {
       if (error.error.reason) {
         errorMessage = error.error.reason;
-        console.log(errorMessage);
+        // console.log(errorMessage);
       } else {
         errorMessage = `An error occurred - Error status ${error.status}`;
       }

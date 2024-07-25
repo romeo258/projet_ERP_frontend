@@ -44,7 +44,7 @@ export class NewcategoryComponent implements OnInit {
     this.newCategoryState$ = this.categoryService.categories$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -60,7 +60,7 @@ export class NewcategoryComponent implements OnInit {
     this.newCategoryState$ = this.categoryService.newCategories$(newCategoryForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           newCategoryForm.reset({ status: 'ACTIVE' });
           this.isLoadingSubject.next(false);
           this.router.navigate(['/categories']);

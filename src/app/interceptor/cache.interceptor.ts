@@ -27,7 +27,7 @@ export class CacheInterceptor implements HttpInterceptor {
     }
     const cachedResponse: HttpResponse<any> = this.httpCache.get(request.url);
     if (cachedResponse) {
-      console.log('Found Response in Cache', cachedResponse);
+      // console.log('Found Response in Cache', cachedResponse);
       this.httpCache.logCache();
       return of(cachedResponse);
     }
@@ -39,7 +39,7 @@ export class CacheInterceptor implements HttpInterceptor {
       .pipe(
         tap(response => {
           if (response instanceof HttpResponse && request.method !== 'DELETE') {
-            console.log('Caching Response', response);
+            // console.log('Caching Response', response);
             this.httpCache.put(request.url, response);
           }
         })

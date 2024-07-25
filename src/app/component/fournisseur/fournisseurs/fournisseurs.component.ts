@@ -49,7 +49,7 @@ export class FournisseursComponent implements OnInit {
     this.fournisseursState$ = this.fournisseurService.searchFournisseurs$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -65,7 +65,7 @@ export class FournisseursComponent implements OnInit {
     this.fournisseursState$ = this.fournisseurService.searchFournisseurs$(searchForm.value.name)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -84,7 +84,7 @@ export class FournisseursComponent implements OnInit {
     this.fournisseursState$ = this.fournisseurService.searchFournisseurs$(name, pageNumber)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           this.currentPageSubject.next(pageNumber);
           return { dataState: DataState.LOADED, appData: response };

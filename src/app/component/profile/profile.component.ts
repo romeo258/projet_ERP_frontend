@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     this.profileState$ = this.userService.profile$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this.profileState$ = this.userService.update$(profileForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     if (passwordForm.value.newPassword === passwordForm.value.confirmNewPassword) {
       this.userService.updatePassword$(passwordForm.value).subscribe(
         response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           passwordForm.reset();
           this.isLoadingSubject.next(false);
@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit {
     this.profileState$ = this.userService.updateRoles$(roleForm.value.roleName)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
     this.profileState$ = this.userService.updateAccountSettings$(settingsForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -130,7 +130,7 @@ export class ProfileComponent implements OnInit {
     this.profileState$ = this.userService.toggleMfa$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next({ ...response, data: response.data });
           this.isLoadingSubject.next(false);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -149,7 +149,7 @@ export class ProfileComponent implements OnInit {
       this.profileState$ = this.userService.updateImage$(this.getFormData(image))
         .pipe(
           map(response => {
-            console.log(response);
+            // console.log(response);
             this.dataSubject.next({ ...response, 
               data: { ...response.data, 
                 user: { ...response.data.user, imageUrl: `${response.data.user.imageUrl}?time=${new Date().getTime()}`}} });

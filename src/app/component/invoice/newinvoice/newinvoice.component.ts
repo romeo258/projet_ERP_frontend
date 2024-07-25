@@ -46,7 +46,7 @@ export class NewinvoiceComponent implements OnInit {
     this.newInvoiceState$ = this.invoiceService.newInvoice$()
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED, appData: response };
         }),
@@ -67,7 +67,7 @@ export class NewinvoiceComponent implements OnInit {
     this.newInvoiceState$ = this.invoiceService.createInvoice$(newInvoiceForm.value.customerId, newInvoiceForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           newInvoiceForm.reset({ status: ''});
           this.selectedCustomerId = null;
           this.isLoadingSubject.next(false);
@@ -89,7 +89,7 @@ export class NewinvoiceComponent implements OnInit {
     this.newInvoiceState$ = this.ligneCommandeService.createLigne$(invoiceId, newLigneForm.value.productId, newLigneForm.value)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           newLigneForm.reset({ productId: 'null'});
           newLigneForm.reset({ quantityLC: ''});
           this.isLoadingSubject.next(false);
@@ -112,7 +112,7 @@ export class NewinvoiceComponent implements OnInit {
     this.newInvoiceState$ = this.invoiceService.deleteInvoices$(id)
       .pipe(
         map(response => {
-          console.log(response);
+          // console.log(response);
           this.isLoadingSubject.next(false);
           this.router.navigate(['/invoices']);
           return { dataState: DataState.LOADED, appData: this.dataSubject.value };
@@ -131,7 +131,7 @@ export class NewinvoiceComponent implements OnInit {
     this.newInvoiceState$ = this.ligneCommandeService.deleteLignes$(id)
     .pipe(
       map(response => {
-        console.log(response);
+        // console.log(response);
         this.isLoadingSubject.next(false);
         this.dataSubject.next(response);
         return { dataState: DataState.LOADED, appData: this.dataSubject.value };
