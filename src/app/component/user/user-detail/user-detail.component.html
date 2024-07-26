@@ -209,8 +209,8 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             <div class="form-check">
-                                                <input [readOnly]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
+                                             <div class="form-check" [disabled]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'">
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [checked]="state?.appData?.data?.userById?.enabled"
                                                       [ngModel]="state?.appData?.data?.userById?.enabled"
                                                       type="checkbox" name="enabled" class="form-check-input">
@@ -218,8 +218,8 @@
                                                 <b>Account Active</b>
                                                 </label>
                                              </div>
-                                             <div class="form-check">
-                                                <input [readOnly]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
+                                             <div class="form-check" [disabled]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'">
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [checked]="state?.appData?.data?.userById?.notLocked"
                                                       [ngModel]="state?.appData?.data?.userById?.notLocked"
                                                       type="checkbox" name="notLocked" class="form-check-input">
