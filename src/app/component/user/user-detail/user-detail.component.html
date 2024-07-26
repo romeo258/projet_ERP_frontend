@@ -210,7 +210,7 @@
                                        <div class="col-md-6">
                                           <div class="form-group">
                                              <div class="form-check">
-                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
+                                                <input [readOnly]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [checked]="state?.appData?.data?.userById?.enabled"
                                                       [ngModel]="state?.appData?.data?.userById?.enabled"
                                                       type="checkbox" name="enabled" class="form-check-input">
@@ -219,7 +219,7 @@
                                                 </label>
                                              </div>
                                              <div class="form-check">
-                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
+                                                <input [readOnly]="state?.appData?.data?.userById?.roleName === 'ROLE_SYSADMIN'" [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' || state?.appData?.data?.user?.roleName === 'ROLE_ADMIN') || (isLoading$ | async)"
                                                       [checked]="state?.appData?.data?.userById?.notLocked"
                                                       [ngModel]="state?.appData?.data?.userById?.notLocked"
                                                       type="checkbox" name="notLocked" class="form-check-input">
